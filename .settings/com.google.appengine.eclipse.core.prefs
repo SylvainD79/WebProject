@@ -6,4 +6,7 @@ gaeHrdEnabled=true
 gaeLaunchAppInBrowser=true
 googleCloudSqlEnabled=false
 localDevMySqlEnabled=true
+<<<<<<< HEAD
 validationExclusions=src/webProject/WebProjectServlet.java
+=======
+>>>>>>> origin/master
