@@ -15,7 +15,7 @@ import twitter4j.Twitter;
 import twitter4j.TwitterException;
 
 @SuppressWarnings("serial")
-public class TweetServlet extends HttpServlet {
+public class QuizzServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {    	
     	StringBuffer u = request.getRequestURL();

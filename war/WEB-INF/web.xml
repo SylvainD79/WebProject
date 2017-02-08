@@ -22,8 +22,8 @@
         <servlet-class>webProject.PostServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>tweet</servlet-name>
-        <servlet-class>webProject.TweetServlet</servlet-class>
+        <servlet-name>quizz</servlet-name>
+        <servlet-class>webProject.QuizzServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>signin</servlet-name>
@@ -42,20 +42,20 @@
         <url-pattern>/post</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>tweet</servlet-name>
-        <url-pattern>/tweet/sport</url-pattern>
+        <servlet-name>quizz</servlet-name>
+        <url-pattern>/quizz/sport</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>tweet</servlet-name>
-        <url-pattern>/tweet/tv</url-pattern>
+        <servlet-name>quizz</servlet-name>
+        <url-pattern>/quizz/tv</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>tweet</servlet-name>
-        <url-pattern>/tweet/policy</url-pattern>
+        <servlet-name>quizz</servlet-name>
+        <url-pattern>/quizz/policy</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>tweet</servlet-name>
-        <url-pattern>/tweet/game</url-pattern>
+        <servlet-name>quizz</servlet-name>
+        <url-pattern>/quizz/game</url-pattern>
     </servlet-mapping>
     <error-page>
         <exception-type>twitter4j.TwitterException</exception-type>

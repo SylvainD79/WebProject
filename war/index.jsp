@@ -143,7 +143,7 @@
 	                        This quizz will evaluate your knowledge about the sport topic.</p>
 	                        <tag:loggedin>
 	                        	<br>
-		                        <a href="tweet/sport" class="btn btn-primary btn-xl page-scroll">
+		                        <a href="quizz/sport" class="btn btn-primary btn-xl page-scroll">
 				                	<i class="fa fa-chevron-down"></i>&nbsp;Get Started
 								</a>
 							</tag:loggedin>
@@ -158,7 +158,7 @@
 	                        This quizz will evaluate your knowledge about the television's celebrities.</p>
 	                        <tag:loggedin>
 	                        	<br>
-	                        	<a href="tweet/tv" class="btn btn-primary btn-xl page-scroll">
+	                        	<a href="quizz/tv" class="btn btn-primary btn-xl page-scroll">
 			                		<i class="fa fa-chevron-down"></i>&nbsp;Get Started
 								</a>
 							</tag:loggedin>
@@ -173,7 +173,7 @@
 	                        This quizz will evaluate your knowledge about the political topic.</p>
 	                        <tag:loggedin>
 	                        	<br>
-	                        	<a href="tweet/policy" class="btn btn-primary btn-xl page-scroll">
+	                        	<a href="quizz/policy" class="btn btn-primary btn-xl page-scroll">
 			                		<i class="fa fa-chevron-down"></i>&nbsp;Get Started
 								</a>
 							</tag:loggedin>
@@ -188,7 +188,7 @@
 	                        This quizz will evaluate your knowledge about the game topic.</p>
 	                        <tag:loggedin>
 	                        	<br>
-	                        	<a href="tweet/game" class="btn btn-primary btn-xl page-scroll">
+	                        	<a href="quizz/game" class="btn btn-primary btn-xl page-scroll">
 			                		<i class="fa fa-chevron-down"></i>&nbsp;Get Started
 								</a>
 							</tag:loggedin>
