@@ -24,12 +24,14 @@ public class QuizzServlet extends HttpServlet {
         Twitter twitter = (Twitter)request.getSession().getAttribute("twitter");
 		try {
 	        Query query = new Query(hashtag);
+	        query.setLang("fr");
+	        
 	        QueryResult result = twitter.search(query);
 	        List<Status> tweets = result.getTweets();
 	        
 	        String allTweets = null; 
 	        for (Status status : tweets) {
-	        	allTweets += status.getUser().getScreenName() + " " + status.getText() + "\n";
+	        	allTweets += "Name : " + status.getUser().getScreenName() + "\nTexte : " + status.getText() + "\n\n";
 	        }
 	        
 	        response.setContentType("text/plain");
