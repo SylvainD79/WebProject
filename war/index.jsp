@@ -244,7 +244,7 @@
 	        });
       	</script>
       	
-      	<section id="highscore" class="bg-dark" style="display: none">
+      	<section id="highscore" class="bg-info" style="display: none">
 	        <div class="container text-center">
 	            <div class="call-to-action">
 	                <h2 id="title">High Score</h2>
