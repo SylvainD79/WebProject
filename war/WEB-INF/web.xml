@@ -19,8 +19,8 @@
         <servlet-class>webProject.PostServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>quizz</servlet-name>
-        <servlet-class>webProject.QuizzServlet</servlet-class>
+        <servlet-name>quiz</servlet-name>
+        <servlet-class>webProject.QuizServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>signin</servlet-name>
@@ -39,35 +39,35 @@
         <url-pattern>/post</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>quizz</servlet-name>
-        <url-pattern>/quizz/sport</url-pattern>
+        <servlet-name>quiz</servlet-name>
+        <url-pattern>/quiz/sport</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>quizz</servlet-name>
-        <url-pattern>/quizz/tv</url-pattern>
+        <servlet-name>quiz</servlet-name>
+        <url-pattern>/quiz/tv</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>quizz</servlet-name>
-        <url-pattern>/quizz/policy</url-pattern>
+        <servlet-name>quiz</servlet-name>
+        <url-pattern>/quiz/policy</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>quizz</servlet-name>
-        <url-pattern>/quizz/game</url-pattern>
+        <servlet-name>quiz</servlet-name>
+        <url-pattern>/quiz/game</url-pattern>
     </servlet-mapping>
     <error-page>
         <exception-type>twitter4j.TwitterException</exception-type>
         <location>/error.jsp</location>
     </error-page>
- <servlet>
-  <servlet-name>SystemServiceServlet</servlet-name>
-  <servlet-class>com.google.api.server.spi.SystemServiceServlet</servlet-class>
-  <init-param>
-   <param-name>services</param-name>
-   <param-value>webProject.TweetEntityEndpoint</param-value>
-  </init-param>
- </servlet>
- <servlet-mapping>
-  <servlet-name>SystemServiceServlet</servlet-name>
-  <url-pattern>/_ah/spi/*</url-pattern>
- </servlet-mapping>
+	<servlet>
+		<servlet-name>SystemServiceServlet</servlet-name>
+	  	<servlet-class>com.google.api.server.spi.SystemServiceServlet</servlet-class>
+	 	<init-param>
+	   		<param-name>services</param-name>
+	   		<param-value>webProject.TweetEntityEndpoint</param-value>
+	   	</init-param>
+	</servlet>
+	<servlet-mapping>
+	  	<servlet-name>SystemServiceServlet</servlet-name>
+	  	<url-pattern>/_ah/spi/*</url-pattern>
+	</servlet-mapping>
 </web-app>

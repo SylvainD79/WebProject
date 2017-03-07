@@ -2,7 +2,7 @@
 <%@ taglib prefix="tag" tagdir="/WEB-INF/tags" %>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="quizApp">
 
 	<head>
 
@@ -27,8 +27,26 @@
 	    <!-- Theme CSS -->
 	    <link href="css/creative.min.css" rel="stylesheet">
 	    <link href="css/social-buttons.css" rel="stylesheet"/>
+	    
+	    <!-- JavaScript -->
+        <script src="https://code.jquery.com/jquery-2.0.3.min.js"></script>
+        <script data-require="angular.js@1.3.x" src="https://code.angularjs.org/1.3.14/angular.js" data-semver="1.3.14"></script>
+        <script src="app.js"></script>
 
 	</head>
+	
+	<script>
+		var init = function() {
+	    	var rootApi = 'http://1-dot-projectwebtwitter.appspot.com/_ah/api';
+	        gapi.client.load('tweetentityendpoint', 'v1', function() {
+	            console.log("todos api loaded");
+	        }, rootApi);
+	        
+	        gapi.client.tweetentityendpoint.listTweetEntity().execute(function(resp) {
+	            console.log(resp);
+	        });
+	    }
+     </script>
 
 	<body id="page-top">
 
@@ -46,30 +64,30 @@
 	            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 	                <ul class="nav navbar-nav navbar-right">
 	                    <li>
-	                        <a class="page-scroll" href="#topic">All Quizz Topic</a>
+	                        <a class="page-scroll" href="#topic"><i class="fa fa-2x fa-list"></i>&nbsp;All Quiz Topic</a>
 	                    </li>
 	                    <tag:loggedin>
 	                    	<li>
-		                        <a class="page-scroll" href="#score"><i class="fa fa-bar-chart"></i>&nbsp;High Score</a>
+		                        <a id="highscore1" class="page-scroll" href="#highscore"><i class="fa fa-2x fa-bar-chart"></i>&nbsp;High Score</a>
 		                    </li>
 		                    <li>
-	                       		<a class="page-scroll" href="#tweet"><i class="fa fa-twitter"></i>&nbsp;What's Happening ?</a>
+	                       		<a class="page-scroll" href="#tweet"><i class="fa fa-2x fa-twitter"></i>&nbsp;What's Happening ?</a>
 	                    	</li> 
 	                    </tag:loggedin>
 	                    <li>
-	                        <a class="page-scroll" href="#github"><i class="fa fa-download"></i>&nbsp;Download</a>
+	                        <a class="page-scroll" href="#github"><i class="fa fa-2x fa-download"></i>&nbsp;Download</a>
 	                    </li> 
 	                    <li>
-	                        <a class="page-scroll" href="#contact"><i class="fa fa-group"></i>&nbsp;Contact</a>
+	                        <a class="page-scroll" href="#contact"><i class="fa fa-2x fa-group"></i>&nbsp;Contact</a>
 	                    </li> 
 	                    <tag:notloggedin>
 	                    	<li>
-	                    		<a href="signin"><i class="fa fa-sign-in"></i>&nbsp;Sign In</a>
+	                    		<a href="signin"><i class="fa fa-2x fa-sign-in"></i>&nbsp;Sign In</a>
 	                    	</li>
                     	</tag:notloggedin> 
 	                    <tag:loggedin>
 	                    	<li>
-	                    		<a href="./logout"><i class="fa fa-power-off"></i>&nbsp;Logout</a>
+	                    		<a href="./logout"><i class="fa fa-2x fa-power-off"></i>&nbsp;Logout</a>
 	                    	</li>
                     	</tag:loggedin> 
 	                </ul>
@@ -89,7 +107,7 @@
 	                You want to know your level of knowledge ? 
 	                This application is made for you ! 
 	                Test your knowledge level on the current events of the whole world. 
-	                This test proceeds by quizz with different topic.</p>
+	                This test proceeds by quiz with different topic.</p>
 	                <tag:notloggedin>
 		                <a href="signin" class="btn btn-primary btn-xl page-scroll">
 		                	<i class="fa fa-twitter"></i>&nbsp;Sign in with Twitter
@@ -112,10 +130,13 @@
 		               		<h2>Welcome ${twitter.screenName}</h2>
 		               		<hr class="light">
 		               		<p class="text-faded">
-		               		In order to be able to evaluate your level of knowledge you must choose a quizz in the topics proposed. 
-		               		The quizz are random and without time.</p>
+		               		In order to be able to evaluate your level of knowledge you must choose a quiz in the topics proposed. 
+		               		The quiz are random and without time. You can also view the high score.</p>
 		               		<a href="#topic" class="page-scroll btn btn-default btn-xl sr-button">
-			                	<i class="fa fa-chevron-down"></i>&nbsp;All quizz topic
+			                	<i class="fa fa-chevron-down"></i>&nbsp;All quiz topic
+							</a>
+							<a id="highscore2" href="#highscore" class="page-scroll btn btn-default btn-xl sr-button">
+			                	<i class="fa fa-chevron-down"></i>&nbsp;High Score
 							</a>
 				    	</div>
 		            </div>
@@ -127,7 +148,7 @@
 	        <div class="container">
 	            <div class="row">
 	                <div class="col-lg-12 text-center">
-	                    <h2 class="section-heading">All Quizz Topic</h2>
+	                    <h2 class="section-heading">All Quiz Topic</h2>
 	                    <hr class="primary">
 	                </div>
 	            </div>
@@ -140,10 +161,10 @@
 	                        <h3>Sport</h3>
 	                        <p class="text-muted">
 	                        Follower of the sport ?
-	                        This quizz will evaluate your knowledge about the sport topic.</p>
+	                        This quiz will evaluate your knowledge about the sport topic.</p>
 	                        <tag:loggedin>
 	                        	<br>
-		                        <a href="quizz/sport" class="btn btn-primary btn-xl page-scroll">
+		                        <a id="Sport" href="#quiz" class="btn btn-primary btn-xl page-scroll">
 				                	<i class="fa fa-chevron-down"></i>&nbsp;Get Started
 								</a>
 							</tag:loggedin>
@@ -155,10 +176,10 @@
 	                        <h3>Television</h3>
 	                        <p class="text-muted">
 	                        Know all about the television ? 
-	                        This quizz will evaluate your knowledge about the television's celebrities.</p>
+	                        This quiz will evaluate your knowledge about the television's celebrities.</p>
 	                        <tag:loggedin>
 	                        	<br>
-	                        	<a href="quizz/tv" class="btn btn-primary btn-xl page-scroll">
+	                        	<a id="Television" href="#quiz" class="btn btn-primary btn-xl page-scroll">
 			                		<i class="fa fa-chevron-down"></i>&nbsp;Get Started
 								</a>
 							</tag:loggedin>
@@ -170,10 +191,10 @@
 	                        <h3>Policy</h3>
 	                        <p class="text-muted">
 	                        Interest in the policy ?
-	                        This quizz will evaluate your knowledge about the political topic.</p>
+	                        This quiz will evaluate your knowledge about the political topic.</p>
 	                        <tag:loggedin>
 	                        	<br>
-	                        	<a href="quizz/policy" class="btn btn-primary btn-xl page-scroll">
+	                        	<a id="Policy" href="#quiz" class="btn btn-primary btn-xl page-scroll">
 			                		<i class="fa fa-chevron-down"></i>&nbsp;Get Started
 								</a>
 							</tag:loggedin>
@@ -185,10 +206,10 @@
 	                        <h3>Game</h3>
 	                        <p class="text-muted">
 	                        You are player ?
-	                        This quizz will evaluate your knowledge about the game topic.</p>
+	                        This quiz will evaluate your knowledge about the game topic.</p>
 	                        <tag:loggedin>
 	                        	<br>
-	                        	<a href="quizz/game" class="btn btn-primary btn-xl page-scroll">
+	                        	<a id="Game" href="#quiz" class="btn btn-primary btn-xl page-scroll">
 			                		<i class="fa fa-chevron-down"></i>&nbsp;Get Started
 								</a>
 							</tag:loggedin>
@@ -197,105 +218,46 @@
 	            </div>
 	        </div>
 	    </section>
-	
-		<!--
-	    <section class="no-padding" id="portfolio">
-	        <div class="container-fluid">
-	            <div class="row no-gutter popup-gallery">
-	                <div class="col-lg-4 col-sm-6">
-	                    <a href="img/portfolio/fullsize/1.jpg" class="portfolio-box">
-	                        <img src="img/portfolio/thumbnails/1.jpg" class="img-responsive" alt="">
-	                        <div class="portfolio-box-caption">
-	                            <div class="portfolio-box-caption-content">
-	                                <div class="project-category text-faded">
-	                                    Category
-	                                </div>
-	                                <div class="project-name">
-	                                    Project Name
-	                                </div>
-	                            </div>
-	                        </div>
-	                    </a>
-	                </div>
-	                <div class="col-lg-4 col-sm-6">
-	                    <a href="img/portfolio/fullsize/2.jpg" class="portfolio-box">
-	                        <img src="img/portfolio/thumbnails/2.jpg" class="img-responsive" alt="">
-	                        <div class="portfolio-box-caption">
-	                            <div class="portfolio-box-caption-content">
-	                                <div class="project-category text-faded">
-	                                    Category
-	                                </div>
-	                                <div class="project-name">
-	                                    Project Name
-	                                </div>
-	                            </div>
-	                        </div>
-	                    </a>
-	                </div>
-	                <div class="col-lg-4 col-sm-6">
-	                    <a href="img/portfolio/fullsize/3.jpg" class="portfolio-box">
-	                        <img src="img/portfolio/thumbnails/3.jpg" class="img-responsive" alt="">
-	                        <div class="portfolio-box-caption">
-	                            <div class="portfolio-box-caption-content">
-	                                <div class="project-category text-faded">
-	                                    Category
-	                                </div>
-	                                <div class="project-name">
-	                                    Project Name
-	                                </div>
-	                            </div>
-	                        </div>
-	                    </a>
-	                </div>
-	                <div class="col-lg-4 col-sm-6">
-	                    <a href="img/portfolio/fullsize/4.jpg" class="portfolio-box">
-	                        <img src="img/portfolio/thumbnails/4.jpg" class="img-responsive" alt="">
-	                        <div class="portfolio-box-caption">
-	                            <div class="portfolio-box-caption-content">
-	                                <div class="project-category text-faded">
-	                                    Category
-	                                </div>
-	                                <div class="project-name">
-	                                    Project Name
-	                                </div>
-	                            </div>
-	                        </div>
-	                    </a>
-	                </div>
-	                <div class="col-lg-4 col-sm-6">
-	                    <a href="img/portfolio/fullsize/5.jpg" class="portfolio-box">
-	                        <img src="img/portfolio/thumbnails/5.jpg" class="img-responsive" alt="">
-	                        <div class="portfolio-box-caption">
-	                            <div class="portfolio-box-caption-content">
-	                                <div class="project-category text-faded">
-	                                    Category
-	                                </div>
-	                                <div class="project-name">
-	                                    Project Name
-	                                </div>
-	                            </div>
-	                        </div>
-	                    </a>
-	                </div>
-	                <div class="col-lg-4 col-sm-6">
-	                    <a href="img/portfolio/fullsize/6.jpg" class="portfolio-box">
-	                        <img src="img/portfolio/thumbnails/6.jpg" class="img-responsive" alt="">
-	                        <div class="portfolio-box-caption">
-	                            <div class="portfolio-box-caption-content">
-	                                <div class="project-category text-faded">
-	                                    Category
-	                                </div>
-	                                <div class="project-name">
-	                                    Project Name
-	                                </div>
-	                            </div>
-	                        </div>
-	                    </a>
-	                </div>
+	    
+	    <section id="quiz" class="bg-dark" style="display: none">
+	        <div class="container text-center">
+	            <div class="call-to-action">
+	                <h2 id="title">Quiz</h2>
+	                <hr class="light">
+	                <quiz/>
 	            </div>
 	        </div>
-	    </section>
-	    -->
+	    </section> 
+	    <script>
+	        var title = $("#title").text();
+	        $( "#Sport,#Television,#Policy,#Game" ).click(function() {
+	        	var t1 = title + " " + $(this).attr("id");
+	          	var t2 = $("#title").text();
+	          	if ((t1 != t2) && (t2 != title)) {
+	          		if ($('#quiz').is(':visible')) {
+	            		$( "#quiz" ).toggle();
+	          		}
+	          	}
+	          	$( "#quiz" ).toggle("slow");
+	          	var x = $(this).attr("id");
+	          	document.getElementById('title').innerHTML = title + " " + x;
+	        });
+      	</script>
+      	
+      	<section id="highscore" class="bg-dark" style="display: none">
+	        <div class="container text-center">
+	            <div class="call-to-action">
+	                <h2 id="title">High Score</h2>
+	                <hr class="light">
+	                <p class="text-faded">Here you can view the high score.</p>
+	            </div>
+	        </div>
+	    </section> 
+	    <script>
+	        $( "#highscore1,#highscore2" ).click(function() {
+	          	$( "#highscore" ).toggle("slow");
+	        });
+      	</script>
 	    
 	    <tag:loggedin>
 		    <section id="tweet" class="bg-primary">
@@ -322,8 +284,7 @@
 	                <hr class="light">
 	                <p class="text-faded">It is possible if you wish to recover the sources on the GitHub platform.</p>
 	                <a href="https://github.com/SylvainD79/WebProject">
-		                <i class="fa fa-github fa-3x sr-contact""></i>
-		                <p>MIAGE Master Project</p>
+		                <i class="fa fa-github fa-3x sr-contact"></i>MIAGE Master Project
 	                </a>
 	            </div>
 	        </div>
@@ -342,19 +303,19 @@
                     </div>
                     <br>
 	                <div class="col-lg-4 col-md-6 text-center">
-	                    <i class="fa fa-user fa-4x sr-contact""></i>
+	                    <i class="fa fa-user fa-4x sr-contact"></i>
 	                    <p class="text-muted">Axel BOUTET</p>
 	                    <p><a href="https://twitter.com/axelnantes?lang=fr"><i class="fa fa-twitter-square fa-2x sr-contact"></i>&nbsp;@axelnantes</a></p>
                     	<p><a href="mailto:axel.boutet@etu.univ-nantes.fr"><i class="fa fa-envelope-o fa-2x sr-contact"></i>&nbsp;Send Mail</a></p>
                     </div>
 					<div class="col-lg-4 col-md-6 text-center">
-	                    <i class="fa fa-user fa-4x sr-contact""></i>
+	                    <i class="fa fa-user fa-4x sr-contact"></i>
 	                    <p class="text-muted">Sylvain DAVID</p>
 	                    <p><a href="https://twitter.com/SylvainD79?lang=fr"><i class="fa fa-twitter-square fa-2x sr-contact"></i>&nbsp;@SylvainD79</a></p>
                     	<p><a href="mailto:sylvain.david@etu.univ-nantes.fr"><i class="fa fa-envelope-o fa-2x sr-contact"></i>&nbsp;Send Mail</a></p>
                     </div>
 					<div class="col-lg-4 col-md-6 text-center">
-	                    <i class="fa fa-user fa-4x sr-contact""></i>
+	                    <i class="fa fa-user fa-4x sr-contact"></i>
 	                    <p class="text-muted">Laure DUCHEMIN</p>
 	                    <p><a href="https://twitter.com/ducheminlaure?lang=fr"><i class="fa fa-twitter-square fa-2x sr-contact"></i>&nbsp;@DucheminLaure</a></p>
                     	<p><a href="mailto:laure.duchemin@etu.univ-nantes.fr"><i class="fa fa-envelope-o fa-2x sr-contact"></i>&nbsp;Send Mail</a></p>
@@ -362,7 +323,7 @@
 	            </div>
 	        </div>
 	    </section>
-	
+	       
 	    <!-- jQuery -->
 	    <script src="vendor/jquery/jquery.min.js"></script>
 	
@@ -376,7 +337,7 @@
 	
 	    <!-- Theme JavaScript -->
 	    <script src="js/creative.min.js"></script>
-	    
+        
 	</body>
 
 </html>

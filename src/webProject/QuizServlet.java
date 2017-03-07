@@ -25,7 +25,7 @@ import twitter4j.Twitter;
 import twitter4j.TwitterException;
 
 @SuppressWarnings("serial")
-public class QuizzServlet extends HttpServlet {
+public class QuizServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {    	
     	StringBuffer u = request.getRequestURL();
@@ -71,6 +71,8 @@ public class QuizzServlet extends HttpServlet {
 	        
 	        response.setContentType("text/plain");
 			response.getWriter().println("Tweet : #" + hashtag + "\n\n" + allTweets);
+	        
+	        //request.getRequestDispatcher("/quiz.jsp").forward(request, response);
 			
 	    } catch (TwitterException e) {
 	    	throw new ServletException(e);
