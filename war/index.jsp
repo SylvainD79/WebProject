@@ -171,7 +171,7 @@
 	                        This quiz will evaluate your knowledge about the television's celebrities.</p>
 	                        <tag:loggedin>
 	                        	<br>
-	                        	<a id="Television" href="#quiz" class="btn btn-primary btn-xl page-scroll" ng-click="choiceTopic('tv')">
+	                        	<a id="Television" href="#quiz" class="btn btn-primary btn-xl page-scroll" ng-click="choiceTopic('television')">
 			                		<i class="fa fa-chevron-down"></i>&nbsp;Get Started
 								</a>
 							</tag:loggedin>
@@ -201,7 +201,7 @@
 	                        This quiz will evaluate your knowledge about the game topic.</p>
 	                        <tag:loggedin>
 	                        	<br>
-	                        	<a id="Game" href="#quiz" class="btn btn-primary btn-xl page-scroll" ng-click="choiceTopic('game')">
+	                        	<a id="Game" href="#quiz" class="btn btn-primary btn-xl page-scroll" ng-click="choiceTopic('gaming')">
 			                		<i class="fa fa-chevron-down"></i>&nbsp;Get Started
 								</a>
 							</tag:loggedin>
@@ -362,7 +362,7 @@
 								</a>
 							</tag:loggedin>
 	                    </div>
-	                </div>
+	                </div> 
 	            </div>
 	        </div>
 	    </section>
