@@ -15,6 +15,7 @@
 	
 	    <!-- Bootstrap Core CSS -->
 	    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+	    <link href="vendor/csshake/csshake.min.css" rel="stylesheet">
 	
 	    <!-- Custom Fonts -->
 	    <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
@@ -34,21 +35,8 @@
         <script src="app.js"></script>
 
 	</head>
-	
-	<script>
-		var init = function() {
-	    	var rootApi = 'http://1-dot-projectwebtwitter.appspot.com/_ah/api';
-	        gapi.client.load('tweetentityendpoint', 'v1', function() {
-	            console.log("todos api loaded");
-	        }, rootApi);
-	        
-	        gapi.client.tweetentityendpoint.listTweetEntity().execute(function(resp) {
-	            console.log(resp);
-	        });
-	    }
-     </script>
 
-	<body id="page-top">
+	<body id="page-top" ng-controller="tweetController">
 
 		<nav id="mainNav" class="navbar navbar-default navbar-fixed-top">
 	        <div class="container-fluid">
@@ -109,14 +97,18 @@
 	                Test your knowledge level on the current events of the whole world. 
 	                This test proceeds by quiz with different topic.</p>
 	                <tag:notloggedin>
-		                <a href="signin" class="btn btn-primary btn-xl page-scroll">
-		                	<i class="fa fa-twitter"></i>&nbsp;Sign in with Twitter
-						</a>
+	                	<div class="shake-slow shake-constant shake-constant--hover">
+			                <a href="signin" class="btn btn-primary btn-xl page-scroll">
+			                	<i class="fa fa-twitter"></i>&nbsp;Sign in with Twitter
+							</a>
+						</div>
 					</tag:notloggedin>
 					<tag:loggedin>
-						<a href="#start" class="btn btn-primary btn-xl page-scroll">
-		                	<i class="fa fa-chevron-down"></i>&nbsp;Get Started
-						</a>
+						<div class="shake-slow shake-constant shake-constant--hover">
+							<a href="#start" class="btn btn-primary btn-xl page-scroll">
+			                	<i class="fa fa-chevron-down"></i>&nbsp;Get Started
+							</a>
+						</div>
 					</tag:loggedin>
 	            </div>
 	        </div>
@@ -164,7 +156,7 @@
 	                        This quiz will evaluate your knowledge about the sport topic.</p>
 	                        <tag:loggedin>
 	                        	<br>
-		                        <a id="Sport" href="#quiz" class="btn btn-primary btn-xl page-scroll">
+		                        <a id="Sport" href="#quiz" class="btn btn-primary btn-xl page-scroll" ng-click="choiceTopic('sport')">
 				                	<i class="fa fa-chevron-down"></i>&nbsp;Get Started
 								</a>
 							</tag:loggedin>
@@ -179,7 +171,7 @@
 	                        This quiz will evaluate your knowledge about the television's celebrities.</p>
 	                        <tag:loggedin>
 	                        	<br>
-	                        	<a id="Television" href="#quiz" class="btn btn-primary btn-xl page-scroll">
+	                        	<a id="Television" href="#quiz" class="btn btn-primary btn-xl page-scroll" ng-click="choiceTopic('tv')">
 			                		<i class="fa fa-chevron-down"></i>&nbsp;Get Started
 								</a>
 							</tag:loggedin>
@@ -194,7 +186,7 @@
 	                        This quiz will evaluate your knowledge about the political topic.</p>
 	                        <tag:loggedin>
 	                        	<br>
-	                        	<a id="Policy" href="#quiz" class="btn btn-primary btn-xl page-scroll">
+	                        	<a id="Policy" href="#quiz" class="btn btn-primary btn-xl page-scroll" ng-click="choiceTopic('policy')">
 			                		<i class="fa fa-chevron-down"></i>&nbsp;Get Started
 								</a>
 							</tag:loggedin>
@@ -209,7 +201,7 @@
 	                        This quiz will evaluate your knowledge about the game topic.</p>
 	                        <tag:loggedin>
 	                        	<br>
-	                        	<a id="Game" href="#quiz" class="btn btn-primary btn-xl page-scroll">
+	                        	<a id="Game" href="#quiz" class="btn btn-primary btn-xl page-scroll" ng-click="choiceTopic('game')">
 			                		<i class="fa fa-chevron-down"></i>&nbsp;Get Started
 								</a>
 							</tag:loggedin>
@@ -323,6 +315,57 @@
 	            </div>
 	        </div>
 	    </section>
+	    
+	    <section id="topic" class="bg-dark">
+	    	<div class="container">
+	            <div class="row">
+	                <div class="col-lg-12 text-center">
+	                    <h2 class="section-heading">Test</h2>
+	                    <hr class="light">
+	                </div>
+	            </div>
+	        </div>
+	        <div class="container">
+	            <div class="row">
+	                <div class="col-lg-3 col-md-6 text-center">
+	                    <div class="service-box">
+	                        <tag:loggedin>
+		                        <a href="/quiz/sport" class="btn btn-primary btn-xl page-scroll">
+				                	<i class="fa fa-futbol-o"></i>&nbsp;Sport
+								</a>
+							</tag:loggedin>
+	                    </div>
+	                </div>
+	                <div class="col-lg-3 col-md-6 text-center">
+	                    <div class="service-box">
+	                        <tag:loggedin>
+	                        	<a href="/quiz/tv" class="btn btn-primary btn-xl page-scroll">
+			                		<i class="fa fa-tv"></i>&nbsp;Television
+								</a>
+							</tag:loggedin>
+	                    </div>
+	                </div>
+	                <div class="col-lg-3 col-md-6 text-center">
+	                    <div class="service-box">
+	                        <tag:loggedin>
+	                        	<a href="/quiz/policy" class="btn btn-primary btn-xl page-scroll">
+			                		<i class="fa fa-balance-scale"></i>&nbsp;Policy
+								</a>
+							</tag:loggedin>
+	                    </div>
+	                </div>
+	                <div class="col-lg-3 col-md-6 text-center">
+	                    <div class="service-box">
+	                        <tag:loggedin>
+	                        	<a href="/quiz/game" class="btn btn-primary btn-xl page-scroll">
+			                		<i class="fa fa-gamepad"></i>&nbsp;Game
+								</a>
+							</tag:loggedin>
+	                    </div>
+	                </div>
+	            </div>
+	        </div>
+	    </section>
 	       
 	    <!-- jQuery -->
 	    <script src="vendor/jquery/jquery.min.js"></script>
@@ -341,3 +384,11 @@
 	</body>
 
 </html>
+
+<script>
+	var init = function() {
+    	console.log("init called");
+    	window.init();
+  	};
+</script>
+<script src="https://apis.google.com/js/client.js?onload=init"></script>
