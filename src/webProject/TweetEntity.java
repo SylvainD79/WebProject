@@ -11,7 +11,7 @@ import javax.jdo.annotations.PrimaryKey;
 @PersistenceCapable(identityType=IdentityType.APPLICATION)
 public class TweetEntity {
 	@PrimaryKey
-	@Persistent(valueStrategy=IdGeneratorStrategy.IDENTITY)
+	@Persistent(valueStrategy=IdGeneratorStrategy.SEQUENCE)
 	Long id;
 
 	@Persistent

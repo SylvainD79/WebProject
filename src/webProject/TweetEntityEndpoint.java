@@ -22,6 +22,19 @@ import javax.jdo.Query;
 @Api(name = "tweetentityendpoint", namespace = @ApiNamespace(ownerDomain = "mycompany.com", ownerName = "mycompany.com", packagePath = "services"))
 public class TweetEntityEndpoint {
 
+	@ApiMethod(name = "getTweet")
+	public String getTweet(@Named("id") Long id) {
+		PersistenceManager mgr = getPersistenceManager();
+		TweetEntity tweetentity = null;
+		try {
+			tweetentity = mgr.getObjectById(TweetEntity.class, id);
+		} finally {
+			mgr.close();
+		}
+		return tweetentity.getTweet();
+	}
+	
+	
 	/**
 	 * This method lists all the entities inserted in datastore.
 	 * It uses HTTP GET method and paging support.

@@ -36,8 +36,9 @@ public class QuizServlet extends HttpServlet {
 
         Twitter twitter = (Twitter)request.getSession().getAttribute("twitter");
 		try {
-	        Query query = new Query(hashtag);
-	        query.setLang("fr");
+	        Query query = new Query(hashtag + "+exclude:retweets");
+	        query.setLang("en");
+	        query.setCount(100);
 	        
 	        QueryResult result = twitter.search(query);
 	        List<Status> tweets = result.getTweets();
@@ -45,10 +46,12 @@ public class QuizServlet extends HttpServlet {
 	        //Put the tweet resulting from the query into the datastore
 	        for (Status status : tweets ) {
 	        	Entity e = new Entity("TweetEntity");
-	        	e.setProperty("name", status.getUser().getName());
-	        	e.setProperty("Tweet", status.getText());
-	        	e.setProperty("category", hashtag);
-	        	datastore.put(e);
+	        	if(status.getUser().getFollowersCount() > 5000) {
+		        	e.setProperty("name", status.getUser().getName());
+		        	e.setProperty("Tweet", status.getText());
+		        	e.setProperty("category", hashtag);
+		        	datastore.put(e);
+	        	}
 	        }
 	        
 	        Filter filter = new FilterPredicate("category", FilterOperator.EQUAL, hashtag);
@@ -70,6 +73,7 @@ public class QuizServlet extends HttpServlet {
 	        }*/
 	        
 	        response.setContentType("text/plain");
+	        response.getWriter().println(query.toString());
 			response.getWriter().println("Tweet : #" + hashtag + "\n\n" + allTweets);
 	        
 	        //request.getRequestDispatcher("/quiz.jsp").forward(request, response);

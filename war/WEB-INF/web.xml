@@ -44,7 +44,7 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>quiz</servlet-name>
-        <url-pattern>/quiz/tv</url-pattern>
+        <url-pattern>/quiz/television</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>quiz</servlet-name>
@@ -52,7 +52,7 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>quiz</servlet-name>
-        <url-pattern>/quiz/game</url-pattern>
+        <url-pattern>/quiz/gaming</url-pattern>
     </servlet-mapping>
     <error-page>
         <exception-type>twitter4j.TwitterException</exception-type>

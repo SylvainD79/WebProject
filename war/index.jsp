@@ -339,7 +339,7 @@
 	                <div class="col-lg-3 col-md-6 text-center">
 	                    <div class="service-box">
 	                        <tag:loggedin>
-	                        	<a href="/quiz/tv" class="btn btn-primary btn-xl page-scroll">
+	                        	<a href="/quiz/television" class="btn btn-primary btn-xl page-scroll">
 			                		<i class="fa fa-tv"></i>&nbsp;Television
 								</a>
 							</tag:loggedin>
@@ -357,7 +357,7 @@
 	                <div class="col-lg-3 col-md-6 text-center">
 	                    <div class="service-box">
 	                        <tag:loggedin>
-	                        	<a href="/quiz/game" class="btn btn-primary btn-xl page-scroll">
+	                        	<a href="/quiz/gaming" class="btn btn-primary btn-xl page-scroll">
 			                		<i class="fa fa-gamepad"></i>&nbsp;Game
 								</a>
 							</tag:loggedin>
