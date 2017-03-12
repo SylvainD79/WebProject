@@ -52,9 +52,12 @@
 	            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 	                <ul class="nav navbar-nav navbar-right">
 	                    <li>
-	                        <a class="page-scroll" href="#topic"><i class="fa fa-2x fa-list"></i>&nbsp;All Quiz Topic</a>
+	                        <a class="page-scroll" href="#topic"><i class="fa fa-2x fa-th-large"></i>&nbsp;All Quiz Topic</a>
 	                    </li>
 	                    <tag:loggedin>
+	                    	<li>
+		                        <a id="allquiz1" class="page-scroll" href="#quiz"><i class="fa fa-2x fa-list"></i>&nbsp;Quiz</a>
+		                    </li>
 	                    	<li>
 		                        <a id="highscore1" class="page-scroll" href="#highscore"><i class="fa fa-2x fa-bar-chart"></i>&nbsp;High Score</a>
 		                    </li>
@@ -74,6 +77,9 @@
 	                    	</li>
                     	</tag:notloggedin> 
 	                    <tag:loggedin>
+	                    	<li>
+	                    		<a href="https://twitter.com/" target="_blank"><i class="fa fa-2x fa-twitter"></i>&nbsp;${twitter.screenName}</a>
+	                    	</li>
 	                    	<li>
 	                    		<a href="./logout"><i class="fa fa-2x fa-power-off"></i>&nbsp;Logout</a>
 	                    	</li>
@@ -127,6 +133,7 @@
 		               		<a href="#topic" class="page-scroll btn btn-default btn-xl sr-button">
 			                	<i class="fa fa-chevron-down"></i>&nbsp;All quiz topic
 							</a>
+							&nbsp;
 							<a id="highscore2" href="#highscore" class="page-scroll btn btn-default btn-xl sr-button">
 			                	<i class="fa fa-chevron-down"></i>&nbsp;High Score
 							</a>
@@ -154,12 +161,6 @@
 	                        <p class="text-muted">
 	                        Follower of the sport ?
 	                        This quiz will evaluate your knowledge about the sport topic.</p>
-	                        <tag:loggedin>
-	                        	<br>
-		                        <a id="Sport" href="#quiz" class="btn btn-primary btn-xl page-scroll" ng-click="choiceTopic('sport')">
-				                	<i class="fa fa-chevron-down"></i>&nbsp;Get Started
-								</a>
-							</tag:loggedin>
 	                    </div>
 	                </div>
 	                <div class="col-lg-3 col-md-6 text-center">
@@ -169,12 +170,6 @@
 	                        <p class="text-muted">
 	                        Know all about the television ? 
 	                        This quiz will evaluate your knowledge about the television's celebrities.</p>
-	                        <tag:loggedin>
-	                        	<br>
-	                        	<a id="Television" href="#quiz" class="btn btn-primary btn-xl page-scroll" ng-click="choiceTopic('television')">
-			                		<i class="fa fa-chevron-down"></i>&nbsp;Get Started
-								</a>
-							</tag:loggedin>
 	                    </div>
 	                </div>
 	                <div class="col-lg-3 col-md-6 text-center">
@@ -184,12 +179,6 @@
 	                        <p class="text-muted">
 	                        Interest in the policy ?
 	                        This quiz will evaluate your knowledge about the political topic.</p>
-	                        <tag:loggedin>
-	                        	<br>
-	                        	<a id="Policy" href="#quiz" class="btn btn-primary btn-xl page-scroll" ng-click="choiceTopic('policy')">
-			                		<i class="fa fa-chevron-down"></i>&nbsp;Get Started
-								</a>
-							</tag:loggedin>
 	                    </div>
 	                </div>
 	                <div class="col-lg-3 col-md-6 text-center">
@@ -199,14 +188,20 @@
 	                        <p class="text-muted">
 	                        You are player ?
 	                        This quiz will evaluate your knowledge about the game topic.</p>
-	                        <tag:loggedin>
-	                        	<br>
-	                        	<a id="Game" href="#quiz" class="btn btn-primary btn-xl page-scroll" ng-click="choiceTopic('gaming')">
-			                		<i class="fa fa-chevron-down"></i>&nbsp;Get Started
-								</a>
-							</tag:loggedin>
 	                    </div>
 	                </div>
+	            </div>
+	        </div>
+	        <div class="container">
+	            <div class="row">
+	                <div class="col-lg-8 col-lg-offset-2 text-center">
+	                	<tag:loggedin>
+		                	<br>
+							<a id="allquiz2" href="#quiz" class="btn btn-primary btn-xl page-scroll">
+			                	<i class="fa fa-chevron-down"></i>&nbsp;Choose Quiz
+							</a>
+						</tag:loggedin>
+			    	</div>
 	            </div>
 	        </div>
 	    </section>
@@ -214,25 +209,26 @@
 	    <section id="quiz" class="bg-dark" style="display: none">
 	        <div class="container text-center">
 	            <div class="call-to-action">
-	                <h2 id="title">Quiz</h2>
-	                <hr class="light">
 	                <quiz/>
 	            </div>
 	        </div>
 	    </section> 
 	    <script>
-	        var title = $("#title").text();
-	        $( "#Sport,#Television,#Policy,#Game" ).click(function() {
-	        	var t1 = title + " " + $(this).attr("id");
-	          	var t2 = $("#title").text();
-	          	if ((t1 != t2) && (t2 != title)) {
-	          		if ($('#quiz').is(':visible')) {
-	            		$( "#quiz" ).toggle();
-	          		}
-	          	}
+	        //var title = $("#title").text();
+	        //$( "#Sport,#Television,#Policy,#Game" ).click(function() {
+	        	//var t1 = title + " " + $(this).attr("id");
+	          	//var t2 = $("#title").text();
+	          	//if ((t1 != t2) && (t2 != title)) {
+	          		//if ($('#quiz').is(':visible')) {
+	            		//$( "#quiz" ).toggle();
+	          		//}
+	          	//}
+	          	//$( "#quiz" ).toggle("slow");
+	          	//var x = $(this).attr("id");
+	          	//document.getElementById('title').innerHTML = title + " " + x;
+	       // });
+	        $( "#allquiz1,#allquiz2" ).click(function() {
 	          	$( "#quiz" ).toggle("slow");
-	          	var x = $(this).attr("id");
-	          	document.getElementById('title').innerHTML = title + " " + x;
 	        });
       	</script>
       	
@@ -276,7 +272,7 @@
 	                <hr class="light">
 	                <p class="text-faded">It is possible if you wish to recover the sources on the GitHub platform.</p>
 	                <a href="https://github.com/SylvainD79/WebProject">
-		                <i class="fa fa-github fa-3x sr-contact"></i>MIAGE Master Project
+		                <i class="fa fa-github fa-3x sr-contact"></i>&nbsp;MIAGE Master Project
 	                </a>
 	            </div>
 	        </div>

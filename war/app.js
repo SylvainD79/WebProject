@@ -1,9 +1,10 @@
 var app = angular.module('quizApp', []);
 
 var listTweet;
-var topicChoice;
   
 app.controller('tweetController', ['$window','$scope',function($window,$scope) {
+  
+  var errorQuizInProgress = "Please finish the quizz in progress before to choice a new quiz topic."
   
   $window.init = function() {
     console.log("window init called");
@@ -16,12 +17,6 @@ app.controller('tweetController', ['$window','$scope',function($window,$scope) {
       });
     }, rootApi);
   }
-  
-  $scope.choiceTopic = function (topic) { 
-    console.log("topic choice : ",topic);
-    $scope.topic = topic; 
-    topicChoice = topic;
-  };
   
 }]);
 
@@ -45,23 +40,31 @@ app.directive('quiz', function(quizFactory) {
 		scope: {},
 		templateUrl: 'template.html',
 		link: function(scope, elem, attrs) {
+			scope.choiceTopic = function (topic) { 
+			    console.log("topic choice : ",topic);
+			    scope.topic = topic;
+			    scope.topicChoice = true;
+			};
+			
 			scope.start = function() {
-			  console.log("start");
+				console.log("start");
 				scope.cpt = 0;
 				scope.quizOver = false;
 				scope.inProgress = true;
+				quizInProgress = true;
 				scope.generateQuiz();
 				scope.getQuestion();
 			};
  
 			scope.reset = function() {
-			  console.log("reset");
-				scope.inProgress = false;
-				scope.score = 0;
+				console.log("reset");
+				scope.topicChoice = false;
+			  	scope.inProgress = false;
+			  	scope.score = 0;
 			}
 			
 			scope.generateQuiz = function() {
-			  console.log("generate quiz");
+				console.log("generate quiz");
 		        var length = listTweet.length;
 		        scope.questions = [];
 		        var question;
@@ -87,20 +90,20 @@ app.directive('quiz', function(quizFactory) {
 		        }
 			}
  
-			scope.getQuestion = function() {
-			  console.log("get question");
+			scope.getQuestion = function() { 
+				console.log("get question");
 				var q = quizFactory.getQuestion(scope.questions);
 				if(q) {
-				  if (q.category == topicChoice) {
-  				  scope.category = q.category;
-  					scope.question = q.question;
-  					scope.options = q.options;
-  					scope.answer = q.answer;
-  					scope.answerMode = true;
-  					scope.cpt++;
+				  if (q.category == scope.topic) {
+					  scope.category = q.category;
+					  scope.question = q.question;
+					  scope.options = q.options;
+					  scope.answer = q.answer;
+					  scope.answerMode = true;
+					  scope.cpt++;
 				  } else {
-				    console.log("The question don't apply to the topic choice (",topicChoice,")");
-				    scope.nextQuestion();
+					  console.log("The question don't apply to the topic choice (",scope.topic,")");
+					  scope.nextQuestion();
 				  }
 				} else {
 					scope.quizOver = true;
@@ -108,7 +111,7 @@ app.directive('quiz', function(quizFactory) {
 			};
  
 			scope.checkAnswer = function() {
-			  console.log("check answer");
+				console.log("check answer");
 				if(!$('input[name=answer]:checked').length) return;
  
 				var ans = $('input[name=answer]:checked').val();
@@ -127,7 +130,7 @@ app.directive('quiz', function(quizFactory) {
 			};
  
 			scope.nextQuestion = function() {
-			  console.log("next question");
+				console.log("next question");
 				// on limite le nombre de questions par quizz à 10
 				if (scope.cpt < 10) {
 				  scope.getQuestion();
