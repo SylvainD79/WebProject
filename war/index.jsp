@@ -33,6 +33,8 @@
         <script src="https://code.jquery.com/jquery-2.0.3.min.js"></script>
         <script data-require="angular.js@1.3.x" src="https://code.angularjs.org/1.3.14/angular.js" data-semver="1.3.14"></script>
         <script src="app.js"></script>
+        <script data-require="angular.js@1.2.0-rc2" data-semver="1.2.0-rc2" src="https://code.angularjs.org/1.2.0-rc.2/angular.js"></script>
+        <script src="timer.js"></script>
 
 	</head>
 
@@ -129,7 +131,7 @@
 		               		<hr class="light">
 		               		<p class="text-faded">
 		               		In order to be able to evaluate your level of knowledge you must choose a quiz in the topics proposed. 
-		               		The quiz are random and without time. You can also view the high score.</p>
+		               		The quiz are random and with time. You can also view the high score.</p>
 		               		<a href="#topic" class="page-scroll btn btn-default btn-xl sr-button">
 			                	<i class="fa fa-chevron-down"></i>&nbsp;All quiz topic
 							</a>
@@ -206,27 +208,10 @@
 	        </div>
 	    </section>
 	    
-	    <section id="quiz" class="bg-dark" style="display: none">
-	        <div class="container text-center">
-	            <div class="call-to-action">
-	                <quiz/>
-	            </div>
-	        </div>
+	    <section id="quiz" class="bg-dark" style="display: none">  
+	    	<quiz/>
 	    </section> 
 	    <script>
-	        //var title = $("#title").text();
-	        //$( "#Sport,#Television,#Policy,#Game" ).click(function() {
-	        	//var t1 = title + " " + $(this).attr("id");
-	          	//var t2 = $("#title").text();
-	          	//if ((t1 != t2) && (t2 != title)) {
-	          		//if ($('#quiz').is(':visible')) {
-	            		//$( "#quiz" ).toggle();
-	          		//}
-	          	//}
-	          	//$( "#quiz" ).toggle("slow");
-	          	//var x = $(this).attr("id");
-	          	//document.getElementById('title').innerHTML = title + " " + x;
-	       // });
 	        $( "#allquiz1,#allquiz2" ).click(function() {
 	          	$( "#quiz" ).toggle("slow");
 	        });
@@ -252,6 +237,11 @@
 		        <div class="container text-center">
 		            <div class="call-to-action">
 		                <h2>What's happening ?</h2>
+		                <hr class="light">
+	               		<p class="text-faded">
+	               		You can post what you want on twitter thanks to the box below. 
+	               		By applying the hashtag <b>#WhoSaidThatOnTwitter</b> we can see your tweets more easily. 
+	               		In the future we can create a quiz with your tweet containing this hashtag.</p>
 		                <form action="./post" method="post">
 			    			<div class="form-group">
 								<textarea class="form-control" rows="3" name="text">#WhoSaidThatOnTwitter</textarea>

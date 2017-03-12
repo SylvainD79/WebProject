@@ -1,4 +1,4 @@
-var app = angular.module('quizApp', []);
+var app = angular.module('quizApp', ['timer']);
 
 var listTweet;
   
@@ -40,6 +40,16 @@ app.directive('quiz', function(quizFactory) {
 		scope: {},
 		templateUrl: 'template.html',
 		link: function(scope, elem, attrs) {
+			scope.startTimer = function () {
+		        console.log("timer-start");
+		        scope.$broadcast('timer-start');
+		      };
+
+		      scope.stopTimer = function () {
+		        console.log("timer-stop");
+		        scope.$broadcast('timer-stop');
+		      };
+		      
 			scope.choiceTopic = function (topic) { 
 			    console.log("topic choice : ",topic);
 			    scope.topic = topic;
@@ -54,10 +64,12 @@ app.directive('quiz', function(quizFactory) {
 				quizInProgress = true;
 				scope.generateQuiz();
 				scope.getQuestion();
+				scope.startTimer();
 			};
  
 			scope.reset = function() {
 				console.log("reset");
+				scope.topic = "";
 				scope.topicChoice = false;
 			  	scope.inProgress = false;
 			  	scope.score = 0;
@@ -107,6 +119,7 @@ app.directive('quiz', function(quizFactory) {
 				  }
 				} else {
 					scope.quizOver = true;
+					scope.stopTimer();
 				}
 			};
  
@@ -136,6 +149,7 @@ app.directive('quiz', function(quizFactory) {
 				  scope.getQuestion();
 				} else {
 				  scope.quizOver = true;
+				  scope.stopTimer();
 				}
 			}
  

@@ -1,7 +1,18 @@
-<h2 id="title">Quiz {{topic}}</h2>
-<hr class="light">
+<div class="container text-center">
+	<div class="call-to-action">
+		<h2 id="title" ng-show="!inProgress">Quiz {{topic}}</h2>
+		<div ng-show="inProgress">
+			<h2 ng-show="!quizOver">
+				<timer autostart="false" interval="1000">{{minutes}}m {{seconds}}s</timer>
+			</h2>
+			<h2 ng-show="quizOver">Quiz is over</h2>
+		</div>
+	
+		<hr class="light">
+	</div>
+</div>
 
-<div class="choice-area" ng-show="!topicChoice">	
+<div class="container text-center" ng-show="!topicChoice">	
 	<p class="text-faded">Please select a quiz from the list of candidates to evaluate your knowledge.</p>
 	<div class="container">
 		<div class="row">
@@ -38,45 +49,59 @@
 </div>
 	  
 <div ng-show="topicChoice">              
-	<div class="quiz-area" ng-show="inProgress">
-		<div ng-show="!quizOver">
-		  	<h3>Question {{cpt}} - topic {{category}}</h3>
-			<h4 id="question">Who said : "{{question}}" ?</h4>
-			<ul id="options">
-				<li ng-repeat="option in options track by $index">
+	<div ng-show="inProgress">
+		<div class="text-faded" ng-show="!quizOver">
+			<div class="container text-center">
+		  		<h3>Quiz {{category}} - Question {{cpt}} - Score {{score}}</h3>
+		  	</div>
+		  	<br>
+		  	<div class="container text-left">
+				<p id="question">Who said : "{{question}}" ?</p>
+				<div ng-repeat="option in options track by $index">
 					<label>
 						<input type="radio" name="answer" value="{{option}}">
-						{{option}}
+						&nbsp;{{option}}
 					</label>
-				</li>
-			</ul>
-			<button ng-click="checkAnswer()" ng-show="answerMode">Submit</button>
+				</div>
+			</div>
+			<div class="container text-center" ng-show="answerMode">
+				<a id="validate" class="btn btn-primary btn-xl page-scroll" ng-click="checkAnswer()">
+					<i class="fa fa-check"></i>&nbsp;Submit
+				</a>
+			</div>
 		
-		   	<div ng-show="!answerMode">
-				<button ng-click="nextQuestion()" class="next-question">Next</button>
-				<span ng-show="correctAns">That is correct!</span>
-				<span ng-show="!correctAns">Sorry, that is an incorrect answer.</span>
+		   	<div class="container text-center" ng-show="!answerMode">
+		   		<a id="next" class="btn btn-primary btn-xl page-scroll" ng-click="nextQuestion()">
+					Next&nbsp;<i class="fa fa-chevron-right"></i>
+				</a>
+				<br><br>
+				<p class="text-success" ng-show="correctAns">That is correct!</p>
+				<p class="text-danger" ng-show="!correctAns">Sorry, that is an incorrect answer.</p>
 			</div> 
 		</div>
 	 
-		<div ng-show="quizOver">
-			<h2>Quiz is over</h2>
-			<button ng-click="reset()">Play again</button>
-		</div>
-	 
-		<div id="score">
-			Score: {{score}}
+		<div class="container text-center" ng-show="quizOver">
+			<p class="text-faded">You have completed the quiz in <timer autostart="false" interval="1000">{{minutes}}:{{seconds}}</timer> with {{score}} good answers.</p>
+			<div>
+				<a id="back" class="btn btn-primary btn-xl page-scroll" ng-click="reset()">
+					<i class="fa fa-reply"></i>&nbsp;Play again
+				</a>
+				&nbsp;
+				<a id="back" class="btn btn-primary btn-xl page-scroll">
+					<i class="fa fa-share-square-o"></i>&nbsp;Share
+				</a>
+			</div>
 		</div>
 	</div>
 	
-	<div class="intro" ng-show="!inProgress">
+	<div class="container text-center" ng-show="!inProgress">
 		<p class="text-faded">You are about to start a quiz. Are you ready ?</p>
-		<button id="back" class="btn btn-primary btn-xl page-scroll" ng-click="reset()">
+		<a id="back" class="btn btn-primary btn-xl page-scroll" ng-click="reset()">
 			<i class="fa fa-chevron-left"></i>&nbsp;Go Back
-		</button>
+		</a>
 		&nbsp;
-		<button id="startQuiz" class="btn btn-primary btn-xl page-scroll" ng-click="start()">
+		<a id="startQuiz" class="btn btn-primary btn-xl page-scroll" ng-click="start()">
 			Let's go&nbsp;<i class="fa fa-chevron-right"></i>
-		</button>
+		</a>
 	</div>
 </div>
