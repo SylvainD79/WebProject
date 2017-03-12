@@ -2,6 +2,8 @@ package webProject;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.Iterator;
 
 import javax.servlet.ServletException;
@@ -40,15 +42,30 @@ public class QuizServlet extends HttpServlet {
 	        query.setLang("en");
 	        query.setCount(100);
 	        
+	        String tweetWithoutHashtagAndUrl;
 	        QueryResult result = twitter.search(query);
 	        List<Status> tweets = result.getTweets();
+	        
+	        Pattern urlPattern = Pattern.compile("(http|ftp|https)://([\\w_-]+(?:(?:\\.[\\w_-]+)+))([\\w.,@?^=%&:/~+#-]*[\\w@?^=%&/~+#-])?");
 	        
 	        //Put the tweet resulting from the query into the datastore
 	        for (Status status : tweets ) {
 	        	Entity e = new Entity("TweetEntity");
 	        	if(status.getUser().getFollowersCount() > 5000) {
 		        	e.setProperty("name", status.getUser().getName());
-		        	e.setProperty("Tweet", status.getText());
+		        	
+		        	Matcher matcher = urlPattern.matcher(status.getText());
+		        	
+		        	if(matcher.find()) {
+		        	    //Matcher found urls
+		        	    //Removing them now..
+		        	    tweetWithoutHashtagAndUrl = matcher.replaceAll("");   
+		        	} else {
+		        	    //Matcher did not find any urls, which means the 'tweetWithoutHashtag' already is ready for further usage
+		        	    tweetWithoutHashtagAndUrl = status.getText();
+		        	}
+		        	
+		        	e.setProperty("Tweet", tweetWithoutHashtagAndUrl);
 		        	e.setProperty("category", hashtag);
 		        	datastore.put(e);
 	        	}
