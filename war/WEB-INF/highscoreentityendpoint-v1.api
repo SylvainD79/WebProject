@@ -2,7 +2,7 @@
   "extends" : "thirdParty.api",
   "abstract" : false,
   "root" : "https://webprojecttwitter.appspot.com/_ah/api",
-  "name" : "tweetentityendpoint",
+  "name" : "highscoreentityendpoint",
   "version" : "v1",
   "defaultVersion" : false,
   "discovery" : [ "PUBLIC" ],
@@ -28,14 +28,14 @@
   "ownerName" : "mycompany.com",
   "packagePath" : "services",
   "methods" : {
-    "tweetentityendpoint.listTweetEntity" : {
-      "path" : "tweetentity",
+    "highscoreentityendpoint.listHighScoreEntity" : {
+      "path" : "highscoreentity",
       "httpMethod" : "GET",
       "authLevel" : "NONE",
       "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
       "audiences" : [ ],
       "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "webProject.TweetEntityEndpoint.listTweetEntity",
+      "rosyMethod" : "webProject.HighScoreEntityEndpoint.listHighScoreEntity",
       "request" : {
         "parameters" : {
           "cursor" : {
@@ -53,14 +53,14 @@
         "body" : "autoTemplate(backendResponse)"
       }
     },
-    "tweetentityendpoint.getTweetEntity" : {
-      "path" : "tweetentity/{id}",
+    "highscoreentityendpoint.getHighScoreEntity" : {
+      "path" : "highscoreentity/{id}",
       "httpMethod" : "GET",
       "authLevel" : "NONE",
       "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
       "audiences" : [ ],
       "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "webProject.TweetEntityEndpoint.getTweetEntity",
+      "rosyMethod" : "webProject.HighScoreEntityEndpoint.getHighScoreEntity",
       "request" : {
         "parameters" : {
           "id" : {
@@ -74,14 +74,14 @@
         "body" : "autoTemplate(backendResponse)"
       }
     },
-    "tweetentityendpoint.insertTweetEntity" : {
-      "path" : "tweetentity",
+    "highscoreentityendpoint.insertHighScoreEntity" : {
+      "path" : "highscoreentity",
       "httpMethod" : "POST",
       "authLevel" : "NONE",
       "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
       "audiences" : [ ],
       "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "webProject.TweetEntityEndpoint.insertTweetEntity",
+      "rosyMethod" : "webProject.HighScoreEntityEndpoint.insertHighScoreEntity",
       "request" : {
         "body" : "autoTemplate(backendRequest)",
         "bodyName" : "resource"
@@ -90,14 +90,14 @@
         "body" : "autoTemplate(backendResponse)"
       }
     },
-    "tweetentityendpoint.updateTweetEntity" : {
-      "path" : "tweetentity",
+    "highscoreentityendpoint.updateHighScoreEntity" : {
+      "path" : "highscoreentity",
       "httpMethod" : "PUT",
       "authLevel" : "NONE",
       "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
       "audiences" : [ ],
       "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "webProject.TweetEntityEndpoint.updateTweetEntity",
+      "rosyMethod" : "webProject.HighScoreEntityEndpoint.updateHighScoreEntity",
       "request" : {
         "body" : "autoTemplate(backendRequest)",
         "bodyName" : "resource"
@@ -106,14 +106,14 @@
         "body" : "autoTemplate(backendResponse)"
       }
     },
-    "tweetentityendpoint.removeTweetEntity" : {
-      "path" : "tweetentity/{id}",
+    "highscoreentityendpoint.removeHighScoreEntity" : {
+      "path" : "highscoreentity/{id}",
       "httpMethod" : "DELETE",
       "authLevel" : "NONE",
       "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
       "audiences" : [ ],
       "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "webProject.TweetEntityEndpoint.removeTweetEntity",
+      "rosyMethod" : "webProject.HighScoreEntityEndpoint.removeHighScoreEntity",
       "request" : {
         "parameters" : {
           "id" : {
@@ -130,14 +130,14 @@
   },
   "descriptor" : {
     "schemas" : {
-      "CollectionResponse_TweetEntity" : {
-        "id" : "CollectionResponse_TweetEntity",
+      "CollectionResponse_HighScoreEntity" : {
+        "id" : "CollectionResponse_HighScoreEntity",
         "type" : "object",
         "properties" : {
           "items" : {
             "type" : "array",
             "items" : {
-              "$ref" : "TweetEntity"
+              "$ref" : "HighScoreEntity"
             }
           },
           "nextPageToken" : {
@@ -145,8 +145,8 @@
           }
         }
       },
-      "TweetEntity" : {
-        "id" : "TweetEntity",
+      "HighScoreEntity" : {
+        "id" : "HighScoreEntity",
         "type" : "object",
         "properties" : {
           "id" : {
@@ -156,43 +156,80 @@
           "name" : {
             "type" : "string"
           },
-          "category" : {
-            "type" : "string"
+          "score" : {
+            "type" : "integer"
           },
-          "tweet" : {
+          "time" : {
+            "$ref" : "Time"
+          },
+          "topic" : {
             "type" : "string"
+          }
+        }
+      },
+      "Time" : {
+        "id" : "Time",
+        "type" : "object",
+        "properties" : {
+          "date" : {
+            "type" : "integer"
+          },
+          "time" : {
+            "type" : "string",
+            "format" : "int64"
+          },
+          "month" : {
+            "type" : "integer"
+          },
+          "year" : {
+            "type" : "integer"
+          },
+          "day" : {
+            "type" : "integer"
+          },
+          "hours" : {
+            "type" : "integer"
+          },
+          "minutes" : {
+            "type" : "integer"
+          },
+          "seconds" : {
+            "type" : "integer"
+          },
+          "timezoneOffset" : {
+            "type" : "integer"
           }
         }
       }
     },
     "methods" : {
-      "webProject.TweetEntityEndpoint.listTweetEntity" : {
+      "webProject.HighScoreEntityEndpoint.listHighScoreEntity" : {
         "response" : {
-          "$ref" : "CollectionResponse_TweetEntity"
+          "$ref" : "CollectionResponse_HighScoreEntity"
         }
       },
-      "webProject.TweetEntityEndpoint.getTweetEntity" : {
+      "webProject.HighScoreEntityEndpoint.getHighScoreEntity" : {
         "response" : {
-          "$ref" : "TweetEntity"
+          "$ref" : "HighScoreEntity"
         }
       },
-      "webProject.TweetEntityEndpoint.insertTweetEntity" : {
+      "webProject.HighScoreEntityEndpoint.insertHighScoreEntity" : {
         "request" : {
-          "$ref" : "TweetEntity"
+          "$ref" : "HighScoreEntity"
         },
         "response" : {
-          "$ref" : "TweetEntity"
+          "$ref" : "HighScoreEntity"
         }
       },
-      "webProject.TweetEntityEndpoint.updateTweetEntity" : {
+      "webProject.HighScoreEntityEndpoint.updateHighScoreEntity" : {
         "request" : {
-          "$ref" : "TweetEntity"
+          "$ref" : "HighScoreEntity"
         },
         "response" : {
-          "$ref" : "TweetEntity"
+          "$ref" : "HighScoreEntity"
         }
       },
-      "webProject.TweetEntityEndpoint.removeTweetEntity" : {
+      "webProject.HighScoreEntityEndpoint.removeHighScoreEntity" : {
       }
     }
   }

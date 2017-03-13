@@ -21,6 +21,7 @@ import com.google.appengine.api.datastore.Query.FilterOperator;
 import com.google.appengine.api.datastore.Query.FilterPredicate;
 
 import twitter4j.Query;
+import twitter4j.Query.ResultType;
 import twitter4j.QueryResult;
 import twitter4j.Status;
 import twitter4j.Twitter;
@@ -39,6 +40,7 @@ public class QuizServlet extends HttpServlet {
         Twitter twitter = (Twitter)request.getSession().getAttribute("twitter");
 		try {
 	        Query query = new Query(hashtag + "+exclude:retweets");
+	        query.setResultType(ResultType.popular);
 	        query.setLang("en");
 	        query.setCount(100);
 	        
@@ -57,20 +59,19 @@ public class QuizServlet extends HttpServlet {
 		        	Matcher matcher = urlPattern.matcher(status.getText());
 		        	
 		        	if(matcher.find()) {
-		        	    //Matcher found urls
-		        	    //Removing them now..
 		        	    tweetWithoutHashtagAndUrl = matcher.replaceAll("");   
 		        	} else {
-		        	    //Matcher did not find any urls, which means the 'tweetWithoutHashtag' already is ready for further usage
 		        	    tweetWithoutHashtagAndUrl = status.getText();
 		        	}
 		        	
 		        	e.setProperty("Tweet", tweetWithoutHashtagAndUrl);
 		        	e.setProperty("category", hashtag);
+		        	
 		        	datastore.put(e);
 	        	}
 	        }
 	        
+	        //Request from the datastore
 	        Filter filter = new FilterPredicate("category", FilterOperator.EQUAL, hashtag);
 	        com.google.appengine.api.datastore.Query q = new com.google.appengine.api.datastore.Query("TweetEntity").setFilter(filter);
 
@@ -84,17 +85,10 @@ public class QuizServlet extends HttpServlet {
 	        	allTweets += "Name : " + e.getProperty("name").toString() + "\nTexte : " + e.getProperty("Tweet").toString() + "\n\n";
 	        }
 	        
-	        
-	        /*for (Status status : tweets) {
-	        	allTweets += "Name : " + status.getUser().getScreenName() + "\nTexte : " + status.getText() + "\n\n";
-	        }*/
-	        
 	        response.setContentType("text/plain");
 	        response.getWriter().println(query.toString());
 			response.getWriter().println("Tweet : #" + hashtag + "\n\n" + allTweets);
 	        
-	        //request.getRequestDispatcher("/quiz.jsp").forward(request, response);
-			
 	    } catch (TwitterException e) {
 	    	throw new ServletException(e);
 	    }

@@ -63,7 +63,7 @@
 	  	<servlet-class>com.google.api.server.spi.SystemServiceServlet</servlet-class>
 	 	<init-param>
 	   		<param-name>services</param-name>
-	   		<param-value>webProject.TweetEntityEndpoint</param-value>
+	   		<param-value>webProject.HighScoreEntityEndpoint,webProject.TweetEntityEndpoint</param-value>
 	   	</init-param>
 	</servlet>
 	<servlet-mapping>
