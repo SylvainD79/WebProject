@@ -53,22 +53,6 @@
         "body" : "autoTemplate(backendResponse)"
       }
     },
-    "highscoreentityendpoint.updateHighScoreEntity" : {
-      "path" : "highscoreentity",
-      "httpMethod" : "PUT",
-      "authLevel" : "NONE",
-      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
-      "audiences" : [ ],
-      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "webProject.HighScoreEntityEndpoint.updateHighScoreEntity",
-      "request" : {
-        "body" : "autoTemplate(backendRequest)",
-        "bodyName" : "resource"
-      },
-      "response" : {
-        "body" : "autoTemplate(backendResponse)"
-      }
-    },
     "highscoreentityendpoint.removeHighScoreEntity" : {
       "path" : "highscoreentity/{id}",
       "httpMethod" : "DELETE",
@@ -90,14 +74,14 @@
         "body" : "empty"
       }
     },
-    "highscoreentityendpoint.insertHighScoreEntity" : {
+    "highscoreentityendpoint.updateHighScoreEntity" : {
       "path" : "highscoreentity",
-      "httpMethod" : "POST",
+      "httpMethod" : "PUT",
       "authLevel" : "NONE",
       "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
       "audiences" : [ ],
       "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "webProject.HighScoreEntityEndpoint.insertHighScoreEntity",
+      "rosyMethod" : "webProject.HighScoreEntityEndpoint.updateHighScoreEntity",
       "request" : {
         "body" : "autoTemplate(backendRequest)",
         "bodyName" : "resource"
@@ -122,6 +106,22 @@
           }
         },
         "body" : "empty"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
+    "highscoreentityendpoint.insertHighScoreEntity" : {
+      "path" : "highscoreentity",
+      "httpMethod" : "POST",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "webProject.HighScoreEntityEndpoint.insertHighScoreEntity",
+      "request" : {
+        "body" : "autoTemplate(backendRequest)",
+        "bodyName" : "resource"
       },
       "response" : {
         "body" : "autoTemplate(backendResponse)"
@@ -160,46 +160,16 @@
             "type" : "integer"
           },
           "time" : {
-            "$ref" : "Time"
+            "$ref" : "_any"
           },
           "topic" : {
             "type" : "string"
           }
         }
       },
-      "Time" : {
-        "id" : "Time",
-        "type" : "object",
-        "properties" : {
-          "month" : {
-            "type" : "integer"
-          },
-          "year" : {
-            "type" : "integer"
-          },
-          "date" : {
-            "type" : "integer"
-          },
-          "day" : {
-            "type" : "integer"
-          },
-          "time" : {
-            "type" : "string",
-            "format" : "int64"
-          },
-          "hours" : {
-            "type" : "integer"
-          },
-          "minutes" : {
-            "type" : "integer"
-          },
-          "seconds" : {
-            "type" : "integer"
-          },
-          "timezoneOffset" : {
-            "type" : "integer"
-          }
-        }
+      "_any" : {
+        "id" : "_any",
+        "type" : "any"
       }
     },
     "methods" : {
@@ -207,6 +177,8 @@
         "response" : {
           "$ref" : "CollectionResponse_HighScoreEntity"
         }
+      },
+      "webProject.HighScoreEntityEndpoint.removeHighScoreEntity" : {
       },
       "webProject.HighScoreEntityEndpoint.updateHighScoreEntity" : {
         "request" : {
@@ -216,17 +188,15 @@
           "$ref" : "HighScoreEntity"
         }
       },
-      "webProject.HighScoreEntityEndpoint.removeHighScoreEntity" : {
+      "webProject.HighScoreEntityEndpoint.getHighScoreEntity" : {
+        "response" : {
+          "$ref" : "HighScoreEntity"
+        }
       },
       "webProject.HighScoreEntityEndpoint.insertHighScoreEntity" : {
         "request" : {
           "$ref" : "HighScoreEntity"
         },
-        "response" : {
-          "$ref" : "HighScoreEntity"
-        }
-      },
-      "webProject.HighScoreEntityEndpoint.getHighScoreEntity" : {
         "response" : {
           "$ref" : "HighScoreEntity"
         }

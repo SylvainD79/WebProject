@@ -1,7 +1,5 @@
 package webProject;
 
-import java.sql.Time;
-
 import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.PersistenceCapable;
@@ -21,7 +19,7 @@ public class HighScoreEntity {
 	int score;
 	
 	@Persistent
-	Time time;
+	Object time;
 	
 	@Persistent
 	String topic;
@@ -50,11 +48,11 @@ public class HighScoreEntity {
 		this.score = score;
 	}
 
-	public Time getTime() {
+	public Object getTime() {
 		return time;
 	}
 
-	public void setTime(Time time) {
+	public void setTime(Object time) {
 		this.time = time;
 	}
 
