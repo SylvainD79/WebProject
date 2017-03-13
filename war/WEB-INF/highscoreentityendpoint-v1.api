@@ -1,13 +1,13 @@
 {
   "extends" : "thirdParty.api",
   "abstract" : false,
-  "root" : "https://webprojecttwitter.appspot.com/_ah/api",
+  "root" : "https://whosaidthatontwitter.appspot.com/_ah/api",
   "name" : "highscoreentityendpoint",
   "version" : "v1",
   "defaultVersion" : false,
   "discovery" : [ "PUBLIC" ],
   "adapter" : {
-    "bns" : "https://webprojecttwitter.appspot.com/_ah/spi",
+    "bns" : "https://whosaidthatontwitter.appspot.com/_ah/spi",
     "deadline" : 65.0,
     "type" : "lily"
   },
