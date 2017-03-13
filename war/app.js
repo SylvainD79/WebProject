@@ -1,10 +1,13 @@
 var app = angular.module('quizApp', ['timer']);
 
 var listTweet;
+var userName;
   
 app.controller('tweetController', ['$window','$scope',function($window,$scope) {
   
   var errorQuizInProgress = "Please finish the quizz in progress before to choice a new quiz topic."
+  userName = $window.userName;
+  console.log("user name ", userName);
   
   $window.init = function() {
     console.log("window init called");
@@ -55,6 +58,11 @@ app.directive('quiz', function(quizFactory) {
 			    scope.topic = topic;
 			    scope.topicChoice = true;
 			};
+			
+			scope.getUserName = function(name) {
+				console.log("user name : ",name);
+				scope.userName = name;
+			}
 			
 			scope.start = function() {
 				console.log("start");
@@ -150,6 +158,13 @@ app.directive('quiz', function(quizFactory) {
 				} else {
 				  scope.quizOver = true;
 				  scope.stopTimer();
+				  var rootApi = 'https://1-dot-whosaidthatontwitter.appspot.com/_ah/api';
+		          gapi.client.load('highscoreentityendpoint', 'v1', function() {
+		            console.log("user name", scope.userName);
+		            gapi.client.highscoreentityendpoint.insertHighScoreEntity({id:1, name: userName, score:scope.score, time:0, topic:scope.topic}).execute(function(resp) {
+		              console.log(resp);
+		            });
+		          }, rootApi);
 				}
 			}
  

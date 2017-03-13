@@ -35,10 +35,12 @@
         <script src="app.js"></script>
         <script data-require="angular.js@1.2.0-rc2" data-semver="1.2.0-rc2" src="https://code.angularjs.org/1.2.0-rc.2/angular.js"></script>
         <script src="timer.js"></script>
+       
 
 	</head>
 
 	<body id="page-top" ng-controller="tweetController">
+	<script>userName = '${twitter.screenName}'</script>
 
 		<nav id="mainNav" class="navbar navbar-default navbar-fixed-top">
 	        <div class="container-fluid">
