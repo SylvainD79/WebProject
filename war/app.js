@@ -166,7 +166,7 @@ app.directive('quiz', function(quizFactory) {
 				  var rootApi = 'https://1-dot-whosaidthatontwitter.appspot.com/_ah/api';
 		          gapi.client.load('highscoreentityendpoint', 'v1', function() {
 		            console.log("insert high score");
-		            gapi.client.highscoreentityendpoint.insertHighScoreEntity({id:1, name: userName, score:scope.score, time:scope.time, topic:scope.topic}).execute(function(resp) {
+		            gapi.client.highscoreentityendpoint.insertHighScoreEntity({id:1, name: userName, score:scope.score, minutes:scope.time.minutes, seconds:scope.time.seconds, topic:scope.topic}).execute(function(resp) {
 		              console.log(resp);
 		            });
 		          }, rootApi);

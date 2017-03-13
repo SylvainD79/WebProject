@@ -159,17 +159,16 @@
           "score" : {
             "type" : "integer"
           },
-          "time" : {
-            "$ref" : "_any"
+          "minutes" : {
+            "type" : "integer"
+          },
+          "seconds" : {
+            "type" : "integer"
           },
           "topic" : {
             "type" : "string"
           }
         }
-      },
-      "_any" : {
-        "id" : "_any",
-        "type" : "any"
       }
     },
     "methods" : {

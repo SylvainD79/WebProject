@@ -19,7 +19,10 @@ public class HighScoreEntity {
 	int score;
 	
 	@Persistent
-	Object time;
+	int minutes;
+	
+	@Persistent
+	int seconds;
 	
 	@Persistent
 	String topic;
@@ -48,12 +51,20 @@ public class HighScoreEntity {
 		this.score = score;
 	}
 
-	public Object getTime() {
-		return time;
+	public int getMinutes() {
+		return minutes;
 	}
 
-	public void setTime(Object time) {
-		this.time = time;
+	public void setMinutes(int minutes) {
+		this.minutes = minutes;
+	}
+	
+	public int getSeconds() {
+		return seconds;
+	}
+
+	public void setSeconds(int seconds) {
+		this.seconds = seconds;
 	}
 
 	public String getTopic() {
