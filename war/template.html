@@ -81,15 +81,19 @@
 		</div>
 	 
 		<div class="container text-center" ng-show="quizOver">
-			<p class="text-faded">You have completed the quiz in <timer autostart="false" interval="1000">{{minutes}}:{{seconds}}</timer> with {{score}} good answers.</p>
+			<p class="text-faded">You have completed the quiz in {{time.minutes}}:{{time.seconds}} with {{score}} good answers.</p>
 			<div>
-				<a id="back" class="btn btn-primary btn-xl page-scroll" ng-click="reset()">
+				<a id="playAgain" class="btn btn-primary btn-xl page-scroll" ng-click="reset()">
 					<i class="fa fa-reply"></i>&nbsp;Play again
 				</a>
-				&nbsp;
-				<a id="back" class="btn btn-primary btn-xl page-scroll">
-					<i class="fa fa-share-square-o"></i>&nbsp;Share
-				</a>
+				<form action="./post" method="post">
+					<div class="form-group">
+						<textarea class="form-control" rows="3" name="text" ng-show="textarea-share-hidden">That's good! {{score}}/10 in {{time.minutes}}:{{time.seconds}} minutes. You can test too on -> http://1-dot-whosaidthatontwitter.appspot.com #{{topic}} #WhoSaidThatOnTwitter</textarea>
+					</div>
+					<button type="submit" id="share" class="btn btn-primary btn-xl page-scroll">
+			    		<i class="fa fa-share-square-o"></i>&nbsp;Share
+			    	</button>
+				</form>
 			</div>
 		</div>
 	</div>

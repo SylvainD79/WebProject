@@ -43,12 +43,18 @@ app.directive('quiz', function(quizFactory) {
 			scope.startTimer = function () {
 		        console.log("timer-start");
 		        scope.$broadcast('timer-start');
-		      };
+		    };
 
-		      scope.stopTimer = function () {
+		    scope.stopTimer = function () {
 		        console.log("timer-stop");
-		        scope.$broadcast('timer-stop');
-		      };
+		        scope.timer = scope.$broadcast('timer-stop');
+		        
+		        scope.time = {
+		        		minutes : scope.timer.targetScope.$$childHead.minutes,
+		        		seconds : scope.timer.targetScope.$$childHead.seconds
+		        };
+		        console.log("time : ",scope.time);
+		    };
 		      
 			scope.choiceTopic = function (topic) { 
 			    console.log("topic choice : ",topic);

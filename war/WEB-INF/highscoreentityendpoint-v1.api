@@ -171,21 +171,21 @@
         "id" : "Time",
         "type" : "object",
         "properties" : {
-          "date" : {
-            "type" : "integer"
-          },
-          "time" : {
-            "type" : "string",
-            "format" : "int64"
-          },
           "month" : {
             "type" : "integer"
           },
           "year" : {
             "type" : "integer"
           },
+          "date" : {
+            "type" : "integer"
+          },
           "day" : {
             "type" : "integer"
+          },
+          "time" : {
+            "type" : "string",
+            "format" : "int64"
           },
           "hours" : {
             "type" : "integer"

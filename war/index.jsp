@@ -241,10 +241,10 @@
 	               		<p class="text-faded">
 	               		You can post what you want on twitter thanks to the box below. 
 	               		By applying the hashtag <b>#WhoSaidThatOnTwitter</b> we can see your tweets more easily. 
-	               		In the future we can create a quiz with your tweet containing this hashtag.</p>
+	               		In the future we can create a quiz with your tweet containing this hashtag.(140 characters max)</p>
 		                <form action="./post" method="post">
 			    			<div class="form-group">
-								<textarea class="form-control" rows="3" name="text">#WhoSaidThatOnTwitter</textarea>
+								<textarea class="form-control" rows="3" name="text" maxlength="140">#WhoSaidThatOnTwitter</textarea>
 							</div>
 			    			<button type="submit" class="page-scroll btn btn-default btn-xl sr-button">
 			    				<i class="fa fa-paper-plane"></i>&nbsp;Tweet
