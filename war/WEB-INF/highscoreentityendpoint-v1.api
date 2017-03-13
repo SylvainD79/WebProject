@@ -53,43 +53,6 @@
         "body" : "autoTemplate(backendResponse)"
       }
     },
-    "highscoreentityendpoint.getHighScoreEntity" : {
-      "path" : "highscoreentity/{id}",
-      "httpMethod" : "GET",
-      "authLevel" : "NONE",
-      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
-      "audiences" : [ ],
-      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "webProject.HighScoreEntityEndpoint.getHighScoreEntity",
-      "request" : {
-        "parameters" : {
-          "id" : {
-            "type" : "int64",
-            "required" : true
-          }
-        },
-        "body" : "empty"
-      },
-      "response" : {
-        "body" : "autoTemplate(backendResponse)"
-      }
-    },
-    "highscoreentityendpoint.insertHighScoreEntity" : {
-      "path" : "highscoreentity",
-      "httpMethod" : "POST",
-      "authLevel" : "NONE",
-      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
-      "audiences" : [ ],
-      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "webProject.HighScoreEntityEndpoint.insertHighScoreEntity",
-      "request" : {
-        "body" : "autoTemplate(backendRequest)",
-        "bodyName" : "resource"
-      },
-      "response" : {
-        "body" : "autoTemplate(backendResponse)"
-      }
-    },
     "highscoreentityendpoint.updateHighScoreEntity" : {
       "path" : "highscoreentity",
       "httpMethod" : "PUT",
@@ -125,6 +88,43 @@
       },
       "response" : {
         "body" : "empty"
+      }
+    },
+    "highscoreentityendpoint.insertHighScoreEntity" : {
+      "path" : "highscoreentity",
+      "httpMethod" : "POST",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "webProject.HighScoreEntityEndpoint.insertHighScoreEntity",
+      "request" : {
+        "body" : "autoTemplate(backendRequest)",
+        "bodyName" : "resource"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
+    "highscoreentityendpoint.getHighScoreEntity" : {
+      "path" : "highscoreentity/{id}",
+      "httpMethod" : "GET",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "webProject.HighScoreEntityEndpoint.getHighScoreEntity",
+      "request" : {
+        "parameters" : {
+          "id" : {
+            "type" : "int64",
+            "required" : true
+          }
+        },
+        "body" : "empty"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
       }
     }
   },
@@ -208,19 +208,6 @@
           "$ref" : "CollectionResponse_HighScoreEntity"
         }
       },
-      "webProject.HighScoreEntityEndpoint.getHighScoreEntity" : {
-        "response" : {
-          "$ref" : "HighScoreEntity"
-        }
-      },
-      "webProject.HighScoreEntityEndpoint.insertHighScoreEntity" : {
-        "request" : {
-          "$ref" : "HighScoreEntity"
-        },
-        "response" : {
-          "$ref" : "HighScoreEntity"
-        }
-      },
       "webProject.HighScoreEntityEndpoint.updateHighScoreEntity" : {
         "request" : {
           "$ref" : "HighScoreEntity"
@@ -230,6 +217,19 @@
         }
       },
       "webProject.HighScoreEntityEndpoint.removeHighScoreEntity" : {
+      },
+      "webProject.HighScoreEntityEndpoint.insertHighScoreEntity" : {
+        "request" : {
+          "$ref" : "HighScoreEntity"
+        },
+        "response" : {
+          "$ref" : "HighScoreEntity"
+        }
+      },
+      "webProject.HighScoreEntityEndpoint.getHighScoreEntity" : {
+        "response" : {
+          "$ref" : "HighScoreEntity"
+        }
       }
     }
   }
