@@ -1,0 +1,67 @@
+<div class="container text-center">
+	<div class="call-to-action">
+		<h2 id="title">High score {{topic}}</h2>
+        <hr class="light">
+        
+       	<div class="container text-center" ng-show="!topicChoice">	
+			<p class="text-faded">Here you can see the high score. To get there you have to choose a topic high score.</p>
+			<div class="container">
+				<div class="row">
+			    	<div class="col-lg-3 col-md-6 text-center">
+			        	<div class="service-box">
+							<a id="Sport" href="#highscore" class="btn btn-primary btn-xl page-scroll" ng-click="choiceTopic('sport')">
+						    	<i class="fa fa-futbol-o"></i>&nbsp;Sport High Score
+							</a>
+						</div>
+					</div>
+			    	<div class="col-lg-3 col-md-6 text-center">
+			        	<div class="service-box">
+							<a id="Television" href="#highscore" class="btn btn-primary btn-xl page-scroll" ng-click="choiceTopic('television')">
+								<i class="fa fa-tv"></i>&nbsp;Television High Score
+							</a>
+						</div>
+					</div>
+					<div class="col-lg-3 col-md-6 text-center">
+			        	<div class="service-box">
+							<a id="Policy" href="#highscore" class="btn btn-primary btn-xl page-scroll" ng-click="choiceTopic('policy')">
+						    	<i class="fa fa-balance-scale"></i>&nbsp;Policy High Score
+							</a>
+						</div>
+					</div>
+					<div class="col-lg-3 col-md-6 text-center">
+			        	<div class="service-box">
+							<a id="Game" href="#highscore" class="btn btn-primary btn-xl page-scroll" ng-click="choiceTopic('gaming')">
+								<i class="fa fa-gamepad"></i>&nbsp;Game High Score
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<div ng-show="topicChoice">
+			<div class="container text-center" ng-init="cpt = 1">
+				<p class="text-faded">Here we can see the ten best result in the {{topic}} quiz.</p>
+				<table>
+					<tr>
+					    <th>Rank</th>
+					    <th>Twitter Name</th>
+					    <th>Points</th>
+						<th>Time</th>
+					</tr>
+					<tr ng-repeat="highscore in highscores | orderBy:['-score','min','sec']" ng-init="rank = $parent.cpt; $parent.cpt=$parent.cpt+1;">
+						<td>{{rank}}</td>
+			   			<td>{{highscore.name}}</td>
+			       		<td>{{highscore.score}}</td>
+			       		<td>{{highscore.time}}</td>
+			   		</tr>
+				</table>
+				<br>
+				<a id="back" class="btn btn-primary btn-xl page-scroll" ng-click="reset()">
+					<i class="fa fa-arrow-left"></i>&nbsp;Exit
+				</a>
+			</div>
+		</div>
+		
+	</div>
+</div>

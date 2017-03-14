@@ -1,14 +1,15 @@
 var app = angular.module('quizApp', ['timer']);
 
-var listTweet;
 var userName;
+var listTweet;
+var listHighScore;
   
 app.controller('tweetController', ['$window','$scope',function($window,$scope) {
   
   userName = $window.userName;
   console.log("welcome ", userName);
   
-  $window.init = function() {
+  $window.getTweet = function() {
     console.log("window init called");
     var rootApi = 'https://1-dot-whosaidthatontwitter.appspot.com/_ah/api';
     gapi.client.load('tweetentityendpoint', 'v1', function() {
@@ -17,6 +18,19 @@ app.controller('tweetController', ['$window','$scope',function($window,$scope) {
         listTweet = resp.items || [];
         console.log(resp);
       });
+    }, rootApi);
+    
+  }
+  
+  $window.getHighScore = function() {
+    console.log("window init called");
+    var rootApi = 'https://1-dot-whosaidthatontwitter.appspot.com/_ah/api';
+    gapi.client.load('highscoreentityendpoint', 'v1', function() {
+        console.log("high score api loaded");
+        gapi.client.highscoreentityendpoint.listHighScoreEntity().execute(function(resp) {
+          listHighScore = resp.items || [];
+          console.log(resp);
+        });
     }, rootApi);
   }
   
@@ -40,7 +54,7 @@ app.directive('quiz', function(quizFactory) {
 	return {
 		restrict: 'AE',
 		scope: {},
-		templateUrl: 'template.html',
+		templateUrl: 'quiz.html',
 		link: function(scope, elem, attrs) {
 			scope.startTimer = function () {
 		        console.log("timer-start");
@@ -63,11 +77,6 @@ app.directive('quiz', function(quizFactory) {
 			    scope.topic = topic;
 			    scope.topicChoice = true;
 			};
-			
-			scope.getUserName = function(name) {
-				console.log("user name : ",name);
-				scope.userName = name;
-			}
 			
 			scope.start = function() {
 				console.log("start");
@@ -95,14 +104,14 @@ app.directive('quiz', function(quizFactory) {
 		        var question;
 		        var names;
 		        var pos;
-		        for (var i=0;i<=length-1;i++) {
+		        for (var i=0;i<length;i++) {
 		          names = [];
 		          pos = Math.floor(Math.random() * 3);
 		          for (var j=0;j<=3;j++) {
 		            if (j==pos) {
-		              names.push(listTweet[i].name);
+		            	names.push(listTweet[i].name);
 		            } else {
-		              names.push(listTweet[Math.floor(Math.random() * length)].name);
+		            	names.push(listTweet[Math.floor(Math.random() * length)].name);
 		            }
 		          }
 		          scope.question = {
@@ -173,6 +182,60 @@ app.directive('quiz', function(quizFactory) {
 				}
 			}
  
+			scope.reset();
+		}
+	}
+});
+
+app.directive('highscore', function() {
+	return {
+		restrict: 'AE',
+		scope: {},
+		templateUrl: 'highscore.html',
+		link: function(scope, elem, attrs) {
+			scope.reset = function() {
+				console.log("reset");
+				scope.topic = "";
+				scope.topicChoice = false;
+			  	scope.score = 0;
+			}
+			
+			scope.choiceTopic = function (topic) { 
+			    console.log("topic choice : ",topic);
+			    scope.topic = topic;
+			    scope.topicChoice = true;
+			    scope.generateHighScore(topic);
+			};
+			
+			scope.generateHighScore = function(topic) {
+				console.log("generate high score");
+		        scope.highscores = [];
+		        var m;
+		        var s;
+		        for (var i=0;i<listHighScore.length;i++) {
+		        	if (listHighScore[i].topic == topic) {
+		   		        if (listHighScore[i].minutes < 10) {
+		        			m = "0" + listHighScore[i].minutes;
+		        		} else {
+		        			m = listHighScore[i].minutes;
+		        		}
+		        		if (listHighScore[i].seconds < 10) {
+		        			s = "0" + listHighScore[i].seconds;
+		        		} else {
+		        			s = listHighScore[i].seconds;
+		        		}
+		        		scope.highscore = {
+		    		            name : listHighScore[i].name,
+		    		            score : listHighScore[i].score,
+		    		            min : listHighScore[i].minutes,
+		    		            sec : listHighScore[i].seconds,
+		    		            time : m + ":" + s
+		        		};
+		        		scope.highscores.push(scope.highscore);
+		        	} 
+		        }
+			}
+			
 			scope.reset();
 		}
 	}

@@ -5,6 +5,21 @@
 <html lang="en" ng-app="quizApp">
 
 	<head>
+	
+		<style>
+			table {
+			    border-collapse: collapse;
+			    width: 100%;
+			}
+			
+			th, td {
+			    padding: 20px;
+			    text-align: left;
+			    border-bottom: 1px solid #ddd;
+			}
+
+			tr:hover{background-color:#f5f5f5}
+		</style>
 
 	    <title>Who said that on Twitter ?</title>
 	
@@ -211,7 +226,7 @@
 	    </section>
 	    
 	    <section id="quiz" class="bg-dark" style="display: none">  
-	    	<quiz/>
+	    	<quiz><div class="container text-center"><h2>Quiz is loading ...</h2></div></quiz>
 	    </section> 
 	    <script>
 	        $( "#allquiz1,#allquiz2" ).click(function() {
@@ -220,13 +235,7 @@
       	</script>
       	
       	<section id="highscore" class="bg-info" style="display: none">
-	        <div class="container text-center">
-	            <div class="call-to-action">
-	                <h2 id="title">High Score</h2>
-	                <hr class="light">
-	                <p class="text-faded">Here you can view the high score.</p>
-	            </div>
-	        </div>
+	        <highscore><div class="container text-center"><h2>High Score is loading ...</h2></div></highscore>
 	    </section> 
 	    <script>
 	        $( "#highscore1,#highscore2" ).click(function() {
@@ -376,7 +385,8 @@
 <script>
 	var init = function() {
     	console.log("init called");
-    	window.init();
+    	window.getTweet();
+    	window.getHighScore();
   	};
 </script>
 <script src="https://apis.google.com/js/client.js?onload=init"></script>

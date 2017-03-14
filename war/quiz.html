@@ -2,9 +2,9 @@
 	<div class="call-to-action">
 		<h2 id="title" ng-show="!inProgress">Quiz {{topic}}</h2>
 		<div ng-show="inProgress">
-			<h2 ng-show="!quizOver">
-				<timer autostart="false" interval="1000">{{minutes}}m {{seconds}}s</timer>
-			</h2>
+			<h1 ng-show="!quizOver">
+				<timer autostart="false" interval="1000">{{minutes}}:{{seconds}}</timer>
+			</h1>
 			<h2 ng-show="quizOver">Quiz is over</h2>
 		</div>
 	
