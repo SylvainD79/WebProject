@@ -76,9 +76,18 @@
 				</a>
 				<br><br>
 				<p class="text-success" ng-show="correctAns">That is correct!</p>
-				<p class="text-danger" ng-show="!correctAns">Sorry, that is an incorrect answer.</p>
+				<div id="incorrectAns">
+					<p class="text-danger" ng-show="!correctAns">Sorry, that is an incorrect answer.</p>
+				</div>
 			</div> 
 		</div>
+		
+		<script>
+		$( document ).click(function() {
+		  $( "#incorrectAns" ).effect( "shake" );
+		});
+		</script>
+  		<script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 	 
 		<div class="container text-center" ng-show="quizOver">
 			<p class="text-faded">You have completed the quiz in {{time.minutes}}:{{time.seconds}} with {{score}} good answers.</p>
