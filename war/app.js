@@ -178,6 +178,11 @@ app.directive('quiz', function(quizFactory) {
 		            gapi.client.highscoreentityendpoint.insertHighScoreEntity({id:1, name: userName, score:scope.score, minutes:scope.time.minutes, seconds:scope.time.seconds, topic:scope.topic}).execute(function(resp) {
 		              console.log(resp);
 		            });
+		            console.log("get high score");
+		            gapi.client.highscoreentityendpoint.listHighScoreEntity().execute(function(resp) {
+		              listHighScore = resp.items || [];
+	                  console.log(resp);
+		            });
 		          }, rootApi);
 				}
 			}
