@@ -40,17 +40,16 @@
 		</div>
 		
 		<div ng-show="topicChoice">
-			<div class="container text-center" ng-init="cpt = 1">
+			<div class="container text-center">
 				<p class="text-faded">Here we can see the ten best result in the {{topic}} quiz.</p>
 				<table>
+					<caption>TOP 10</caption>
 					<tr>
-					    <th>Rank</th>
 					    <th>Twitter Name</th>
 					    <th>Points</th>
 						<th>Time</th>
 					</tr>
-					<tr ng-repeat="highscore in highscores | orderBy:['-score','min','sec']" ng-init="rank = $parent.cpt; $parent.cpt=$parent.cpt+1;">
-						<td>{{rank}}</td>
+					<tr ng-repeat="highscore in highscores | orderBy:['-score','min','sec'] | limitTo:10">
 			   			<td>{{highscore.name}}</td>
 			       		<td>{{highscore.score}}</td>
 			       		<td>{{highscore.time}}</td>

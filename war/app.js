@@ -225,7 +225,7 @@ app.directive('highscore', function() {
 		        			s = listHighScore[i].seconds;
 		        		}
 		        		scope.highscore = {
-		    		            name : listHighScore[i].name,
+		        				name : listHighScore[i].name,
 		    		            score : listHighScore[i].score,
 		    		            min : listHighScore[i].minutes,
 		    		            sec : listHighScore[i].seconds,
