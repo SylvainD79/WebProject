@@ -230,6 +230,9 @@
 	    </section> 
 	    <script>
 	        $( "#allquiz1,#allquiz2" ).click(function() {
+	        	if($("#highscore").is(":visible")) {
+	        		$( "#highscore" ).toggle("slow");
+	        	}
 	          	$( "#quiz" ).toggle("slow");
 	        });
       	</script>
@@ -239,6 +242,9 @@
 	    </section> 
 	    <script>
 	        $( "#highscore1,#highscore2" ).click(function() {
+	        	if($("#quiz").is(":visible")) {
+	        		$( "#quiz" ).toggle("slow");
+	        	}
 	          	$( "#highscore" ).toggle("slow");
 	        });
       	</script>
@@ -385,8 +391,8 @@
 <script>
 	var init = function() {
     	console.log("init called");
-    	window.getTweet();
-    	window.getHighScore();
+    	window.getListTweet();
+    	window.getListHighScore();
   	};
 </script>
 <script src="https://apis.google.com/js/client.js?onload=init"></script>

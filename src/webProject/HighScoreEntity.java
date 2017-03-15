@@ -1,6 +1,5 @@
 package webProject;
 
-import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
@@ -9,9 +8,8 @@ import javax.jdo.annotations.PrimaryKey;
 @PersistenceCapable(identityType=IdentityType.APPLICATION)
 public class HighScoreEntity {
 	@PrimaryKey
-	@Persistent(valueStrategy=IdGeneratorStrategy.SEQUENCE)
-	Long id;
-
+	String id;
+	
 	@Persistent
 	String name;
 	
@@ -27,14 +25,14 @@ public class HighScoreEntity {
 	@Persistent
 	String topic;
 
-	public Long getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(String id) {
 		this.id = id;
 	}
-
+	
 	public String getName() {
 		return name;
 	}

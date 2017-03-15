@@ -1,6 +1,6 @@
 {
  "kind": "discovery#rpcDescription",
- "etag": "\"ODRTh3xaRR64wpeXJSlF33HMN-0/Bw-sAw-lYROfObL4JBrZgTns-wE\"",
+ "etag": "\"ODRTh3xaRR64wpeXJSlF33HMN-0/oxxfPoILKG06kKZYoKK_BlVQtUE\"",
  "discoveryVersion": "v1",
  "id": "highscoreentityendpoint:v1",
  "name": "highscoreentityendpoint",
@@ -92,8 +92,7 @@
    "type": "object",
    "properties": {
     "id": {
-     "type": "string",
-     "format": "int64"
+     "type": "string"
     },
     "minutes": {
      "type": "integer",
@@ -123,8 +122,7 @@
    "parameters": {
     "id": {
      "type": "string",
-     "required": true,
-     "format": "int64"
+     "required": true
     }
    },
    "parameterOrder": [
@@ -150,6 +148,20 @@
    "returns": {
     "$ref": "HighScoreEntity"
    },
+   "scopes": [
+    "https://www.googleapis.com/auth/userinfo.email"
+   ]
+  },
+  "highscoreentityendpoint.insertOrUpdateHighScoreEntity": {
+   "id": "highscoreentityendpoint.insertOrUpdateHighScoreEntity",
+   "parameters": {
+    "resource": {
+     "$ref": "HighScoreEntity"
+    }
+   },
+   "parameterOrder": [
+    "resource"
+   ],
    "scopes": [
     "https://www.googleapis.com/auth/userinfo.email"
    ]

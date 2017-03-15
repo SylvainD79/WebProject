@@ -18,28 +18,28 @@
 		<div class="row">
 	    	<div class="col-lg-3 col-md-6 text-center">
 	        	<div class="service-box">
-					<a id="Sport" href="#quiz" class="btn btn-primary btn-xl page-scroll" ng-click="choiceTopic('sport')">
+					<a id="Sport" class="btn btn-primary btn-xl page-scroll" ng-click="choiceTopic('sport')">
 				    	<i class="fa fa-futbol-o"></i>&nbsp;Sport Quiz
 					</a>
 				</div>
 			</div>
 	    	<div class="col-lg-3 col-md-6 text-center">
 	        	<div class="service-box">
-					<a id="Television" href="#quiz" class="btn btn-primary btn-xl page-scroll" ng-click="choiceTopic('television')">
+					<a id="Television" class="btn btn-primary btn-xl page-scroll" ng-click="choiceTopic('television')">
 						<i class="fa fa-tv"></i>&nbsp;Television Quiz
 					</a>
 				</div>
 			</div>
 			<div class="col-lg-3 col-md-6 text-center">
 	        	<div class="service-box">
-					<a id="Policy" href="#quiz" class="btn btn-primary btn-xl page-scroll" ng-click="choiceTopic('policy')">
+					<a id="Policy" class="btn btn-primary btn-xl page-scroll" ng-click="choiceTopic('policy')">
 				    	<i class="fa fa-balance-scale"></i>&nbsp;Policy Quiz
 					</a>
 				</div>
 			</div>
 			<div class="col-lg-3 col-md-6 text-center">
 	        	<div class="service-box">
-					<a id="Game" href="#quiz" class="btn btn-primary btn-xl page-scroll" ng-click="choiceTopic('gaming')">
+					<a id="Game" class="btn btn-primary btn-xl page-scroll" ng-click="choiceTopic('gaming')">
 						<i class="fa fa-gamepad"></i>&nbsp;Game Quiz
 					</a>
 				</div>
@@ -92,8 +92,8 @@
 		<div class="container text-center" ng-show="quizOver">
 			<p class="text-faded">You have completed the {{topic}} quiz in {{time.minutes}}:{{time.seconds}} with {{score}} good answers.</p>
 			<div>
-				<a id="playAgain" class="btn btn-primary btn-xl page-scroll" ng-click="reset()">
-					<i class="fa fa-reply"></i>&nbsp;Play again
+				<a id="playAgain" class="btn btn-primary btn-xl page-scroll" ng-click="quizIsFinish()">
+					<i class="fa fa-reply"></i>&nbsp;Done
 				</a>
 				<form action="./post" method="post">
 					<div class="form-group">

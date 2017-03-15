@@ -9,29 +9,28 @@ app.controller('tweetController', ['$window','$scope',function($window,$scope) {
   userName = $window.userName;
   console.log("welcome ", userName);
   
-  $window.getTweet = function() {
-    console.log("window init called");
-    var rootApi = 'https://1-dot-whosaidthatontwitter.appspot.com/_ah/api';
-    gapi.client.load('tweetentityendpoint', 'v1', function() {
-      console.log("tweet api loaded");
-      gapi.client.tweetentityendpoint.listTweetEntity().execute(function(resp) {
-        listTweet = resp.items || [];
-        console.log(resp);
-      });
-    }, rootApi);
-    
+  $window.getListTweet = function() {
+	console.log("get list tweet");
+	var rootApi = 'https://1-dot-whosaidthatontwitter.appspot.com/_ah/api';
+	gapi.client.load('tweetentityendpoint', 'v1', function() {
+	  console.log("tweet api loaded");
+	  gapi.client.tweetentityendpoint.listTweetEntity().execute(function(resp) {
+	    listTweet = resp.items || [];
+	    console.log(resp);
+	  });
+	}, rootApi);
   }
   
-  $window.getHighScore = function() {
-    console.log("window init called");
-    var rootApi = 'https://1-dot-whosaidthatontwitter.appspot.com/_ah/api';
-    gapi.client.load('highscoreentityendpoint', 'v1', function() {
-        console.log("high score api loaded");
-        gapi.client.highscoreentityendpoint.listHighScoreEntity().execute(function(resp) {
-          listHighScore = resp.items || [];
-          console.log(resp);
-        });
-    }, rootApi);
+  $window.getListHighScore = function() {
+	  console.log("get list high score");
+	  var rootApi = 'https://1-dot-whosaidthatontwitter.appspot.com/_ah/api';
+      gapi.client.load('highscoreentityendpoint', 'v1', function() {
+      	console.log("high score api loaded");
+          gapi.client.highscoreentityendpoint.listHighScoreEntity().execute(function(resp) {
+            listHighScore = resp.items || [];
+            console.log(resp);
+          });
+      }, rootApi);
   }
   
 }]);
@@ -66,8 +65,8 @@ app.directive('quiz', function(quizFactory) {
 		        scope.timer = scope.$broadcast('timer-stop');
 		        
 		        scope.time = {
-		        		minutes : scope.timer.targetScope.$$childHead.minutes,
-		        		seconds : scope.timer.targetScope.$$childHead.seconds
+		        	minutes : scope.timer.targetScope.$$childHead.minutes,
+		        	seconds : scope.timer.targetScope.$$childHead.seconds
 		        };
 		        console.log("time : ",scope.time);
 		    };
@@ -172,19 +171,27 @@ app.directive('quiz', function(quizFactory) {
 				} else {
 				  scope.quizOver = true;
 				  scope.stopTimer();
+				  scope.id = userName + "-" + scope.topic;
 				  var rootApi = 'https://1-dot-whosaidthatontwitter.appspot.com/_ah/api';
 		          gapi.client.load('highscoreentityendpoint', 'v1', function() {
-		            console.log("insert high score");
-		            gapi.client.highscoreentityendpoint.insertHighScoreEntity({id:1, name: userName, score:scope.score, minutes:scope.time.minutes, seconds:scope.time.seconds, topic:scope.topic}).execute(function(resp) {
-		              console.log(resp);
-		            });
-		            console.log("get high score");
+		        	console.log("insert or update high score");
+				    gapi.client.highscoreentityendpoint.insertOrUpdateHighScoreEntity({id:scope.id, name:userName, score:scope.score, minutes:scope.time.minutes, seconds:scope.time.seconds, topic:scope.topic}).execute(function() {
+				      console.log("finish");
+				    });
+		          }, rootApi);
+				}
+			}
+			
+			scope.quizIsFinish = function() {
+				var rootApi = 'https://1-dot-whosaidthatontwitter.appspot.com/_ah/api';
+		        gapi.client.load('highscoreentityendpoint', 'v1', function() {
+		        	console.log("get high score");
 		            gapi.client.highscoreentityendpoint.listHighScoreEntity().execute(function(resp) {
 		              listHighScore = resp.items || [];
 	                  console.log(resp);
 		            });
-		          }, rootApi);
-				}
+		        }, rootApi);
+		        scope.reset();
 			}
  
 			scope.reset();

@@ -75,7 +75,7 @@ public class HighScoreEntityEndpoint {
 	 * @return The entity with primary key id.
 	 */
 	@ApiMethod(name = "getHighScoreEntity")
-	public HighScoreEntity getHighScoreEntity(@Named("id") Long id) {
+	public HighScoreEntity getHighScoreEntity(@Named("id") String id) {
 		PersistenceManager mgr = getPersistenceManager();
 		HighScoreEntity highscoreentity = null;
 		try {
@@ -142,6 +142,35 @@ public class HighScoreEntityEndpoint {
 		try {
 			HighScoreEntity highscoreentity = mgr.getObjectById(HighScoreEntity.class, id);
 			mgr.deletePersistent(highscoreentity);
+		} finally {
+			mgr.close();
+		}
+	}
+	
+	@ApiMethod(name = "insertOrUpdateHighScoreEntity")
+	public void insertOrUpdateHighScoreEntity(HighScoreEntity highscoreentity) {
+		PersistenceManager mgr = getPersistenceManager();
+		try {
+			if (!containsHighScoreEntity(highscoreentity)) {
+				insertHighScoreEntity(highscoreentity);
+			} else {
+				HighScoreEntity highscoreentityExist = getHighScoreEntity(highscoreentity.id);
+				if (highscoreentityExist.topic.equals(highscoreentity.topic)) {
+					if (highscoreentityExist.score < highscoreentity.score) {
+						updateHighScoreEntity(highscoreentity);
+					} else if (highscoreentityExist.score == highscoreentity.score) {
+						if (highscoreentityExist.minutes > highscoreentity.minutes) {
+							updateHighScoreEntity(highscoreentity);
+						} else if (highscoreentityExist.minutes == highscoreentity.minutes) {
+							if (highscoreentityExist.seconds > highscoreentity.seconds) {
+								updateHighScoreEntity(highscoreentity);
+							}
+						}
+					}
+				} else {
+					insertHighScoreEntity(highscoreentity);
+				}
+			}
 		} finally {
 			mgr.close();
 		}

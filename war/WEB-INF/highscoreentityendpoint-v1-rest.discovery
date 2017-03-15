@@ -1,6 +1,6 @@
 {
  "kind": "discovery#restDescription",
- "etag": "\"ODRTh3xaRR64wpeXJSlF33HMN-0/Bw-sAw-lYROfObL4JBrZgTns-wE\"",
+ "etag": "\"ODRTh3xaRR64wpeXJSlF33HMN-0/oxxfPoILKG06kKZYoKK_BlVQtUE\"",
  "discoveryVersion": "v1",
  "id": "highscoreentityendpoint:v1",
  "name": "highscoreentityendpoint",
@@ -94,8 +94,7 @@
    "type": "object",
    "properties": {
     "id": {
-     "type": "string",
-     "format": "int64"
+     "type": "string"
     },
     "minutes": {
      "type": "integer",
@@ -127,7 +126,6 @@
     "id": {
      "type": "string",
      "required": true,
-     "format": "int64",
      "location": "path"
     }
    },
@@ -151,6 +149,18 @@
    },
    "response": {
     "$ref": "HighScoreEntity"
+   },
+   "scopes": [
+    "https://www.googleapis.com/auth/userinfo.email"
+   ]
+  },
+  "insertOrUpdateHighScoreEntity": {
+   "id": "highscoreentityendpoint.insertOrUpdateHighScoreEntity",
+   "path": "void",
+   "httpMethod": "POST",
+   "request": {
+    "$ref": "HighScoreEntity",
+    "parameterName": "resource"
    },
    "scopes": [
     "https://www.googleapis.com/auth/userinfo.email"
