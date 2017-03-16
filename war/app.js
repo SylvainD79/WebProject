@@ -37,10 +37,9 @@ app.controller('tweetController', ['$window','$scope',function($window,$scope) {
 
 app.factory('quizFactory', function() {
 	return {
-		getQuestion: function(questions) {
-		  var id = Math.floor(Math.random() * questions.length)
-		  console.log("question : ",questions[id]);
+		getQuestion: function(questions, id) {
 			if(id < questions.length) {
+				console.log("question : ",questions[id]);
 				return questions[id];
 			} else {
 				return false;
@@ -84,6 +83,16 @@ app.directive('quiz', function(quizFactory) {
 				scope.inProgress = true;
 				quizInProgress = true;
 				scope.generateQuiz();
+				scope.countQuestions = scope.questions.filter(function(item) { 
+                    return item.category == scope.topic;
+                }).length;	
+				console.log("questions available for this topic : ",scope.countQuestions);
+				if (scope.countQuestions < 10) {
+					scope.maxQuestions = scope.countQuestions;
+				} else {
+					scope.maxQuestions = 10;
+				}
+				console.log("maximum number of quiz questions : ",scope.maxQuestions);
 				scope.getQuestion();
 				scope.startTimer();
 			};
@@ -110,7 +119,14 @@ app.directive('quiz', function(quizFactory) {
 		            if (j==pos) {
 		            	names.push(listTweet[i].name);
 		            } else {
-		            	names.push(listTweet[Math.floor(Math.random() * length)].name);
+		            	var next = false;
+		            	while (!next) {
+		            		var name = listTweet[Math.floor(Math.random() * length)].name;
+		            		if(names.indexOf(name) == -1) {
+		            			names.push(name);
+		            			next = true;
+		            		}
+		            	}
 		            }
 		          }
 		          scope.question = {
@@ -125,7 +141,8 @@ app.directive('quiz', function(quizFactory) {
  
 			scope.getQuestion = function() { 
 				console.log("get question");
-				var q = quizFactory.getQuestion(scope.questions);
+				var id = Math.floor(Math.random() * scope.questions.length);
+				var q = quizFactory.getQuestion(scope.questions, id);
 				if(q) {
 				  if (q.category == scope.topic) {
 					  scope.category = q.category;
@@ -134,6 +151,7 @@ app.directive('quiz', function(quizFactory) {
 					  scope.answer = q.answer;
 					  scope.answerMode = true;
 					  scope.cpt++;
+					  scope.questions.splice(id, 1);
 				  } else {
 					  console.log("The question don't apply to the topic choice (",scope.topic,")");
 					  scope.nextQuestion();
@@ -165,8 +183,7 @@ app.directive('quiz', function(quizFactory) {
  
 			scope.nextQuestion = function() {
 				console.log("next question");
-				// on limite le nombre de questions par quizz à 10
-				if (scope.cpt < 10) {
+				if (scope.cpt < scope.maxQuestions) {
 				  scope.getQuestion();
 				} else {
 				  scope.quizOver = true;
