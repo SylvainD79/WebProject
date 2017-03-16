@@ -75,7 +75,7 @@ public class TweetEntityEndpoint {
 	 * @return The entity with primary key id.
 	 */
 	@ApiMethod(name = "getTweetEntity")
-	public TweetEntity getTweetEntity(@Named("id") Long id) {
+	public TweetEntity getTweetEntity(@Named("id") String id) {
 		PersistenceManager mgr = getPersistenceManager();
 		TweetEntity tweetentity = null;
 		try {
@@ -137,7 +137,7 @@ public class TweetEntityEndpoint {
 	 * @param id the primary key of the entity to be deleted.
 	 */
 	@ApiMethod(name = "removeTweetEntity")
-	public void removeTweetEntity(@Named("id") Long id) {
+	public void removeTweetEntity(@Named("id") String id) {
 		PersistenceManager mgr = getPersistenceManager();
 		try {
 			TweetEntity tweetentity = mgr.getObjectById(TweetEntity.class, id);
@@ -151,7 +151,7 @@ public class TweetEntityEndpoint {
 		PersistenceManager mgr = getPersistenceManager();
 		boolean contains = true;
 		try {
-			mgr.getObjectById(TweetEntity.class, tweetentity.getId());
+			mgr.getObjectById(TweetEntity.class, tweetentity.getTweet());
 		} catch (javax.jdo.JDOObjectNotFoundException ex) {
 			contains = false;
 		} finally {

@@ -10,13 +10,10 @@ import javax.jdo.annotations.PrimaryKey;
 
 @PersistenceCapable(identityType=IdentityType.APPLICATION)
 public class TweetEntity {
-	@PrimaryKey
-	@Persistent(valueStrategy=IdGeneratorStrategy.SEQUENCE)
-	Long id;
-
 	@Persistent
 	String name;
 	
+	@PrimaryKey
 	@Persistent
 	String Tweet;
 	
@@ -35,22 +32,19 @@ public class TweetEntity {
 		this.name = n;
 		this.Tweet = t;
 	}
-	
-	public Long getId() {
-		return id;
-	}
-	public void setId(Long id) {
-		this.id = id;
-	}
+
 	public String getName() {
 		return name;
 	}
+	
 	public void setName(String name) {
 		this.name = name;
 	}
+	
 	public String getTweet() {
 		return Tweet;
 	}
+	
 	public void setTweet(String tweet) {
 		Tweet = tweet;
 	}

@@ -52,18 +52,20 @@ public class QuizServlet extends HttpServlet {
 	        
 	        //Put the tweet resulting from the query into the datastore
 	        for (Status status : tweets ) {
-	        	Entity e = new Entity("TweetEntity");
+	        	Matcher matcher = urlPattern.matcher(status.getText());
+	        	
+	        	if(matcher.find()) {
+	        	    tweetWithoutHashtagAndUrl = matcher.replaceAll("");   
+	        	} else {
+	        	    tweetWithoutHashtagAndUrl = status.getText();
+	        	}
+	        	
+	        	
+	        	Entity e = new Entity("TweetEntity", tweetWithoutHashtagAndUrl);
+	        	
 	        	if(status.getUser().getFollowersCount() > 5000) {
-		        	e.setProperty("name", status.getUser().getName());
-		        	
-		        	Matcher matcher = urlPattern.matcher(status.getText());
-		        	
-		        	if(matcher.find()) {
-		        	    tweetWithoutHashtagAndUrl = matcher.replaceAll("");   
-		        	} else {
-		        	    tweetWithoutHashtagAndUrl = status.getText();
-		        	}
-		        	
+	        		
+		        	e.setProperty("name", status.getUser().getName());   	
 		        	e.setProperty("Tweet", tweetWithoutHashtagAndUrl);
 		        	e.setProperty("category", hashtag);
 		        	
