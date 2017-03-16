@@ -1,13 +1,13 @@
 {
   "files": [
     {
-      "downloadUrl": "/downloads/tweetentityendpoint/v1/20170315202117/java/1.21.0/mycompany.com-tweetentityendpoint-v1-20170315202117-java-1.21.0-sources.jar", 
-      "path": "mycompany.com-tweetentityendpoint-v1-20170315202117-java-1.21.0-sources.jar", 
+      "downloadUrl": "/downloads/tweetentityendpoint/v1/20170316071015/java/1.21.0/mycompany.com-tweetentityendpoint-v1-20170316071015-java-1.21.0-sources.jar", 
+      "path": "mycompany.com-tweetentityendpoint-v1-20170316071015-java-1.21.0-sources.jar", 
       "type": "source", 
-      "timestamp": "2017-03-15 20:21"
+      "timestamp": "2017-03-16 07:10"
     }, 
     {
-      "path": "mycompany.com-tweetentityendpoint-v1-20170315202117-java-1.21.0.jar.properties", 
+      "path": "mycompany.com-tweetentityendpoint-v1-20170316071015-java-1.21.0.jar.properties", 
       "type": "android.properties"
     }
   ], 
@@ -675,5 +675,5 @@
   "packagePath": "services", 
   "language_version": "1.21.0", 
   "id": "tweetentityendpoint:v1", 
-  "revision": 20170315202117
+  "revision": 20170316071015
 }

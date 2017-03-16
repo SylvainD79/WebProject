@@ -28,17 +28,22 @@
   "ownerName" : "mycompany.com",
   "packagePath" : "services",
   "methods" : {
-    "tweetentityendpoint.insertTweetEntity" : {
-      "path" : "tweetentity",
-      "httpMethod" : "POST",
+    "tweetentityendpoint.getTweetEntity" : {
+      "path" : "tweetentity/{id}",
+      "httpMethod" : "GET",
       "authLevel" : "NONE",
       "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
       "audiences" : [ ],
       "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "webProject.TweetEntityEndpoint.insertTweetEntity",
+      "rosyMethod" : "webProject.TweetEntityEndpoint.getTweetEntity",
       "request" : {
-        "body" : "autoTemplate(backendRequest)",
-        "bodyName" : "resource"
+        "parameters" : {
+          "id" : {
+            "type" : "int64",
+            "required" : true
+          }
+        },
+        "body" : "empty"
       },
       "response" : {
         "body" : "autoTemplate(backendResponse)"
@@ -52,6 +57,22 @@
       "audiences" : [ ],
       "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
       "rosyMethod" : "webProject.TweetEntityEndpoint.updateTweetEntity",
+      "request" : {
+        "body" : "autoTemplate(backendRequest)",
+        "bodyName" : "resource"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
+    "tweetentityendpoint.insertTweetEntity" : {
+      "path" : "tweetentity",
+      "httpMethod" : "POST",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "webProject.TweetEntityEndpoint.insertTweetEntity",
       "request" : {
         "body" : "autoTemplate(backendRequest)",
         "bodyName" : "resource"
@@ -79,27 +100,6 @@
       },
       "response" : {
         "body" : "empty"
-      }
-    },
-    "tweetentityendpoint.getTweetEntity" : {
-      "path" : "tweetentity/{id}",
-      "httpMethod" : "GET",
-      "authLevel" : "NONE",
-      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
-      "audiences" : [ ],
-      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "webProject.TweetEntityEndpoint.getTweetEntity",
-      "request" : {
-        "parameters" : {
-          "id" : {
-            "type" : "int64",
-            "required" : true
-          }
-        },
-        "body" : "empty"
-      },
-      "response" : {
-        "body" : "autoTemplate(backendResponse)"
       }
     },
     "tweetentityendpoint.listTweetEntity" : {
@@ -166,10 +166,7 @@
       }
     },
     "methods" : {
-      "webProject.TweetEntityEndpoint.insertTweetEntity" : {
-        "request" : {
-          "$ref" : "TweetEntity"
-        },
+      "webProject.TweetEntityEndpoint.getTweetEntity" : {
         "response" : {
           "$ref" : "TweetEntity"
         }
@@ -182,12 +179,15 @@
           "$ref" : "TweetEntity"
         }
       },
-      "webProject.TweetEntityEndpoint.removeTweetEntity" : {
-      },
-      "webProject.TweetEntityEndpoint.getTweetEntity" : {
+      "webProject.TweetEntityEndpoint.insertTweetEntity" : {
+        "request" : {
+          "$ref" : "TweetEntity"
+        },
         "response" : {
           "$ref" : "TweetEntity"
         }
+      },
+      "webProject.TweetEntityEndpoint.removeTweetEntity" : {
       },
       "webProject.TweetEntityEndpoint.listTweetEntity" : {
         "response" : {

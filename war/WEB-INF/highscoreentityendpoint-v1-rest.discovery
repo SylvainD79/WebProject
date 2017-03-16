@@ -1,6 +1,6 @@
 {
  "kind": "discovery#restDescription",
- "etag": "\"ODRTh3xaRR64wpeXJSlF33HMN-0/oxxfPoILKG06kKZYoKK_BlVQtUE\"",
+ "etag": "\"ODRTh3xaRR64wpeXJSlF33HMN-0/50ar28PT5MSo-6hrMltltJBdmkk\"",
  "discoveryVersion": "v1",
  "id": "highscoreentityendpoint:v1",
  "name": "highscoreentityendpoint",
@@ -154,18 +154,6 @@
     "https://www.googleapis.com/auth/userinfo.email"
    ]
   },
-  "insertOrUpdateHighScoreEntity": {
-   "id": "highscoreentityendpoint.insertOrUpdateHighScoreEntity",
-   "path": "void",
-   "httpMethod": "POST",
-   "request": {
-    "$ref": "HighScoreEntity",
-    "parameterName": "resource"
-   },
-   "scopes": [
-    "https://www.googleapis.com/auth/userinfo.email"
-   ]
-  },
   "listHighScoreEntity": {
    "id": "highscoreentityendpoint.listHighScoreEntity",
    "path": "highscoreentity",
@@ -183,6 +171,18 @@
    },
    "response": {
     "$ref": "CollectionResponse_HighScoreEntity"
+   },
+   "scopes": [
+    "https://www.googleapis.com/auth/userinfo.email"
+   ]
+  },
+  "manageHighScoreEntity": {
+   "id": "highscoreentityendpoint.manageHighScoreEntity",
+   "path": "manageHighScoreEntity",
+   "httpMethod": "POST",
+   "request": {
+    "$ref": "HighScoreEntity",
+    "parameterName": "resource"
    },
    "scopes": [
     "https://www.googleapis.com/auth/userinfo.email"

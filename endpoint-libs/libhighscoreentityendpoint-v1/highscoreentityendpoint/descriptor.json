@@ -1,13 +1,13 @@
 {
   "files": [
     {
-      "downloadUrl": "/downloads/highscoreentityendpoint/v1/20170315202056/java/1.21.0/mycompany.com-highscoreentityendpoint-v1-20170315202056-java-1.21.0-sources.jar", 
-      "path": "mycompany.com-highscoreentityendpoint-v1-20170315202056-java-1.21.0-sources.jar", 
+      "downloadUrl": "/downloads/highscoreentityendpoint/v1/20170316071003/java/1.21.0/mycompany.com-highscoreentityendpoint-v1-20170316071003-java-1.21.0-sources.jar", 
+      "path": "mycompany.com-highscoreentityendpoint-v1-20170316071003-java-1.21.0-sources.jar", 
       "type": "source", 
-      "timestamp": "2017-03-15 20:20"
+      "timestamp": "2017-03-16 07:10"
     }, 
     {
-      "path": "mycompany.com-highscoreentityendpoint-v1-20170315202056-java-1.21.0.jar.properties", 
+      "path": "mycompany.com-highscoreentityendpoint-v1-20170316071003-java-1.21.0.jar.properties", 
       "type": "android.properties"
     }
   ], 
@@ -675,5 +675,5 @@
   "packagePath": "services", 
   "language_version": "1.21.0", 
   "id": "highscoreentityendpoint:v1", 
-  "revision": 20170315202056
+  "revision": 20170316071003
 }

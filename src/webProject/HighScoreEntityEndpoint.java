@@ -147,8 +147,8 @@ public class HighScoreEntityEndpoint {
 		}
 	}
 	
-	@ApiMethod(name = "insertOrUpdateHighScoreEntity")
-	public void insertOrUpdateHighScoreEntity(HighScoreEntity highscoreentity) {
+	@ApiMethod(name = "manageHighScoreEntity")
+	public void manageHighScoreEntity(HighScoreEntity highscoreentity) {
 		PersistenceManager mgr = getPersistenceManager();
 		try {
 			if (!containsHighScoreEntity(highscoreentity)) {

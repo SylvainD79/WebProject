@@ -44,14 +44,60 @@
         "body" : "autoTemplate(backendResponse)"
       }
     },
-    "highscoreentityendpoint.insertOrUpdateHighScoreEntity" : {
-      "path" : "void",
+    "highscoreentityendpoint.listHighScoreEntity" : {
+      "path" : "highscoreentity",
+      "httpMethod" : "GET",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "webProject.HighScoreEntityEndpoint.listHighScoreEntity",
+      "request" : {
+        "parameters" : {
+          "cursor" : {
+            "type" : "string",
+            "required" : false
+          },
+          "limit" : {
+            "type" : "int32",
+            "required" : false
+          }
+        },
+        "body" : "empty"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
+    "highscoreentityendpoint.removeHighScoreEntity" : {
+      "path" : "highscoreentity/{id}",
+      "httpMethod" : "DELETE",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "webProject.HighScoreEntityEndpoint.removeHighScoreEntity",
+      "request" : {
+        "parameters" : {
+          "id" : {
+            "type" : "int64",
+            "required" : true
+          }
+        },
+        "body" : "empty"
+      },
+      "response" : {
+        "body" : "empty"
+      }
+    },
+    "highscoreentityendpoint.manageHighScoreEntity" : {
+      "path" : "manageHighScoreEntity",
       "httpMethod" : "POST",
       "authLevel" : "NONE",
       "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
       "audiences" : [ ],
       "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "webProject.HighScoreEntityEndpoint.insertOrUpdateHighScoreEntity",
+      "rosyMethod" : "webProject.HighScoreEntityEndpoint.manageHighScoreEntity",
       "request" : {
         "body" : "autoTemplate(backendRequest)",
         "bodyName" : "resource"
@@ -92,52 +138,6 @@
       "request" : {
         "body" : "autoTemplate(backendRequest)",
         "bodyName" : "resource"
-      },
-      "response" : {
-        "body" : "autoTemplate(backendResponse)"
-      }
-    },
-    "highscoreentityendpoint.removeHighScoreEntity" : {
-      "path" : "highscoreentity/{id}",
-      "httpMethod" : "DELETE",
-      "authLevel" : "NONE",
-      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
-      "audiences" : [ ],
-      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "webProject.HighScoreEntityEndpoint.removeHighScoreEntity",
-      "request" : {
-        "parameters" : {
-          "id" : {
-            "type" : "int64",
-            "required" : true
-          }
-        },
-        "body" : "empty"
-      },
-      "response" : {
-        "body" : "empty"
-      }
-    },
-    "highscoreentityendpoint.listHighScoreEntity" : {
-      "path" : "highscoreentity",
-      "httpMethod" : "GET",
-      "authLevel" : "NONE",
-      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
-      "audiences" : [ ],
-      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "webProject.HighScoreEntityEndpoint.listHighScoreEntity",
-      "request" : {
-        "parameters" : {
-          "cursor" : {
-            "type" : "string",
-            "required" : false
-          },
-          "limit" : {
-            "type" : "int32",
-            "required" : false
-          }
-        },
-        "body" : "empty"
       },
       "response" : {
         "body" : "autoTemplate(backendResponse)"
@@ -195,7 +195,14 @@
           "$ref" : "HighScoreEntity"
         }
       },
-      "webProject.HighScoreEntityEndpoint.insertOrUpdateHighScoreEntity" : {
+      "webProject.HighScoreEntityEndpoint.listHighScoreEntity" : {
+        "response" : {
+          "$ref" : "CollectionResponse_HighScoreEntity"
+        }
+      },
+      "webProject.HighScoreEntityEndpoint.removeHighScoreEntity" : {
+      },
+      "webProject.HighScoreEntityEndpoint.manageHighScoreEntity" : {
         "request" : {
           "$ref" : "HighScoreEntity"
         }
@@ -211,13 +218,6 @@
         },
         "response" : {
           "$ref" : "HighScoreEntity"
-        }
-      },
-      "webProject.HighScoreEntityEndpoint.removeHighScoreEntity" : {
-      },
-      "webProject.HighScoreEntityEndpoint.listHighScoreEntity" : {
-        "response" : {
-          "$ref" : "CollectionResponse_HighScoreEntity"
         }
       }
     }
