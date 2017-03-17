@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cronentries>
+  <cron>
+    <url>/cron/datastore</url>
+    <description>daily update datastore</description>
+    <schedule>every day 09:25</schedule>
+  </cron>
+</cronentries>
