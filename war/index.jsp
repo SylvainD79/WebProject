@@ -332,38 +332,30 @@
 	            <div class="row">
 	                <div class="col-lg-3 col-md-6 text-center">
 	                    <div class="service-box">
-	                        <tag:loggedin>
-		                        <a href="/quiz/sport" class="btn btn-primary btn-xl page-scroll">
-				                	<i class="fa fa-futbol-o"></i>&nbsp;Sport
-								</a>
-							</tag:loggedin>
+	                        <a href="/quiz/sport" class="btn btn-primary btn-xl page-scroll">
+			                	<i class="fa fa-futbol-o"></i>&nbsp;Sport
+							</a>
 	                    </div>
 	                </div>
 	                <div class="col-lg-3 col-md-6 text-center">
 	                    <div class="service-box">
-	                        <tag:loggedin>
-	                        	<a href="/quiz/television" class="btn btn-primary btn-xl page-scroll">
-			                		<i class="fa fa-tv"></i>&nbsp;Television
-								</a>
-							</tag:loggedin>
+                        	<a href="/quiz/television" class="btn btn-primary btn-xl page-scroll">
+		                		<i class="fa fa-tv"></i>&nbsp;Television
+							</a>
 	                    </div>
 	                </div>
 	                <div class="col-lg-3 col-md-6 text-center">
 	                    <div class="service-box">
-	                        <tag:loggedin>
-	                        	<a href="/quiz/policy" class="btn btn-primary btn-xl page-scroll">
-			                		<i class="fa fa-balance-scale"></i>&nbsp;Policy
-								</a>
-							</tag:loggedin>
+                        	<a href="/quiz/policy" class="btn btn-primary btn-xl page-scroll">
+		                		<i class="fa fa-balance-scale"></i>&nbsp;Policy
+							</a>
 	                    </div>
 	                </div>
 	                <div class="col-lg-3 col-md-6 text-center">
 	                    <div class="service-box">
-	                        <tag:loggedin>
-	                        	<a href="/quiz/gaming" class="btn btn-primary btn-xl page-scroll">
-			                		<i class="fa fa-gamepad"></i>&nbsp;Game
-								</a>
-							</tag:loggedin>
+                        	<a href="/quiz/gaming" class="btn btn-primary btn-xl page-scroll">
+		                		<i class="fa fa-gamepad"></i>&nbsp;Game
+							</a>
 	                    </div>
 	                </div> 
 	            </div>
