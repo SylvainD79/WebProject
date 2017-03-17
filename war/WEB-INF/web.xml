@@ -70,9 +70,4 @@
 	  	<servlet-name>SystemServiceServlet</servlet-name>
 	  	<url-pattern>/_ah/spi/*</url-pattern>
 	</servlet-mapping>
-	<servlet-name>QuizServlet</servlet-name>
-	<url-pattern>/cron/datastore</url-pattern>
-	<servlet-mapping>
-	    
-	</servlet-mapping>
 </web-app>

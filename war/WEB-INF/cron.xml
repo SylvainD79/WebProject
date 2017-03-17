@@ -1,8 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <cronentries>
   <cron>
-    <url>/cron/datastore</url>
+    <url>/quiz/sport</url>
     <description>daily update datastore</description>
-    <schedule>every day 09:25</schedule>
+    <schedule>every day 9:23</schedule>
+  </cron>
+  <cron>
+    <url>/quiz/television</url>
+    <description>daily update datastore</description>
+    <schedule>every day 9:23</schedule>
+  </cron>
+  <cron>
+    <url>/quiz/policy</url>
+    <description>daily update datastore</description>
+    <schedule>every day 9:23</schedule>
+  </cron>
+  <cron>
+    <url>/quiz/gaming</url>
+    <description>daily update datastore</description>
+    <schedule>every day 9:23</schedule>
   </cron>
 </cronentries>
