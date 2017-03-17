@@ -14,7 +14,9 @@ import javax.servlet.http.HttpServletResponse;
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
+import com.google.appengine.api.datastore.EntityNotFoundException;
 import com.google.appengine.api.datastore.FetchOptions;
+import com.google.appengine.api.datastore.KeyFactory;
 import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query.Filter;
 import com.google.appengine.api.datastore.Query.FilterOperator;
@@ -40,18 +42,21 @@ public class QuizServlet extends HttpServlet {
     	DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     	
         //Twitter twitter = (Twitter)request.getSession().getAttribute("twitter");
-
-    	ConfigurationBuilder cb = new ConfigurationBuilder();
-        cb.setDebugEnabled(true)
-                .setOAuthConsumerKey("5GQmAaYdWsceYdnqtYW4pq8hA")
-                .setOAuthConsumerSecret("aZR6jT0hkUnhhwqfYZ8gFzYXaIPInfi2CpQv1WCEerYW8QPJ9V")
-                .setOAuthAccessToken("408804390-MQ1KIJHVOP5K5XmfnPGgj67czetRdt4dZlskpgxw")
-                .setOAuthAccessTokenSecret("GpsP7TGawn5FYSha6HVTw6m6Hqahn9mE7SO6NHNTcNwOT");
-
-        TwitterFactory tf = new TwitterFactory(cb.build());
-        Twitter twitter = tf.getInstance();
+    	
+    	com.google.appengine.api.datastore.Key key = KeyFactory.createKey("AccountTwitterEntity", "admin");
+    	try {
+			Entity account = datastore.get(key);
+		
+	    	ConfigurationBuilder cb = new ConfigurationBuilder();
+	        cb.setDebugEnabled(true)
+	                .setOAuthConsumerKey((String) account.getProperty("ConsumerKey"))
+	                .setOAuthConsumerSecret((String) account.getProperty("ConsumerSecret"))
+	                .setOAuthAccessToken((String) account.getProperty("AccessToken"))
+	                .setOAuthAccessTokenSecret((String) account.getProperty("AccessTokenSecret"));
+	
+	        TwitterFactory tf = new TwitterFactory(cb.build());
+	        Twitter twitter = tf.getInstance();
  
-		try {
 	        Query query = new Query(hashtag + "+exclude:retweets");
 	        query.setResultType(ResultType.popular);
 	        query.setLang("en");
@@ -72,7 +77,6 @@ public class QuizServlet extends HttpServlet {
 	        	} else {
 	        	    tweetWithoutHashtagAndUrl = status.getText();
 	        	}
-	        	
 	        	
 	        	Entity e = new Entity("TweetEntity", tweetWithoutHashtagAndUrl);
 	        	
@@ -103,8 +107,10 @@ public class QuizServlet extends HttpServlet {
 	        response.setContentType("text/plain");
 	        response.getWriter().println(query.toString());
 			response.getWriter().println("Tweet : #" + hashtag + "\n\n" + allTweets);
-	        
-	    } catch (TwitterException e) {
+			
+    	} catch (EntityNotFoundException e) {
+			e.printStackTrace();
+		}  catch (TwitterException e) {
 	    	throw new ServletException(e);
 	    }
     }
