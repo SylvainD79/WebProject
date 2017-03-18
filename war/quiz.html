@@ -51,12 +51,13 @@
 <div ng-show="topicChoice">              
 	<div ng-show="inProgress">
 		<div ng-show="!quizOver">
-			<div class="container text-center text-faded">
+			<div class="container text-center text-primary">
 		  		<h3>Quiz {{category}} - Question {{cpt}} of {{maxQuestions}} - Score {{score}}</h3>
 		  	</div>
 		  	<br>
 		  	<div class="container text-center">
-				<p id="question" class="text-primary">Who said : "{{question}}" ?</p>
+				<p id="question" class="text-faded">Who said : "{{question}}" ?</p>
+				<br>
 				<div ng-repeat="option in options" style="display:inline-block;" ng-show="answerMode">
 					<a id="validate" class="page-scroll btn btn-default btn-xl sr-button" ng-click="checkAnswer(option)">
 						{{option}}
