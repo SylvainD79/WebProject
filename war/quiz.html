@@ -50,34 +50,37 @@
 	  
 <div ng-show="topicChoice">              
 	<div ng-show="inProgress">
-		<div class="text-faded" ng-show="!quizOver">
-			<div class="container text-center">
+		<div ng-show="!quizOver">
+			<div class="container text-center text-faded">
 		  		<h3>Quiz {{category}} - Question {{cpt}} of {{maxQuestions}} - Score {{score}}</h3>
 		  	</div>
 		  	<br>
-		  	<div class="container text-left">
-				<p id="question">Who said : "{{question}}" ?</p>
-				<div ng-repeat="option in options track by $index">
-					<label>
-						<input type="button" name="answer" value="{{option}}">
-						&nbsp;{{option}}
-					</label>
+		  	<div class="container text-center">
+				<p id="question" class="text-primary">Who said : "{{question}}" ?</p>
+				<div ng-repeat="option in options" style="display:inline-block;" ng-show="answerMode">
+					<a id="validate" class="page-scroll btn btn-default btn-xl sr-button" ng-click="checkAnswer(option)">
+						{{option}}
+					</a>
+					&nbsp;
 				</div>
-			</div>
-			<div class="container text-center" ng-show="answerMode">
-				<a id="validate" class="btn btn-primary btn-xl page-scroll" ng-click="checkAnswer()">
-					<i class="fa fa-check"></i>&nbsp;Submit
-				</a>
 			</div>
 		
 		   	<div class="container text-center" ng-show="!answerMode">
-		   		<a id="next" class="btn btn-primary btn-xl page-scroll" ng-click="nextQuestion()">
-					Next&nbsp;<i class="fa fa-chevron-right"></i>
-				</a>
-				<br><br>
-				<p class="text-success" ng-show="correctAns">That is correct!</p>
-				<div id="incorrectAns">
-					<p class="text-danger" ng-show="!correctAns">Sorry, that is an incorrect answer.</p>
+		   		<div ng-show="correctAns">
+					<p class="text-success">
+					<i class="fa fa-smile-o"></i> 
+					{{ans}} is correct!</p>
+					<a id="next" class="btn btn-primary btn-xl page-scroll" ng-click="nextQuestion()">
+						Next&nbsp;<i class="fa fa-chevron-right"></i>
+					</a>
+				</div>
+				<div id="incorrectAns" ng-show="!correctAns">
+					<p class="text-danger">
+					<i class="fa fa-frown-o"></i> 
+					Sorry, {{ans}} is an incorrect answer.</p>
+					<a id="next" class="btn btn-primary btn-xl page-scroll" ng-click="nextQuestion()">
+						Next&nbsp;<i class="fa fa-chevron-right"></i>
+					</a>
 				</div>
 			</div> 
 		</div>

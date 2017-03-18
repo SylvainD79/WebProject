@@ -162,14 +162,12 @@ app.directive('quiz', function(quizFactory) {
 				}
 			};
  
-			scope.checkAnswer = function() {
+			scope.checkAnswer = function(ans) {
 				console.log("check answer");
-				if(!$('input[name=answer]:checked').length) return;
- 
-				var ans = $('input[name=answer]:checked').val();
 				console.log("answer choice : ",ans);
 				console.log("answer true : ",scope.options[scope.answer]);
  
+				scope.ans = ans;
 				if(ans == scope.options[scope.answer]) {
 					scope.score++;
 					scope.correctAns = true;

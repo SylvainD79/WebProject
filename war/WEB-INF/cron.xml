@@ -3,21 +3,21 @@
   <cron>
     <url>/quiz/sport</url>
     <description>daily update datastore</description>
-    <schedule>every day 00:00</schedule>
+    <schedule>every day 0:00</schedule>
   </cron>
   <cron>
     <url>/quiz/television</url>
     <description>daily update datastore</description>
-    <schedule>every day 00:00</schedule>
+    <schedule>every day 0:00</schedule>
   </cron>
   <cron>
     <url>/quiz/policy</url>
     <description>daily update datastore</description>
-    <schedule>every day 00:00</schedule>
+    <schedule>every day 0:00</schedule>
   </cron>
   <cron>
     <url>/quiz/gaming</url>
     <description>daily update datastore</description>
-    <schedule>every day 00:00</schedule>
+    <schedule>every day 0:00</schedule>
   </cron>
 </cronentries>
