@@ -5,7 +5,6 @@ var listTweet;
 var listHighScore;
 
 
-
 app.run(['GAuth', 'GApi', 'GData', '$rootScope',
 	function(GAuth, GApi, GData, $rootScope) 
 	{
