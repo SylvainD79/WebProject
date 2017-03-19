@@ -28,47 +28,6 @@
   "ownerName" : "mycompany.com",
   "packagePath" : "services",
   "methods" : {
-    "tweetentityendpoint.insertTweetEntity" : {
-      "path" : "tweetentity",
-      "httpMethod" : "POST",
-      "authLevel" : "NONE",
-      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
-      "audiences" : [ ],
-      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "webProject.TweetEntityEndpoint.insertTweetEntity",
-      "request" : {
-        "body" : "autoTemplate(backendRequest)",
-        "bodyName" : "resource"
-      },
-      "response" : {
-        "body" : "autoTemplate(backendResponse)"
-      }
-    },
-    "tweetentityendpoint.listTweetEntity" : {
-      "path" : "tweetentity",
-      "httpMethod" : "GET",
-      "authLevel" : "NONE",
-      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
-      "audiences" : [ ],
-      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "webProject.TweetEntityEndpoint.listTweetEntity",
-      "request" : {
-        "parameters" : {
-          "cursor" : {
-            "type" : "string",
-            "required" : false
-          },
-          "limit" : {
-            "type" : "int32",
-            "required" : false
-          }
-        },
-        "body" : "empty"
-      },
-      "response" : {
-        "body" : "autoTemplate(backendResponse)"
-      }
-    },
     "tweetentityendpoint.getTweetEntity" : {
       "path" : "tweetentity/{id}",
       "httpMethod" : "GET",
@@ -85,6 +44,22 @@
           }
         },
         "body" : "empty"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
+    "tweetentityendpoint.insertTweetEntity" : {
+      "path" : "tweetentity",
+      "httpMethod" : "POST",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "webProject.TweetEntityEndpoint.insertTweetEntity",
+      "request" : {
+        "body" : "autoTemplate(backendRequest)",
+        "bodyName" : "resource"
       },
       "response" : {
         "body" : "autoTemplate(backendResponse)"
@@ -126,6 +101,31 @@
       "response" : {
         "body" : "empty"
       }
+    },
+    "tweetentityendpoint.listTweetEntity" : {
+      "path" : "tweetentity",
+      "httpMethod" : "GET",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "webProject.TweetEntityEndpoint.listTweetEntity",
+      "request" : {
+        "parameters" : {
+          "cursor" : {
+            "type" : "string",
+            "required" : false
+          },
+          "limit" : {
+            "type" : "int32",
+            "required" : false
+          }
+        },
+        "body" : "empty"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
     }
   },
   "descriptor" : {
@@ -162,20 +162,15 @@
       }
     },
     "methods" : {
+      "webProject.TweetEntityEndpoint.getTweetEntity" : {
+        "response" : {
+          "$ref" : "TweetEntity"
+        }
+      },
       "webProject.TweetEntityEndpoint.insertTweetEntity" : {
         "request" : {
           "$ref" : "TweetEntity"
         },
-        "response" : {
-          "$ref" : "TweetEntity"
-        }
-      },
-      "webProject.TweetEntityEndpoint.listTweetEntity" : {
-        "response" : {
-          "$ref" : "CollectionResponse_TweetEntity"
-        }
-      },
-      "webProject.TweetEntityEndpoint.getTweetEntity" : {
         "response" : {
           "$ref" : "TweetEntity"
         }
@@ -189,6 +184,11 @@
         }
       },
       "webProject.TweetEntityEndpoint.removeTweetEntity" : {
+      },
+      "webProject.TweetEntityEndpoint.listTweetEntity" : {
+        "response" : {
+          "$ref" : "CollectionResponse_TweetEntity"
+        }
       }
     }
   }

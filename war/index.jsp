@@ -45,17 +45,17 @@
 	    <link href="css/social-buttons.css" rel="stylesheet"/>
 	    
 	    <!-- JavaScript -->
-        <script src="https://code.jquery.com/jquery-2.0.3.min.js"></script>
-        <script data-require="angular.js@1.3.x" src="https://code.angularjs.org/1.3.14/angular.js" data-semver="1.3.14"></script>
-        <script src="app.js"></script>
-        <script data-require="angular.js@1.2.0-rc2" data-semver="1.2.0-rc2" src="https://code.angularjs.org/1.2.0-rc.2/angular.js"></script>
-        <script src="timer.js"></script>
+        <script data-require="angular.js@1.5.x" src="https://code.angularjs.org/1.5.8/angular.min.js" data-semver="1.5.8"></script>
+        <script src="js/angular-google-gapi-1.0.1/dist/angular-google-gapi.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+        <script src="js/timer.js"></script>
+        <script src="js/app.js"></script>
+        
        
 
 	</head>
 
 	<body id="page-top" ng-controller="tweetController">
-	<script>userName = '${twitter.screenName}'</script>
 
 		<nav id="mainNav" class="navbar navbar-default navbar-fixed-top">
 	        <div class="container-fluid">
@@ -73,7 +73,7 @@
 	                    <li>
 	                        <a class="page-scroll" href="#topic"><i class="fa fa-2x fa-th-large"></i>&nbsp;All Quiz Topic</a>
 	                    </li>
-	                    <tag:loggedin>
+	                    <div ng-show="currentUser">
 	                    	<li>
 		                        <a id="allquiz1" class="page-scroll" href="#quiz"><i class="fa fa-2x fa-list"></i>&nbsp;Quiz</a>
 		                    </li>
@@ -83,26 +83,23 @@
 		                    <li>
 	                       		<a class="page-scroll" href="#tweet"><i class="fa fa-2x fa-twitter"></i>&nbsp;What's Happening ?</a>
 	                    	</li> 
-	                    </tag:loggedin>
+	                    </div>
 	                    <li>
 	                        <a class="page-scroll" href="#github"><i class="fa fa-2x fa-download"></i>&nbsp;Download</a>
 	                    </li> 
 	                    <li>
 	                        <a class="page-scroll" href="#contact"><i class="fa fa-2x fa-group"></i>&nbsp;Contact</a>
 	                    </li> 
-	                    <tag:notloggedin>
+	                    <div ng-show="!currentUser">
 	                    	<li>
-	                    		<a href="signin"><i class="fa fa-2x fa-sign-in"></i>&nbsp;Sign In</a>
+	                    		<div class="g-signin2" ng-click="signIn()">Sign in</div>
 	                    	</li>
-                    	</tag:notloggedin> 
-	                    <tag:loggedin>
+                    	</div> 
+	                    <div ng-show="currentUser">
 	                    	<li>
-	                    		<a href="https://twitter.com/" target="_blank"><i class="fa fa-2x fa-twitter"></i>&nbsp;${twitter.screenName}</a>
+	                    		<a href="#" ng-click="logout()"><i></i>&nbsp;Logout</a>
 	                    	</li>
-	                    	<li>
-	                    		<a href="./logout"><i class="fa fa-2x fa-power-off"></i>&nbsp;Logout</a>
-	                    	</li>
-                    	</tag:loggedin> 
+                    	</div> 
 	                </ul>
 	            </div>
 	            <!-- /.navbar-collapse -->
@@ -121,30 +118,28 @@
 	                This application is made for you ! 
 	                Test your knowledge level on the current events of the whole world. 
 	                This test proceeds by quiz with different topic.</p>
-	                <tag:notloggedin>
+	                <div ng-show="!currentUser">
 	                	<div class="shake-slow shake-constant shake-constant--hover">
-			                <a href="signin" class="btn btn-primary btn-xl page-scroll">
-			                	<i class="fa fa-twitter"></i>&nbsp;Sign in with Twitter
-							</a>
+			                <div class="g-signin2" ng-click="signIn()">Sign in</div>
 						</div>
-					</tag:notloggedin>
-					<tag:loggedin>
+					</div>
+					<div ng-show="currentUser">
 						<div class="shake-slow shake-constant shake-constant--hover">
 							<a href="#start" class="btn btn-primary btn-xl page-scroll">
 			                	<i class="fa fa-chevron-down"></i>&nbsp;Get Started
 							</a>
 						</div>
-					</tag:loggedin>
+					</div>
 	            </div>
 	        </div>
 	    </header>
 	    
-	    <tag:loggedin>
+	    <div ng-show="currentUser">
 		    <section class="bg-primary" id="start">
 		        <div class="container">
 		            <div class="row">
 		                <div class="col-lg-8 col-lg-offset-2 text-center">
-		               		<h2>Welcome ${twitter.screenName}</h2>
+		               		<h2>Welcome</h2>
 		               		<hr class="light">
 		               		<p class="text-faded">
 		               		In order to be able to evaluate your level of knowledge you must choose a quiz in the topics proposed. 
@@ -160,7 +155,7 @@
 		            </div>
 		        </div>
 		    </section>
-	    </tag:loggedin>
+	    </div>
 	
 	    <section id="topic">
 	        <div class="container">
@@ -214,12 +209,12 @@
 	        <div class="container">
 	            <div class="row">
 	                <div class="col-lg-8 col-lg-offset-2 text-center">
-	                	<tag:loggedin>
+	                	<div ng-show="currentUser">
 		                	<br>
 							<a id="allquiz2" href="#quiz" class="btn btn-primary btn-xl page-scroll">
 			                	<i class="fa fa-chevron-down"></i>&nbsp;Choose Quiz
 							</a>
-						</tag:loggedin>
+						</div>
 			    	</div>
 	            </div>
 	        </div>
@@ -249,7 +244,7 @@
 	        });
       	</script>
 	    
-	    <tag:loggedin>
+	    <div ng-show="currentUser">
 		    <section id="tweet" class="bg-primary">
 		        <div class="container text-center">
 		            <div class="call-to-action">
@@ -270,7 +265,7 @@
 		            </div>
 		        </div>
 		    </section>
-	    </tag:loggedin>
+	    </div>
 	    
 		<section id="github" class="bg-dark">
 	        <div class="container text-center">
@@ -379,12 +374,3 @@
 	</body>
 
 </html>
-
-<script>
-	var init = function() {
-    	console.log("init called");
-    	window.getListTweet();
-    	window.getListHighScore();
-  	};
-</script>
-<script src="https://apis.google.com/js/client.js?onload=init"></script>

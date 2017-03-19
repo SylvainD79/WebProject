@@ -1,38 +1,95 @@
-var app = angular.module('quizApp', ['timer']);
+var app = angular.module('quizApp', ['timer', 'angular-google-gapi']);
 
 var userName;
 var listTweet;
 var listHighScore;
-  
-app.controller('tweetController', ['$window','$scope',function($window,$scope) {
-  
-  userName = $window.userName;
-  console.log("welcome ", userName);
-  
-  $window.getListTweet = function() {
-	console.log("get list tweet");
-	var rootApi = 'https://1-dot-whosaidthatontwitter.appspot.com/_ah/api';
-	gapi.client.load('tweetentityendpoint', 'v1', function() {
-	  console.log("tweet api loaded");
-	  gapi.client.tweetentityendpoint.listTweetEntity().execute(function(resp) {
-	    listTweet = resp.items || [];
-	    console.log(resp);
-	  });
-	}, rootApi);
-  }
-  
-  $window.getListHighScore = function() {
-	  console.log("get list high score");
-	  var rootApi = 'https://1-dot-whosaidthatontwitter.appspot.com/_ah/api';
-      gapi.client.load('highscoreentityendpoint', 'v1', function() {
-      	console.log("high score api loaded");
-          gapi.client.highscoreentityendpoint.listHighScoreEntity().execute(function(resp) {
-            listHighScore = resp.items || [];
-            console.log(resp);
-          });
-      }, rootApi);
-  }
-  
+
+
+app.run(['GAuth', 'GApi', 'GData', '$rootScope',
+	function(GAuth, GApi, GData, $rootScope) 
+	{
+		
+		var CLIENT = '1015135576790-lhkk91hkepjpa0fp09lh4to4p24slnbo.apps.googleusercontent.com';
+		var BASE = 'https://1-dot-whosaidthatontwitter.appspot.com/_ah/api';
+		
+		GApi.load('tweetentityendpoint','v1',BASE).then(function(resp)
+			{
+				console.log('api: ' + resp.api + ', version: ' + resp.version + ' loaded');
+			}, 
+			function(resp)
+			{
+				console.log('an error occured during loading api: ' + resp.api + ', resp.version: ' + version);
+			});
+		
+		GApi.load('highscoreentityendpoint','v1',BASE).then(function(resp)
+				{
+					console.log('api: ' + resp.api + ', version: ' + resp.version + ' loaded');
+				}, 
+				function(resp)
+				{
+					console.log('an error occured during loading api: ' + resp.api + ', resp.version: ' + version);
+				});
+		
+		console.log("Client id " + CLIENT);
+		GAuth.setClient(CLIENT)
+		GAuth.setScope('https://www.googleapis.com/auth/userinfo.email');
+		GAuth.load();
+		
+		GAuth.checkAuth().then(
+			function (user)
+			{
+				$rootScope.currentUser = user;
+				console.log(user.name + ' is already logged in');
+			},
+			function() {
+				console.log('Erreur de connexion');
+			}
+		)
+
+		$rootScope.signIn = function()
+			{
+				GAuth.login().then(function(user) 
+					{
+						console.log(user.name + ' is logged in');
+						userName = user.name;
+						$rootScope.currentUser = user;					
+					}, 
+					function() 
+					{
+						console.log('Erreur de connexion');
+					});
+			};
+			
+		 $rootScope.logout = function() 
+			{
+				GAuth.logout();
+				console.log('Déconnexion');
+				$rootScope.currentUser = null;
+			};
+	}
+]);
+
+
+app.controller('tweetController', ['$scope', 'GApi' ,function tweetController($scope, GApi) {
+	  
+	  console.log("welcome ", userName);
+	    
+	  GApi.executeAuth('tweetentityendpoint', 'listTweetEntity').then(function(resp) {
+		  listTweet = resp.items || [];
+		  console.log(resp);
+      }, function() {
+          console.log('error :(');
+      });
+	  
+	  
+	  GApi.executeAuth('highscoreentityendpoint', 'listHighScoreEntity').then(function(resp) {
+		  listHighScore = resp.items || [];
+          console.log(resp);
+      }, function() {
+          console.log('error :( hs');
+      });
+	  
+	  
 }]);
 
 app.factory('quizFactory', function() {
@@ -187,25 +244,21 @@ app.directive('quiz', function(quizFactory) {
 				  scope.quizOver = true;
 				  scope.stopTimer();
 				  scope.id = userName + "-" + scope.topic;
-				  var rootApi = 'https://1-dot-whosaidthatontwitter.appspot.com/_ah/api';
-		          gapi.client.load('highscoreentityendpoint', 'v1', function() {
-		        	console.log("insert or update high score");
-				    gapi.client.highscoreentityendpoint.manageHighScoreEntity({id:scope.id, name:userName, score:scope.score, minutes:scope.time.minutes, seconds:scope.time.seconds, topic:scope.topic}).execute(function() {
-				      console.log("finish");
-				    });
-		          }, rootApi);
+		          GApi.executeAuth('highscoreentityendpoint', 'manageHighScoreEntity', {id:scope.id, name:userName, score:scope.score, minutes:scope.time.minutes, seconds:scope.time.seconds, topic:scope.topic}).then(function(resp) {
+		        	  console.log("finish");
+		          }, function() {
+		              console.log('error :( hs');
+		          });
 				}
 			}
 			
-			scope.quizIsFinish = function() {
-				var rootApi = 'https://1-dot-whosaidthatontwitter.appspot.com/_ah/api';
-		        gapi.client.load('highscoreentityendpoint', 'v1', function() {
-		        	console.log("get high score");
-		            gapi.client.highscoreentityendpoint.listHighScoreEntity().execute(function(resp) {
-		              listHighScore = resp.items || [];
-	                  console.log(resp);
-		            });
-		        }, rootApi);
+			scope.quizIsFinish = function() {        
+		        GApi.executeAuth('highscoreentityendpoint', 'listHighScoreEntity').then(function(resp) {
+		  		  listHighScore = resp.items || [];
+		  		  console.log(resp);
+		        }, function() {
+		        	console.log('error :( hs');
+		        });
 		        scope.reset();
 			}
  
@@ -267,3 +320,5 @@ app.directive('highscore', function() {
 		}
 	}
 });
+
+
