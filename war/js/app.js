@@ -1,131 +1,106 @@
-var app = angular.module('quizApp', ['timer', 'angular-google-gapi']);
+var app = angular.module('quizApp', ['angular-google-gapi']);
 
 var userName;
 var listTweet;
 var listHighScore;
 
+app.run(['GAuth', 'GApi', 'GData', '$rootScope', function(GAuth, GApi, GData, $rootScope) {
+		
+	var CLIENT = '1015135576790-lhkk91hkepjpa0fp09lh4to4p24slnbo.apps.googleusercontent.com';
+	var BASE = 'https://1-dot-whosaidthatontwitter.appspot.com/_ah/api';
+	var SCOPE = 'https://www.googleapis.com/auth/userinfo.email';
+		
+	GApi.load('tweetentityendpoint','v1',BASE).then(function(resp) {
+		console.log('api : ' + resp.api + ', version : ' + resp.version + ' loaded');
+	}, function(resp) {
+		console.log('an error occured during loading api : ' + resp.api + ', resp.version : ' + version);
+	});
+		
+	GApi.load('highscoreentityendpoint','v1',BASE).then(function(resp) {
+		console.log('api : ' + resp.api + ', version : ' + resp.version + ' loaded');
+	}, function(resp) { 
+		console.log('an error occured during loading api : ' + resp.api + ', resp.version : ' + version);
+	});
+		
+	GAuth.setClient(CLIENT)
+	GAuth.setScope(SCOPE);
+	GAuth.load();
+		
+	GAuth.checkAuth().then(function (user) {
+		$rootScope.currentUser = user;
+		console.log(user.name + ' is already logged in');
+		userName = user.name;
+	}, function() {
+		console.log('checkAuth() : Erreur de connexion !');
+	})
 
-app.run(['GAuth', 'GApi', 'GData', '$rootScope',
-	function(GAuth, GApi, GData, $rootScope) 
-	{
-		
-		var CLIENT = '1015135576790-lhkk91hkepjpa0fp09lh4to4p24slnbo.apps.googleusercontent.com';
-		var BASE = 'https://1-dot-whosaidthatontwitter.appspot.com/_ah/api';
-		
-		GApi.load('tweetentityendpoint','v1',BASE).then(function(resp)
-			{
-				console.log('api: ' + resp.api + ', version: ' + resp.version + ' loaded');
-			}, 
-			function(resp)
-			{
-				console.log('an error occured during loading api: ' + resp.api + ', resp.version: ' + version);
-			});
-		
-		GApi.load('highscoreentityendpoint','v1',BASE).then(function(resp)
-				{
-					console.log('api: ' + resp.api + ', version: ' + resp.version + ' loaded');
-				}, 
-				function(resp)
-				{
-					console.log('an error occured during loading api: ' + resp.api + ', resp.version: ' + version);
-				});
-		
-		console.log("Client id " + CLIENT);
-		GAuth.setClient(CLIENT)
-		GAuth.setScope('https://www.googleapis.com/auth/userinfo.email');
-		GAuth.load();
-		
-		GAuth.checkAuth().then(
-			function (user)
-			{
-				$rootScope.currentUser = user;
-				console.log(user.name + ' is already logged in');
-			},
-			function() {
-				console.log('Erreur de connexion');
-			}
-		)
-
-		$rootScope.signIn = function()
-			{
-				GAuth.login().then(function(user) 
-					{
-						console.log(user.name + ' is logged in');
-						userName = user.name;
-						$rootScope.currentUser = user;					
-					}, 
-					function() 
-					{
-						console.log('Erreur de connexion');
-					});
-			};
+	$rootScope.signIn = function() {
+		GAuth.login().then(function(user) {
+			console.log(user.name + ' is logged in');
+			userName = user.name;
+			$rootScope.currentUser = user;					
+		}, function() {
+			console.log('signIn() : Erreur de connexion !');
+		});
+	};
 			
-		 $rootScope.logout = function() 
-			{
-				GAuth.logout();
-				console.log('Déconnexion');
-				$rootScope.currentUser = null;
-			};
-	}
-]);
-
+	$rootScope.logout = function() {
+		GAuth.logout();
+		console.log('Déconnexion...');
+		$rootScope.currentUser = null;
+	};
+}]);
 
 app.controller('tweetController', ['$scope', 'GApi' ,function tweetController($scope, GApi) {
-	  
-	  console.log("welcome ", userName);
-	    
+
 	  GApi.executeAuth('tweetentityendpoint', 'listTweetEntity').then(function(resp) {
 		  listTweet = resp.items || [];
 		  console.log(resp);
       }, function() {
-          console.log('error :(');
+          console.log('error : listTweet');
       });
-	  
 	  
 	  GApi.executeAuth('highscoreentityendpoint', 'listHighScoreEntity').then(function(resp) {
 		  listHighScore = resp.items || [];
           console.log(resp);
       }, function() {
-          console.log('error :( hs');
+          console.log('error : listHighScore');
       });
-	  
 	  
 }]);
 
-app.factory('quizFactory', function() {
-	return {
-		getQuestion: function(questions, id) {
-			if(id < questions.length) {
-				console.log("question : ",questions[id]);
-				return questions[id];
-			} else {
-				return false;
-			}
-		}
-	};
-});
-
-app.directive('quiz', function(quizFactory) {
+app.directive('quiz', ['GApi', '$timeout', function(GApi, $timeout) {
 	return {
 		restrict: 'AE',
 		scope: {},
-		templateUrl: 'quiz.html',
+		templateUrl: 'quiz.jsp',
 		link: function(scope, elem, attrs) {
-			scope.startTimer = function () {
-		        console.log("timer-start");
-		        scope.$broadcast('timer-start');
-		    };
-
-		    scope.stopTimer = function () {
-		        console.log("timer-stop");
-		        scope.timer = scope.$broadcast('timer-stop');
-		        
-		        scope.time = {
-		        	minutes : scope.timer.targetScope.$$childHead.minutes,
-		        	seconds : scope.timer.targetScope.$$childHead.seconds
-		        };
-		        console.log("time : ",scope.time);
-		    };
+			//timer callback
+			var timer = function() {
+				scope.timer = "";
+				if (scope.seconds == 59) {
+					scope.minutes += 1;
+					scope.seconds = 0;
+				} else {
+					scope.seconds += 1;
+				}
+				if (scope.minutes < 10) {
+					if (scope.seconds < 10) {
+						scope.timer = "0" + scope.minutes + ":0" + scope.seconds; 
+					} else {
+						scope.timer = "0" + scope.minutes + ":" + scope.seconds; 
+					}
+				} else {
+					if (scope.seconds < 10) {
+						scope.timer = scope.minutes + ":0" + scope.seconds; 
+					} else {
+						scope.timer = scope.minutes + ":" + scope.seconds; 
+					}
+				}
+				if (!scope.quizOver) {
+					$timeout(timer, 1000);
+				}
+			}
 		      
 			scope.choiceTopic = function (topic) { 
 			    console.log("topic choice : ",topic);
@@ -134,7 +109,7 @@ app.directive('quiz', function(quizFactory) {
 			};
 			
 			scope.start = function() {
-				console.log("start");
+				console.log("start : ",userName);
 				scope.cpt = 0;
 				scope.quizOver = false;
 				scope.inProgress = true;
@@ -151,7 +126,7 @@ app.directive('quiz', function(quizFactory) {
 				}
 				console.log("maximum number of quiz questions : ",scope.maxQuestions);
 				scope.getQuestion();
-				scope.startTimer();
+				$timeout(timer, 1000);
 			};
  
 			scope.reset = function() {
@@ -160,6 +135,10 @@ app.directive('quiz', function(quizFactory) {
 				scope.topicChoice = false;
 			  	scope.inProgress = false;
 			  	scope.score = 0;
+			  	scope.minutes = 0;
+				scope.seconds = 0;
+				scope.time = "";
+				scope.timer = "00:00";
 			}
 			
 			scope.generateQuiz = function() {
@@ -199,7 +178,12 @@ app.directive('quiz', function(quizFactory) {
 			scope.getQuestion = function() { 
 				console.log("get question");
 				var id = Math.floor(Math.random() * scope.questions.length);
-				var q = quizFactory.getQuestion(scope.questions, id);
+				if(id < scope.questions.length) {
+					console.log("question : ",scope.questions[id]);
+					var q = scope.questions[id];
+				} else {
+					var q = false;
+				}
 				if(q) {
 				  if (q.category == scope.topic) {
 					  scope.category = q.category;
@@ -215,7 +199,6 @@ app.directive('quiz', function(quizFactory) {
 				  }
 				} else {
 					scope.quizOver = true;
-					scope.stopTimer();
 				}
 			};
  
@@ -223,15 +206,14 @@ app.directive('quiz', function(quizFactory) {
 				console.log("check answer");
 				console.log("answer choice : ",ans);
 				console.log("answer true : ",scope.options[scope.answer]);
- 
 				scope.ans = ans;
+				scope.ansTrue = scope.options[scope.answer];
 				if(ans == scope.options[scope.answer]) {
 					scope.score++;
 					scope.correctAns = true;
 				} else {
 					scope.correctAns = false;
 				}
- 
 				console.log("score : ",scope.score);
 				scope.answerMode = false;
 			};
@@ -242,12 +224,12 @@ app.directive('quiz', function(quizFactory) {
 				  scope.getQuestion();
 				} else {
 				  scope.quizOver = true;
-				  scope.stopTimer();
 				  scope.id = userName + "-" + scope.topic;
-		          GApi.executeAuth('highscoreentityendpoint', 'manageHighScoreEntity', {id:scope.id, name:userName, score:scope.score, minutes:scope.time.minutes, seconds:scope.time.seconds, topic:scope.topic}).then(function(resp) {
+				  scope.time = scope.timer;
+		          GApi.executeAuth('highscoreentityendpoint', 'manageHighScoreEntity', {id:scope.id, name:userName, score:scope.score, minutes:scope.minutes, seconds:scope.seconds, topic:scope.topic}).then(function(resp) {
 		        	  console.log("finish");
 		          }, function() {
-		              console.log('error :( hs');
+		              console.log('error : ( hs');
 		          });
 				}
 			}
@@ -257,7 +239,7 @@ app.directive('quiz', function(quizFactory) {
 		  		  listHighScore = resp.items || [];
 		  		  console.log(resp);
 		        }, function() {
-		        	console.log('error :( hs');
+		        	console.log('error : ( hs');
 		        });
 		        scope.reset();
 			}
@@ -265,7 +247,7 @@ app.directive('quiz', function(quizFactory) {
 			scope.reset();
 		}
 	}
-});
+}]);
 
 app.directive('highscore', function() {
 	return {

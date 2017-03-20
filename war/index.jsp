@@ -5,21 +5,6 @@
 <html lang="en" ng-app="quizApp">
 
 	<head>
-	
-		<style>
-			table {
-			    border-collapse: collapse;
-			    width: 100%;
-			}
-			
-			th, td {
-			    padding: 20px;
-			    text-align: left;
-			    border-bottom: 1px solid #ddd;
-			}
-
-			tr:hover{background-color:#f5f5f5}
-		</style>
 
 	    <title>Who said that on Twitter ?</title>
 	
@@ -43,15 +28,14 @@
 	    <!-- Theme CSS -->
 	    <link href="css/creative.min.css" rel="stylesheet">
 	    <link href="css/social-buttons.css" rel="stylesheet"/>
+	    <link href="css/style.css" rel="stylesheet"/>
 	    
 	    <!-- JavaScript -->
+	    <script src="https://code.jquery.com/jquery-2.0.3.min.js"></script>
         <script data-require="angular.js@1.5.x" src="https://code.angularjs.org/1.5.8/angular.min.js" data-semver="1.5.8"></script>
         <script src="js/angular-google-gapi-1.0.1/dist/angular-google-gapi.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-        <script src="js/timer.js"></script>
         <script src="js/app.js"></script>
-        
-       
 
 	</head>
 
@@ -62,7 +46,7 @@
 	            <!-- Brand and toggle get grouped for better mobile display -->
 	            <div class="navbar-header">
 	                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-	                    <span class="sr-only">Toggle navigation</span> Menu <i class="fa fa-bars"></i>
+	                    <span class="sr-only">Toggle navigation</span>Menu<i class="fa fa-bars"></i>
 	                </button>
 	                <a class="navbar-brand page-scroll" href="#page-top">Who said that on Twitter ?</a>
 	            </div>
@@ -73,33 +57,32 @@
 	                    <li>
 	                        <a class="page-scroll" href="#topic"><i class="fa fa-2x fa-th-large"></i>&nbsp;All Quiz Topic</a>
 	                    </li>
-	                    <div ng-show="currentUser">
-	                    	<li>
-		                        <a id="allquiz1" class="page-scroll" href="#quiz"><i class="fa fa-2x fa-list"></i>&nbsp;Quiz</a>
-		                    </li>
-	                    	<li>
-		                        <a id="highscore1" class="page-scroll" href="#highscore"><i class="fa fa-2x fa-bar-chart"></i>&nbsp;High Score</a>
-		                    </li>
-		                    <li>
-	                       		<a class="page-scroll" href="#tweet"><i class="fa fa-2x fa-twitter"></i>&nbsp;What's Happening ?</a>
-	                    	</li> 
-	                    </div>
+                    	<li ng-show="currentUser">
+	                        <a id="allquiz1" class="page-scroll" href="#quiz"><i class="fa fa-2x fa-list"></i>&nbsp;Quiz</a>
+	                    </li>
+                    	<li ng-show="currentUser">
+	                        <a id="highscore1" class="page-scroll" href="#highscore"><i class="fa fa-2x fa-bar-chart"></i>&nbsp;High Score</a>
+	                    </li>
+	                    <li ng-show="currentUser">
+                       		<a class="page-scroll" href="#tweet"><i class="fa fa-2x fa-twitter"></i>&nbsp;What's Happening ?</a>
+                    	</li> 
+                    	<tag:loggedin>
+                    		<li ng-show="currentUser">
+                       			<a href="https://twitter.com/" target="_blank" class="page-scroll"><i class="fa fa-2x fa-twitter"></i>&nbsp;${twitter.screenName}</a>
+                    		</li> 
+                    	</tag:loggedin>
 	                    <li>
 	                        <a class="page-scroll" href="#github"><i class="fa fa-2x fa-download"></i>&nbsp;Download</a>
 	                    </li> 
 	                    <li>
 	                        <a class="page-scroll" href="#contact"><i class="fa fa-2x fa-group"></i>&nbsp;Contact</a>
 	                    </li> 
-	                    <div ng-show="!currentUser">
-	                    	<li>
-	                    		<div class="g-signin2" ng-click="signIn()">Sign in</div>
-	                    	</li>
-                    	</div> 
-	                    <div ng-show="currentUser">
-	                    	<li>
-	                    		<a href="#" ng-click="logout()"><i></i>&nbsp;Logout</a>
-	                    	</li>
-                    	</div> 
+                    	<li ng-show="!currentUser">
+                        	<a class="page-scroll" ng-click="signIn()"><i class="fa fa-2x fa-sign-in"></i>&nbsp;Sign in</a>
+                    	</li> 
+                    	<li ng-show="currentUser">
+                        	<a id="logout" class="page-scroll" ng-click="logout()"><i class="fa fa-2x fa-power-off"></i>&nbsp;Logout</a>
+                    	</li> 
 	                </ul>
 	            </div>
 	            <!-- /.navbar-collapse -->
@@ -120,7 +103,9 @@
 	                This test proceeds by quiz with different topic.</p>
 	                <div ng-show="!currentUser">
 	                	<div class="shake-slow shake-constant shake-constant--hover">
-			                <div class="g-signin2" ng-click="signIn()">Sign in</div>
+	                		<a class="btn btn-primary btn-xl page-scroll" ng-click="signIn()">
+			                	<i class="fa fa-google"></i>&nbsp;Sign in with Google
+							</a>
 						</div>
 					</div>
 					<div ng-show="currentUser">
@@ -134,28 +119,26 @@
 	        </div>
 	    </header>
 	    
-	    <div ng-show="currentUser">
-		    <section class="bg-primary" id="start">
-		        <div class="container">
-		            <div class="row">
-		                <div class="col-lg-8 col-lg-offset-2 text-center">
-		               		<h2>Welcome</h2>
-		               		<hr class="light">
-		               		<p class="text-faded">
-		               		In order to be able to evaluate your level of knowledge you must choose a quiz in the topics proposed. 
-		               		The quiz are random and with time. You can also view the high score.</p>
-		               		<a href="#topic" class="page-scroll btn btn-default btn-xl sr-button">
-			                	<i class="fa fa-chevron-down"></i>&nbsp;All quiz topic
-							</a>
-							&nbsp;
-							<a id="highscore2" href="#highscore" class="page-scroll btn btn-default btn-xl sr-button">
-			                	<i class="fa fa-chevron-down"></i>&nbsp;High Score
-							</a>
-				    	</div>
-		            </div>
-		        </div>
-		    </section>
-	    </div>
+	    <section class="bg-primary" id="start" ng-show="currentUser">
+	        <div class="container">
+	            <div class="row">
+	                <div class="col-lg-8 col-lg-offset-2 text-center">
+	               		<h2>Welcome {{currentUser.name}}</h2>
+	               		<hr class="light">
+	               		<p class="text-faded">
+	               		In order to be able to evaluate your level of knowledge you must choose a quiz in the topics proposed. 
+	               		The quiz are random and with time. You can also view the high score.</p>
+	               		<a href="#topic" class="page-scroll btn btn-default btn-xl sr-button">
+		                	<i class="fa fa-chevron-down"></i>&nbsp;All quiz topic
+						</a>
+						&nbsp;
+						<a id="highscore2" href="#highscore" class="page-scroll btn btn-default btn-xl sr-button">
+		                	<i class="fa fa-chevron-down"></i>&nbsp;High Score
+						</a>
+			    	</div>
+	            </div>
+	        </div>
+	    </section>
 	
 	    <section id="topic">
 	        <div class="container">
@@ -230,6 +213,11 @@
 	        	}
 	          	$( "#quiz" ).toggle("slow");
 	        });
+	        $( "#logout" ).click(function() {
+	        	if($("#quiz").is(":visible")) {
+	        		$( "#quiz" ).toggle("slow");
+	        	}
+	        });
       	</script>
       	
       	<section id="highscore" class="bg-info" style="display: none">
@@ -242,6 +230,11 @@
 	        	}
 	          	$( "#highscore" ).toggle("slow");
 	        });
+	        $( "#logout" ).click(function() {
+	        	if($("#highscore").is(":visible")) {
+	        		$( "#highscore" ).toggle("slow");
+	        	}
+	        });
       	</script>
 	    
 	    <div ng-show="currentUser">
@@ -250,18 +243,27 @@
 		            <div class="call-to-action">
 		                <h2>What's happening ?</h2>
 		                <hr class="light">
-	               		<p class="text-faded">
-	               		You can post what you want on twitter thanks to the box below. 
-	               		By applying the hashtag <b>#WhoSaidThatOnTwitter</b> we can see your tweets more easily. 
-	               		In the future we can create a quiz with your tweet containing this hashtag.(140 characters max)</p>
-		                <form action="./post" method="post">
-			    			<div class="form-group">
-								<textarea class="form-control" rows="3" name="text" maxlength="140">#WhoSaidThatOnTwitter</textarea>
-							</div>
-			    			<button type="submit" class="page-scroll btn btn-default btn-xl sr-button">
-			    				<i class="fa fa-paper-plane"></i>&nbsp;Tweet
-			    			</button>
-						</form>
+		                <tag:notloggedin>
+			                <p class="text-faded">
+		               		If you want to send tweet or share your quiz score you must first authorize our application to join your twitter account.</p>
+							<a href="/signin" class="page-scroll btn btn-default btn-xl sr-button">
+			                	<i class="fa fa-twitter"></i>&nbsp;Twitter authorization
+							</a>
+		                </tag:notloggedin>
+		                <tag:loggedin>
+		               		<p class="text-faded">
+		               		You can post what you want on twitter thanks to the box below. 
+		               		By applying the hashtag <b>#WhoSaidThatOnTwitter</b> we can see your tweets more easily. 
+		               		In the future we can create a quiz with your tweet containing this hashtag.(140 characters max)</p>
+			                <form action="./post" method="post">
+				    			<div class="form-group">
+									<textarea class="form-control" rows="3" name="text" maxlength="140">#WhoSaidThatOnTwitter</textarea>
+								</div>
+				    			<button type="submit" class="page-scroll btn btn-default btn-xl sr-button">
+				    				<i class="fa fa-paper-plane"></i>&nbsp;Tweet
+				    			</button>
+							</form>
+						</tag:loggedin>
 		            </div>
 		        </div>
 		    </section>

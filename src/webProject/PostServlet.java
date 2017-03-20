@@ -16,8 +16,9 @@ public class PostServlet extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         String text = request.getParameter("text");
         Twitter twitter = (Twitter)request.getSession().getAttribute("twitter");
+        
         try {
-            twitter.updateStatus(text);
+        	twitter.updateStatus(text);
         } catch (TwitterException e) {
             throw new ServletException(e);
         }

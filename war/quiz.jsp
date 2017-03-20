@@ -1,13 +1,15 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="tag" tagdir="/WEB-INF/tags" %>
+
 <div class="container text-center">
 	<div class="call-to-action">
 		<h2 id="title" ng-show="!inProgress">Quiz {{topic}}</h2>
 		<div ng-show="inProgress">
 			<h1 ng-show="!quizOver">
-				<timer autostart="false" interval="1000">{{minutes}}:{{seconds}}</timer>
+				<timer autostart="false" interval="1000">{{timer}}</timer>
 			</h1>
 			<h2 ng-show="quizOver">Quiz is over</h2>
 		</div>
-	
 		<hr class="light">
 	</div>
 </div>
@@ -78,7 +80,7 @@
 				<div id="incorrectAns" ng-show="!correctAns">
 					<p class="text-danger">
 					<i class="fa fa-frown-o"></i> 
-					Sorry, {{ans}} is an incorrect answer.</p>
+					Sorry, {{ans}} is incorrect! The true answer is {{ansTrue}}.</p>
 					<a id="next" class="btn btn-primary btn-xl page-scroll" ng-click="nextQuestion()">
 						Next&nbsp;<i class="fa fa-chevron-right"></i>
 					</a>
@@ -94,19 +96,21 @@
   		<script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 	 
 		<div class="container text-center" ng-show="quizOver">
-			<p class="text-faded">You have completed the {{topic}} quiz in {{time.minutes}}:{{time.seconds}} with {{score}} good answers.</p>
+			<p class="text-faded">You have completed the {{topic}} quiz in {{time}} with {{score}} good answers.</p>
 			<div>
 				<a id="playAgain" class="btn btn-primary btn-xl page-scroll" ng-click="quizIsFinish()">
 					<i class="fa fa-reply"></i>&nbsp;Done
 				</a>
-				<form action="./post" method="post">
-					<div class="form-group">
-						<textarea class="form-control" rows="3" name="text" ng-show="textarea-share-hidden">That's good! {{score}}/10 in {{time.minutes}}:{{time.seconds}} minutes. You can test too on -> http://1-dot-whosaidthatontwitter.appspot.com #{{topic}} #WhoSaidThatOnTwitter</textarea>
-					</div>
-					<button type="submit" id="share" class="btn btn-primary btn-xl page-scroll">
-			    		<i class="fa fa-share-square-o"></i>&nbsp;Share
-			    	</button>
-				</form>
+				<tag:loggedin>
+					<form action="./post" method="post">
+						<div class="form-group">
+							<textarea class="form-control" rows="3" name="text" ng-show="textarea-share-hidden">That's good! {{score}}/10 in {{time.minutes}}:{{time.seconds}} minutes. You can test too on -> http://1-dot-whosaidthatontwitter.appspot.com #{{topic}} #WhoSaidThatOnTwitter</textarea>
+						</div>
+						<button type="submit" id="share" class="btn btn-primary btn-xl page-scroll">
+				    		<i class="fa fa-share-square-o"></i>&nbsp;Share
+				    	</button>
+					</form>
+				</tag:loggedin>
 			</div>
 		</div>
 	</div>

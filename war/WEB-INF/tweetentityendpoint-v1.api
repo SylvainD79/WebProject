@@ -28,54 +28,26 @@
   "ownerName" : "mycompany.com",
   "packagePath" : "services",
   "methods" : {
-    "tweetentityendpoint.getTweetEntity" : {
-      "path" : "tweetentity/{id}",
+    "tweetentityendpoint.listTweetEntity" : {
+      "path" : "tweetentity",
       "httpMethod" : "GET",
       "authLevel" : "NONE",
       "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
       "audiences" : [ ],
       "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "webProject.TweetEntityEndpoint.getTweetEntity",
+      "rosyMethod" : "webProject.TweetEntityEndpoint.listTweetEntity",
       "request" : {
         "parameters" : {
-          "id" : {
+          "cursor" : {
             "type" : "string",
-            "required" : true
+            "required" : false
+          },
+          "limit" : {
+            "type" : "int32",
+            "required" : false
           }
         },
         "body" : "empty"
-      },
-      "response" : {
-        "body" : "autoTemplate(backendResponse)"
-      }
-    },
-    "tweetentityendpoint.insertTweetEntity" : {
-      "path" : "tweetentity",
-      "httpMethod" : "POST",
-      "authLevel" : "NONE",
-      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
-      "audiences" : [ ],
-      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "webProject.TweetEntityEndpoint.insertTweetEntity",
-      "request" : {
-        "body" : "autoTemplate(backendRequest)",
-        "bodyName" : "resource"
-      },
-      "response" : {
-        "body" : "autoTemplate(backendResponse)"
-      }
-    },
-    "tweetentityendpoint.updateTweetEntity" : {
-      "path" : "tweetentity",
-      "httpMethod" : "PUT",
-      "authLevel" : "NONE",
-      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
-      "audiences" : [ ],
-      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "webProject.TweetEntityEndpoint.updateTweetEntity",
-      "request" : {
-        "body" : "autoTemplate(backendRequest)",
-        "bodyName" : "resource"
       },
       "response" : {
         "body" : "autoTemplate(backendResponse)"
@@ -102,23 +74,51 @@
         "body" : "empty"
       }
     },
-    "tweetentityendpoint.listTweetEntity" : {
+    "tweetentityendpoint.updateTweetEntity" : {
       "path" : "tweetentity",
+      "httpMethod" : "PUT",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "webProject.TweetEntityEndpoint.updateTweetEntity",
+      "request" : {
+        "body" : "autoTemplate(backendRequest)",
+        "bodyName" : "resource"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
+    "tweetentityendpoint.insertTweetEntity" : {
+      "path" : "tweetentity",
+      "httpMethod" : "POST",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "webProject.TweetEntityEndpoint.insertTweetEntity",
+      "request" : {
+        "body" : "autoTemplate(backendRequest)",
+        "bodyName" : "resource"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
+    "tweetentityendpoint.getTweetEntity" : {
+      "path" : "tweetentity/{id}",
       "httpMethod" : "GET",
       "authLevel" : "NONE",
       "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
       "audiences" : [ ],
       "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "webProject.TweetEntityEndpoint.listTweetEntity",
+      "rosyMethod" : "webProject.TweetEntityEndpoint.getTweetEntity",
       "request" : {
         "parameters" : {
-          "cursor" : {
+          "id" : {
             "type" : "string",
-            "required" : false
-          },
-          "limit" : {
-            "type" : "int32",
-            "required" : false
+            "required" : true
           }
         },
         "body" : "empty"
@@ -130,21 +130,6 @@
   },
   "descriptor" : {
     "schemas" : {
-      "TweetEntity" : {
-        "id" : "TweetEntity",
-        "type" : "object",
-        "properties" : {
-          "name" : {
-            "type" : "string"
-          },
-          "category" : {
-            "type" : "string"
-          },
-          "tweet" : {
-            "type" : "string"
-          }
-        }
-      },
       "CollectionResponse_TweetEntity" : {
         "id" : "CollectionResponse_TweetEntity",
         "type" : "object",
@@ -159,10 +144,35 @@
             "type" : "string"
           }
         }
+      },
+      "TweetEntity" : {
+        "id" : "TweetEntity",
+        "type" : "object",
+        "properties" : {
+          "name" : {
+            "type" : "string"
+          },
+          "category" : {
+            "type" : "string"
+          },
+          "tweet" : {
+            "type" : "string"
+          }
+        }
       }
     },
     "methods" : {
-      "webProject.TweetEntityEndpoint.getTweetEntity" : {
+      "webProject.TweetEntityEndpoint.listTweetEntity" : {
+        "response" : {
+          "$ref" : "CollectionResponse_TweetEntity"
+        }
+      },
+      "webProject.TweetEntityEndpoint.removeTweetEntity" : {
+      },
+      "webProject.TweetEntityEndpoint.updateTweetEntity" : {
+        "request" : {
+          "$ref" : "TweetEntity"
+        },
         "response" : {
           "$ref" : "TweetEntity"
         }
@@ -175,19 +185,9 @@
           "$ref" : "TweetEntity"
         }
       },
-      "webProject.TweetEntityEndpoint.updateTweetEntity" : {
-        "request" : {
-          "$ref" : "TweetEntity"
-        },
+      "webProject.TweetEntityEndpoint.getTweetEntity" : {
         "response" : {
           "$ref" : "TweetEntity"
-        }
-      },
-      "webProject.TweetEntityEndpoint.removeTweetEntity" : {
-      },
-      "webProject.TweetEntityEndpoint.listTweetEntity" : {
-        "response" : {
-          "$ref" : "CollectionResponse_TweetEntity"
         }
       }
     }
