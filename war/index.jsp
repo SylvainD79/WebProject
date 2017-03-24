@@ -316,6 +316,7 @@
 	        </div>
 	    </section>
 	    
+	    <!-- 
 	    <section id="topic" class="bg-dark">
 	    	<div class="container">
 	            <div class="row">
@@ -358,6 +359,7 @@
 	            </div>
 	        </div>
 	    </section>
+	    -->
 	       
 	    <!-- jQuery -->
 	    <script src="vendor/jquery/jquery.min.js"></script>
