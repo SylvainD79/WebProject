@@ -139,7 +139,7 @@ app.directive('quiz', ['GApi', '$timeout', function(GApi, $timeout) {
 				scope.seconds = 0;
 				scope.time = "";
 				scope.timer = "00:00";
-			}
+			};
 			
 			scope.generateQuiz = function() {
 				console.log("generate quiz");
@@ -173,7 +173,7 @@ app.directive('quiz', ['GApi', '$timeout', function(GApi, $timeout) {
 		          };
 		          scope.questions.push(scope.question);
 		        }
-			}
+			};
  
 			scope.getQuestion = function() { 
 				console.log("get question");
@@ -232,7 +232,7 @@ app.directive('quiz', ['GApi', '$timeout', function(GApi, $timeout) {
 		              console.log('error : ( hs');
 		          });
 				}
-			}
+			};
 			
 			scope.quizIsFinish = function() {        
 		        GApi.executeAuth('highscoreentityendpoint', 'listHighScoreEntity').then(function(resp) {
@@ -242,7 +242,7 @@ app.directive('quiz', ['GApi', '$timeout', function(GApi, $timeout) {
 		        	console.log('error : ( hs');
 		        });
 		        scope.reset();
-			}
+			};
  
 			scope.reset();
 		}
@@ -260,7 +260,7 @@ app.directive('highscore', function() {
 				scope.topic = "";
 				scope.topicChoice = false;
 			  	scope.score = 0;
-			}
+			};
 			
 			scope.choiceTopic = function (topic) { 
 			    console.log("topic choice : ",topic);
@@ -296,7 +296,7 @@ app.directive('highscore', function() {
 		        		scope.highscores.push(scope.highscore);
 		        	} 
 		        }
-			}
+			};
 			
 			scope.reset();
 		}

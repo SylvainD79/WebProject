@@ -344,7 +344,7 @@
 	                </div>
 	                <div class="col-lg-3 col-md-6 text-center">
 	                    <div class="service-box">
-                        	<a href="/quiz/policy" class="btn btn-primary btn-xl page-scroll">
+                        	<a href="/quiz/politique" class="btn btn-primary btn-xl page-scroll">
 		                		<i class="fa fa-balance-scale"></i>&nbsp;Policy
 							</a>
 	                    </div>
@@ -360,7 +360,7 @@
 	        </div>
 	    </section>
 	    -->
-	       
+	     
 	    <!-- jQuery -->
 	    <script src="vendor/jquery/jquery.min.js"></script>
 	
