@@ -106,6 +106,13 @@ app.directive('quiz', ['GApi', '$timeout', function(GApi, $timeout) {
 			    console.log("topic choice : ",topic);
 			    scope.topic = topic;
 			    scope.topicChoice = true;
+			    if(topic == "politique") {
+			    	scope.quizName = "policy";
+			    } else if (topic == "gaming") {
+			    	scope.quizName = "game";
+			    } else {
+			    	scope.quizName = scope.topic;
+			    }
 			};
 			
 			scope.start = function() {
@@ -132,6 +139,7 @@ app.directive('quiz', ['GApi', '$timeout', function(GApi, $timeout) {
 			scope.reset = function() {
 				console.log("reset");
 				scope.topic = "";
+				scope.quizName = "";
 				scope.topicChoice = false;
 			  	scope.inProgress = false;
 			  	scope.score = 0;

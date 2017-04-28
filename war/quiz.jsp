@@ -3,7 +3,7 @@
 
 <div class="container text-center">
 	<div class="call-to-action">
-		<h2 id="title" ng-show="!inProgress">Quiz {{topic}}</h2>
+		<h2 id="title" ng-show="!inProgress">Quiz {{quizName}}</h2>
 		<div ng-show="inProgress">
 			<h1 ng-show="!quizOver">
 				<timer autostart="false" interval="1000">{{timer}}</timer>
@@ -54,7 +54,7 @@
 	<div ng-show="inProgress">
 		<div ng-show="!quizOver">
 			<div class="container text-center text-primary">
-		  		<h3>Quiz {{category}} - Question {{cpt}} of {{maxQuestions}} - Score {{score}}</h3>
+		  		<h3>Quiz {{quizName}} - Question {{cpt}} of {{maxQuestions}} - Score {{score}}</h3>
 		  	</div>
 		  	<br>
 		  	<div class="container text-center">
