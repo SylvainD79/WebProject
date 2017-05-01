@@ -10,7 +10,7 @@ Our Website is composed with only one page where you can navigate with the top m
 
 ## Register
 - With Twitter : you can post tweet with our hastag
-- With Google
+- With Google : you have to sign in with your Google Account for access to the functionality of the website
 
 ## Tweet recovery
 In order to update regularly our base of tweets, we use an twitter admin account with which we programed a cron service who clean the base everyday at 00:00 AM and insert the new popular tweets at 00:05.
@@ -24,3 +24,4 @@ In our Datastore, we save 4 differents informations :
 
 ## Quiz creation
 ## Security
+All the functionality of the website are accessible by sign in with Google Account, the same for update the datastore.
