@@ -25,6 +25,31 @@
     "maxAge" : 0
   },
   "methods" : {
+    "highscoreentityendpoint.listHighScoreEntity" : {
+      "path" : "highscoreentity",
+      "httpMethod" : "GET",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "clientIds" : [ "1015135576790-lhkk91hkepjpa0fp09lh4to4p24slnbo.apps.googleusercontent.com" ],
+      "rosyMethod" : "webProject.HighScoreEntityEndpoint.listHighScoreEntity",
+      "request" : {
+        "parameters" : {
+          "cursor" : {
+            "type" : "string",
+            "required" : false
+          },
+          "limit" : {
+            "type" : "int32",
+            "required" : false
+          }
+        },
+        "body" : "empty"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
     "highscoreentityendpoint.getHighScoreEntity" : {
       "path" : "highscoreentity/{id}",
       "httpMethod" : "GET",
@@ -99,31 +124,6 @@
         "body" : "empty"
       }
     },
-    "highscoreentityendpoint.listHighScoreEntity" : {
-      "path" : "highscoreentity",
-      "httpMethod" : "GET",
-      "authLevel" : "NONE",
-      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
-      "audiences" : [ "https://www.googleapis.com/auth/userinfo.email" ],
-      "clientIds" : [ "1015135576790-lhkk91hkepjpa0fp09lh4to4p24slnbo.apps.googleusercontent.com" ],
-      "rosyMethod" : "webProject.HighScoreEntityEndpoint.listHighScoreEntity",
-      "request" : {
-        "parameters" : {
-          "cursor" : {
-            "type" : "string",
-            "required" : false
-          },
-          "limit" : {
-            "type" : "int32",
-            "required" : false
-          }
-        },
-        "body" : "empty"
-      },
-      "response" : {
-        "body" : "autoTemplate(backendResponse)"
-      }
-    },
     "highscoreentityendpoint.manageHighScoreEntity" : {
       "path" : "manageHighScoreEntity",
       "httpMethod" : "POST",
@@ -143,6 +143,21 @@
   },
   "descriptor" : {
     "schemas" : {
+      "CollectionResponse_HighScoreEntity" : {
+        "id" : "CollectionResponse_HighScoreEntity",
+        "type" : "object",
+        "properties" : {
+          "items" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "HighScoreEntity"
+            }
+          },
+          "nextPageToken" : {
+            "type" : "string"
+          }
+        }
+      },
       "HighScoreEntity" : {
         "id" : "HighScoreEntity",
         "type" : "object",
@@ -166,24 +181,14 @@
             "type" : "string"
           }
         }
-      },
-      "CollectionResponse_HighScoreEntity" : {
-        "id" : "CollectionResponse_HighScoreEntity",
-        "type" : "object",
-        "properties" : {
-          "items" : {
-            "type" : "array",
-            "items" : {
-              "$ref" : "HighScoreEntity"
-            }
-          },
-          "nextPageToken" : {
-            "type" : "string"
-          }
-        }
       }
     },
     "methods" : {
+      "webProject.HighScoreEntityEndpoint.listHighScoreEntity" : {
+        "response" : {
+          "$ref" : "CollectionResponse_HighScoreEntity"
+        }
+      },
       "webProject.HighScoreEntityEndpoint.getHighScoreEntity" : {
         "response" : {
           "$ref" : "HighScoreEntity"
@@ -206,11 +211,6 @@
         }
       },
       "webProject.HighScoreEntityEndpoint.removeHighScoreEntity" : {
-      },
-      "webProject.HighScoreEntityEndpoint.listHighScoreEntity" : {
-        "response" : {
-          "$ref" : "CollectionResponse_HighScoreEntity"
-        }
       },
       "webProject.HighScoreEntityEndpoint.manageHighScoreEntity" : {
         "request" : {

@@ -275,7 +275,7 @@
 	                <h2>Free Download at GitHub</h2>
 	                <hr class="light">
 	                <p class="text-faded">It is possible if you wish to recover the sources on the GitHub platform.</p>
-	                <a href="https://github.com/SylvainD79/WebProject">
+	                <a href="https://github.com/SylvainD79/WebProject" target="_blank">
 		                <i class="fa fa-github fa-3x sr-contact"></i>&nbsp;MIAGE Master Project
 	                </a>
 	            </div>
