@@ -2,11 +2,13 @@ package webProject;
 
 import webProject.PMF;
 
+import com.google.api.server.spi.auth.common.User;
 import com.google.api.server.spi.config.Api;
 import com.google.api.server.spi.config.ApiMethod;
 import com.google.api.server.spi.config.ApiNamespace;
 import com.google.api.server.spi.response.CollectionResponse;
 import com.google.appengine.api.datastore.Cursor;
+import com.google.appengine.api.oauth.OAuthRequestException;
 import com.google.appengine.datanucleus.query.JDOCursorHelper;
 
 import java.util.HashMap;
@@ -19,7 +21,11 @@ import javax.persistence.EntityNotFoundException;
 import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 
-@Api(name = "tweetentityendpoint", namespace = @ApiNamespace(ownerDomain = "mycompany.com", ownerName = "mycompany.com", packagePath = "services"))
+//@Api(name = "tweetentityendpoint", namespace = @ApiNamespace(ownerDomain = "mycompany.com", ownerName = "mycompany.com", packagePath = "services"))
+@Api(name = "tweetentityendpoint",
+version = "v1",
+clientIds = {"1015135576790-lhkk91hkepjpa0fp09lh4to4p24slnbo.apps.googleusercontent.com"},
+audiences = {"https://www.googleapis.com/auth/userinfo.email"})
 public class TweetEntityEndpoint {
 
 	/**
@@ -95,10 +101,11 @@ public class TweetEntityEndpoint {
 	 * @return The inserted entity.
 	 */
 	@ApiMethod(name = "insertTweetEntity")
-	public TweetEntity insertTweetEntity(TweetEntity tweetentity) {
+	public TweetEntity insertTweetEntity(TweetEntity tweetentity, User user ) throws OAuthRequestException {
+		checkAuth(user);
 		PersistenceManager mgr = getPersistenceManager();
 		try {
-			if (containsTweetEntity(tweetentity)) {
+			if (containsTweetEntity(tweetentity, user)) {
 				throw new EntityExistsException("Object already exists");
 			}
 			mgr.makePersistent(tweetentity);
@@ -117,10 +124,11 @@ public class TweetEntityEndpoint {
 	 * @return The updated entity.
 	 */
 	@ApiMethod(name = "updateTweetEntity")
-	public TweetEntity updateTweetEntity(TweetEntity tweetentity) {
+	public TweetEntity updateTweetEntity(TweetEntity tweetentity, User user) throws OAuthRequestException {
+		checkAuth(user);
 		PersistenceManager mgr = getPersistenceManager();
 		try {
-			if (!containsTweetEntity(tweetentity)) {
+			if (!containsTweetEntity(tweetentity, user)) {
 				throw new EntityNotFoundException("Object does not exist");
 			}
 			mgr.makePersistent(tweetentity);
@@ -137,7 +145,8 @@ public class TweetEntityEndpoint {
 	 * @param id the primary key of the entity to be deleted.
 	 */
 	@ApiMethod(name = "removeTweetEntity")
-	public void removeTweetEntity(@Named("id") String id) {
+	public void removeTweetEntity(@Named("id") String id, User user) throws OAuthRequestException {
+		checkAuth(user);
 		PersistenceManager mgr = getPersistenceManager();
 		try {
 			TweetEntity tweetentity = mgr.getObjectById(TweetEntity.class, id);
@@ -147,7 +156,8 @@ public class TweetEntityEndpoint {
 		}
 	}
 
-	private boolean containsTweetEntity(TweetEntity tweetentity) {
+	private boolean containsTweetEntity(TweetEntity tweetentity, User user) throws OAuthRequestException {
+		checkAuth(user);
 		PersistenceManager mgr = getPersistenceManager();
 		boolean contains = true;
 		try {
@@ -158,6 +168,12 @@ public class TweetEntityEndpoint {
 			mgr.close();
 		}
 		return contains;
+	}
+
+	private void checkAuth(User user) throws OAuthRequestException {
+		if (user == null) {
+			throw new OAuthRequestException("You need to be autentified to do this.");
+		}
 	}
 
 	private static PersistenceManager getPersistenceManager() {

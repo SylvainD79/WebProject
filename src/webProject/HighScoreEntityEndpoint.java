@@ -2,11 +2,13 @@ package webProject;
 
 import webProject.PMF;
 
+import com.google.api.server.spi.auth.common.User;
 import com.google.api.server.spi.config.Api;
 import com.google.api.server.spi.config.ApiMethod;
 import com.google.api.server.spi.config.ApiNamespace;
 import com.google.api.server.spi.response.CollectionResponse;
 import com.google.appengine.api.datastore.Cursor;
+import com.google.appengine.api.oauth.OAuthRequestException;
 import com.google.appengine.datanucleus.query.JDOCursorHelper;
 
 import java.util.HashMap;
@@ -19,7 +21,10 @@ import javax.persistence.EntityNotFoundException;
 import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 
-@Api(name = "highscoreentityendpoint", namespace = @ApiNamespace(ownerDomain = "mycompany.com", ownerName = "mycompany.com", packagePath = "services"))
+@Api(name = "highscoreentityendpoint",
+	version = "v1",
+clientIds = {"1015135576790-lhkk91hkepjpa0fp09lh4to4p24slnbo.apps.googleusercontent.com"},
+audiences = {"https://www.googleapis.com/auth/userinfo.email"})
 public class HighScoreEntityEndpoint {
 
 	/**
@@ -95,10 +100,11 @@ public class HighScoreEntityEndpoint {
 	 * @return The inserted entity.
 	 */
 	@ApiMethod(name = "insertHighScoreEntity")
-	public HighScoreEntity insertHighScoreEntity(HighScoreEntity highscoreentity) {
+	public HighScoreEntity insertHighScoreEntity(HighScoreEntity highscoreentity, User user) throws OAuthRequestException {
+		checkAuth(user);
 		PersistenceManager mgr = getPersistenceManager();
 		try {
-			if (containsHighScoreEntity(highscoreentity)) {
+			if (containsHighScoreEntity(highscoreentity, user)) {
 				throw new EntityExistsException("Object already exists");
 			}
 			mgr.makePersistent(highscoreentity);
@@ -117,10 +123,11 @@ public class HighScoreEntityEndpoint {
 	 * @return The updated entity.
 	 */
 	@ApiMethod(name = "updateHighScoreEntity")
-	public HighScoreEntity updateHighScoreEntity(HighScoreEntity highscoreentity) {
+	public HighScoreEntity updateHighScoreEntity(HighScoreEntity highscoreentity, User user) throws OAuthRequestException {
+		checkAuth(user);
 		PersistenceManager mgr = getPersistenceManager();
 		try {
-			if (!containsHighScoreEntity(highscoreentity)) {
+			if (!containsHighScoreEntity(highscoreentity, user)) {
 				throw new EntityNotFoundException("Object does not exist");
 			}
 			mgr.makePersistent(highscoreentity);
@@ -137,7 +144,8 @@ public class HighScoreEntityEndpoint {
 	 * @param id the primary key of the entity to be deleted.
 	 */
 	@ApiMethod(name = "removeHighScoreEntity")
-	public void removeHighScoreEntity(@Named("id") Long id) {
+	public void removeHighScoreEntity(@Named("id") Long id, User user) throws OAuthRequestException {
+		checkAuth(user);
 		PersistenceManager mgr = getPersistenceManager();
 		try {
 			HighScoreEntity highscoreentity = mgr.getObjectById(HighScoreEntity.class, id);
@@ -148,27 +156,28 @@ public class HighScoreEntityEndpoint {
 	}
 	
 	@ApiMethod(name = "manageHighScoreEntity")
-	public void manageHighScoreEntity(HighScoreEntity highscoreentity) {
+	public void manageHighScoreEntity(HighScoreEntity highscoreentity, User user) throws OAuthRequestException {
+		checkAuth(user);
 		PersistenceManager mgr = getPersistenceManager();
 		try {
-			if (!containsHighScoreEntity(highscoreentity)) {
-				insertHighScoreEntity(highscoreentity);
+			if (!containsHighScoreEntity(highscoreentity, user)) {
+				insertHighScoreEntity(highscoreentity, user);
 			} else {
 				HighScoreEntity highscoreentityExist = getHighScoreEntity(highscoreentity.id);
 				if (highscoreentityExist.topic.equals(highscoreentity.topic)) {
 					if (highscoreentityExist.score < highscoreentity.score) {
-						updateHighScoreEntity(highscoreentity);
+						updateHighScoreEntity(highscoreentity, user);
 					} else if (highscoreentityExist.score == highscoreentity.score) {
 						if (highscoreentityExist.minutes > highscoreentity.minutes) {
-							updateHighScoreEntity(highscoreentity);
+							updateHighScoreEntity(highscoreentity, user);
 						} else if (highscoreentityExist.minutes == highscoreentity.minutes) {
 							if (highscoreentityExist.seconds > highscoreentity.seconds) {
-								updateHighScoreEntity(highscoreentity);
+								updateHighScoreEntity(highscoreentity, user);
 							}
 						}
 					}
 				} else {
-					insertHighScoreEntity(highscoreentity);
+					insertHighScoreEntity(highscoreentity, user);
 				}
 			}
 		} finally {
@@ -176,7 +185,8 @@ public class HighScoreEntityEndpoint {
 		}
 	}
 
-	private boolean containsHighScoreEntity(HighScoreEntity highscoreentity) {
+	private boolean containsHighScoreEntity(HighScoreEntity highscoreentity, User user) throws OAuthRequestException {
+		checkAuth(user);
 		PersistenceManager mgr = getPersistenceManager();
 		boolean contains = true;
 		try {
@@ -191,6 +201,12 @@ public class HighScoreEntityEndpoint {
 
 	private static PersistenceManager getPersistenceManager() {
 		return PMF.get().getPersistenceManager();
+	}
+	
+	private void checkAuth(User user) throws OAuthRequestException {
+		if (user == null) {
+			throw new OAuthRequestException("You need to be autentified to do this.");
+		}
 	}
 
 }
