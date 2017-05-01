@@ -20,7 +20,7 @@ In our Datastore, we save 4 differents informations :
 - List of tweets : it list all the recent tweet used for the quiz
 - High scores : it list all the score made by the user
 - Session :
-- Admin Acount twitter : 
+- Admin Acount twitter : it stock the access information for connect to the Twitter admin Acount
 
 ## Quiz creation
 ## Security
