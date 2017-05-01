@@ -19,7 +19,7 @@ In order to update regularly our base of tweets, we use an twitter admin account
 In our Datastore, we save 4 differents informations :
 - List of tweets : it list all the recent tweet used for the quizz
 - High scores : it list all the score made by the user
-- Session :
+- Session
 - Admin Acount twitter : it stock the access information for connect to the Twitter admin Acount
 
 ## Quiz creation
