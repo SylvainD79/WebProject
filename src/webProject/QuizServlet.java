@@ -59,7 +59,7 @@ public class QuizServlet extends HttpServlet {
  
 	        Query query = new Query(hashtag + "+exclude:retweets");
 	        query.setResultType(ResultType.popular);
-	        query.setLang("en");
+	        query.setLang("fr");
 	        query.setCount(100);
 	        
 	        String tweetWithoutHashtagAndUrl;

@@ -106,6 +106,13 @@ app.directive('quiz', ['GApi', '$timeout', function(GApi, $timeout) {
 			    console.log("topic choice : ",topic);
 			    scope.topic = topic;
 			    scope.topicChoice = true;
+			    if(topic == "politique") {
+			    	scope.quizName = "policy";
+			    } else if (topic == "gaming") {
+			    	scope.quizName = "game";
+			    } else {
+			    	scope.quizName = scope.topic;
+			    }
 			};
 			
 			scope.start = function() {
@@ -132,6 +139,7 @@ app.directive('quiz', ['GApi', '$timeout', function(GApi, $timeout) {
 			scope.reset = function() {
 				console.log("reset");
 				scope.topic = "";
+				scope.quizName = "";
 				scope.topicChoice = false;
 			  	scope.inProgress = false;
 			  	scope.score = 0;
@@ -139,7 +147,7 @@ app.directive('quiz', ['GApi', '$timeout', function(GApi, $timeout) {
 				scope.seconds = 0;
 				scope.time = "";
 				scope.timer = "00:00";
-			}
+			};
 			
 			scope.generateQuiz = function() {
 				console.log("generate quiz");
@@ -173,7 +181,7 @@ app.directive('quiz', ['GApi', '$timeout', function(GApi, $timeout) {
 		          };
 		          scope.questions.push(scope.question);
 		        }
-			}
+			};
  
 			scope.getQuestion = function() { 
 				console.log("get question");
@@ -232,7 +240,7 @@ app.directive('quiz', ['GApi', '$timeout', function(GApi, $timeout) {
 		              console.log('error : ( hs');
 		          });
 				}
-			}
+			};
 			
 			scope.quizIsFinish = function() {        
 		        GApi.executeAuth('highscoreentityendpoint', 'listHighScoreEntity').then(function(resp) {
@@ -242,7 +250,7 @@ app.directive('quiz', ['GApi', '$timeout', function(GApi, $timeout) {
 		        	console.log('error : ( hs');
 		        });
 		        scope.reset();
-			}
+			};
  
 			scope.reset();
 		}
@@ -260,7 +268,7 @@ app.directive('highscore', function() {
 				scope.topic = "";
 				scope.topicChoice = false;
 			  	scope.score = 0;
-			}
+			};
 			
 			scope.choiceTopic = function (topic) { 
 			    console.log("topic choice : ",topic);
@@ -296,7 +304,7 @@ app.directive('highscore', function() {
 		        		scope.highscores.push(scope.highscore);
 		        	} 
 		        }
-			}
+			};
 			
 			scope.reset();
 		}
