@@ -13,6 +13,14 @@ Our Website is composed with only one page where you can navigate with the top m
 - With Google
 
 ## Tweet recovery
+In order to update regularly our base of tweets, we use an twitter admin account with which we programed a cron service who clean the base everyday at 00:00 AM and insert the new popular tweets at 00:05.
+
 ## Datastore
+In our Datastore, we save 4 differents informations :
+- List of tweets :
+- High scores :
+- Session :
+- Admin Acount twitter :
+
 ## Quiz creation
 ## Security
