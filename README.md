@@ -9,7 +9,7 @@ You're a lover of Twitter and you want to test your knowledge about the most pop
 Our Website is composed with only one page where you can navigate with the top menu or just slide down the page for discover all the functionality.
 
 ## Register
-- With Twitter : you can post tweet with our hastag
+- With Twitter : you can post tweet with our hastag and your score at the quizz
 - With Google : you have to sign in with your Google Account for access to the functionality of the website
 
 ## Tweet recovery
@@ -17,11 +17,13 @@ In order to update regularly our base of tweets, we use an twitter admin account
 
 ## Datastore
 In our Datastore, we save 4 differents informations :
-- List of tweets : it list all the recent tweet used for the quiz
+- List of tweets : it list all the recent tweet used for the quizz
 - High scores : it list all the score made by the user
 - Session :
 - Admin Acount twitter : it stock the access information for connect to the Twitter admin Acount
 
 ## Quiz creation
+We recover all the tweet on the Datastore and we made a list of 10 questions for the quiz with a random function and we draw lots of 3 falses responses to complete the 4 choices of responses. We also put a timer that will start at the begining of the quiz.
+
 ## Security
 All the functionality of the website are accessible by sign in with Google Account, the same for update the datastore.
